@@ -1,0 +1,32 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "QiOE3y-a8_IelR-CdM145"
+uri = "file://artifacts/amir-numerique/public/hero-bg.png"
+type = "image"
+title = "Hero background printing machine"
+
+[[generated]]
+id = "0gtLSMuysm1lt4Pdnm9QU"
+uri = "file://artifacts/amir-numerique/public/service-wide.png"
+type = "image"
+title = "Service wide format printing"
+
+[[generated]]
+id = "w9CfhfBcx1nUdEsP9hJaq"
+uri = "file://artifacts/amir-numerique/public/service-uv.png"
+type = "image"
+title = "Service UV printing"
+
+[[generated]]
+id = "cwxuYBMyWncpaTsHhkJ8x"
+uri = "file://artifacts/amir-numerique/public/service-offset.png"
+type = "image"
+title = "Service offset printing"
+
+[[generated]]
+id = "UZw2aPE07xzaCDyTbFNjv"
+uri = "file://artifacts/amir-numerique/public/service-signage.png"
+type = "image"
+title = "Service signage"

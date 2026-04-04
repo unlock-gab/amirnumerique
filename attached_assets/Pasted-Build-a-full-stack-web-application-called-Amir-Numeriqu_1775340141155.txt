@@ -1,0 +1,500 @@
+Build a full-stack web application called **Amir Numerique** for a real digital printing and advertising agency.
+
+## Project goal
+
+This is not just a showcase website. It must be a professional business platform that allows:
+
+* displaying services and portfolio
+* showing different prices depending on user type
+* letting users request quotes
+* letting users place direct print orders
+* letting users upload print files
+* calculating final prices automatically based on dimensions and price per square meter
+* managing users, services, pricing, orders, quotes, and portfolio from an admin dashboard
+
+## Tech stack requirements
+
+Use:
+
+* **Next.js**
+* **TypeScript**
+* **PostgreSQL**
+* **Prisma ORM**
+* **Tailwind CSS**
+* **shadcn/ui**
+* **NextAuth or a solid auth system**
+* clean folder structure
+* responsive design
+* production-ready code style
+
+## General product logic
+
+The platform is for a real advertising/printing business called **Amir Numerique**.
+The agency offers digital printing services such as panels, signage, flyers, cards, stickers, banners, and similar services.
+The business owns UV and eco-solvent printing machines.
+
+The website must have 3 main areas:
+
+1. Public marketing website
+2. Client / subcontractor dashboard
+3. Admin dashboard
+
+## User roles
+
+Create these roles:
+
+* **visitor** (not logged in)
+* **client**
+* **subcontractor**
+* **admin**
+
+### Role logic
+
+* Visitors can browse the website and see public prices.
+* Clients can register freely and log in.
+* Admin can manually change a client account into a **subcontractor**.
+* Subcontractors see special prices.
+* Admin has full control over the platform.
+
+## Pricing logic
+
+This is one of the most important parts.
+
+Every service must have pricing based on:
+
+* **public price per m²**
+* **client price per m²**
+* **subcontractor price per m²**
+
+The correct price shown depends on the current user type:
+
+* visitor sees public price
+* client sees client price
+* subcontractor sees subcontractor price
+
+Do not use fixed product pricing.
+Use **price per square meter (m²)** for services.
+
+## Dimensions and unit system
+
+When placing an order or quote request, the user must enter:
+
+* width
+* height
+* measurement unit
+
+The allowed units are:
+
+* **cm**
+* **m**
+
+The system must:
+
+* convert cm to meters automatically
+* calculate area in m²
+* calculate final price automatically using the correct role-based price per m²
+
+### Formula
+
+If unit is cm:
+
+* width_m = width / 100
+* height_m = height / 100
+
+If unit is m:
+
+* width_m = width
+* height_m = height
+
+Then:
+
+* area_m2 = width_m * height_m
+* final_price = area_m2 * unit_price_per_m2
+
+The user must see in real time:
+
+* selected service
+* entered dimensions
+* calculated area in m²
+* unit price per m²
+* final total price
+
+## Main business flows
+
+### Public website
+
+Create these pages:
+
+* Home
+* About
+* Services
+* Service Details
+* Pricing
+* Portfolio / Réalisations
+* Quote Request
+* Contact
+* Login
+* Register
+
+### Public website goals
+
+* look premium and professional
+* clearly present the agency
+* show services and portfolio
+* show pricing starting from price per m²
+* encourage users to sign up or place requests
+
+## Client dashboard
+
+Create these pages/features:
+
+* Dashboard
+* New Order
+* New Quote Request
+* My Orders
+* My Quotes
+* Profile / Settings
+
+### Client direct order flow
+
+A logged-in client can:
+
+* open a service page
+* click “Commander”
+* go to an order page with the service preselected
+* enter width, height, and unit
+* upload a file
+* write a note
+* instantly see final price
+* confirm order
+* choose payment method: **payment on delivery / paiement à la réception**
+
+## Quote request flow
+
+A logged-in user can also:
+
+* request a quote instead of placing an order
+* select a service
+* enter dimensions
+* upload file optionally
+* write a note
+* see estimated price if applicable
+* submit quote request
+
+## Payment logic
+
+Do not implement online payment gateways for now.
+The only payment method in MVP is:
+
+* **Paiement à la réception** / payment on delivery
+
+Still store payment fields in database:
+
+* payment_method
+* payment_status
+
+Suggested payment statuses:
+
+* pending_on_delivery
+* paid
+* cancelled
+
+## Order status system
+
+Create a practical order workflow with these statuses:
+
+* pending
+* confirmed
+* in_progress
+* printing
+* ready
+* delivered
+* cancelled
+
+Create quote statuses:
+
+* pending
+* responded
+* accepted
+* refused
+* converted_to_order
+
+## Admin dashboard
+
+This must be powerful and practical.
+
+Create admin pages/features for:
+
+* Dashboard overview
+* Users management
+* Change user role to subcontractor
+* Services management
+* Price per m² management
+* Orders management
+* Quote requests management
+* Portfolio management
+* Basic settings management
+
+### Admin capabilities
+
+Admin must be able to:
+
+* create/edit/delete services
+* activate/deactivate services
+* set French and Arabic names/descriptions for each service
+* upload service images
+* set public/client/subcontractor prices per m²
+* view all users
+* manually change client role to subcontractor
+* open order details
+* download/view uploaded files
+* change order status
+* manage quote requests
+* create/edit/delete portfolio items
+
+## Multilingual requirement
+
+The website must support:
+
+* **French** as default language
+* **Arabic** as optional language
+
+Requirements:
+
+* language switcher
+* clean RTL support for Arabic
+* all important content fields must support both French and Arabic where relevant
+* design must remain clean in both languages
+
+## Design direction
+
+Create a very professional, modern, premium agency website.
+Style should feel:
+
+* clean
+* modern
+* trustworthy
+* conversion-oriented
+* suitable for a real printing and advertising company
+
+Use:
+
+* strong hero section
+* service cards
+* pricing preview sections
+* portfolio gallery
+* clear CTA buttons
+* elegant dashboard UI
+* responsive layout for mobile, tablet, and desktop
+
+Do not create a childish design.
+Use a high-end visual direction suitable for a real business.
+
+## Database schema requirements
+
+Design a solid Prisma schema using PostgreSQL.
+
+At minimum include these models or equivalent:
+
+### User
+
+Fields like:
+
+* id
+* full_name
+* email
+* phone
+* password_hash
+* role
+* preferred_language
+* account_status
+* created_at
+* updated_at
+
+### Service
+
+Fields like:
+
+* id
+* name_fr
+* name_ar
+* slug
+* description_fr
+* description_ar
+* image_url
+* public_price_per_m2
+* client_price_per_m2
+* subcontractor_price_per_m2
+* requires_file_upload
+* active
+* created_at
+* updated_at
+
+### Order
+
+Fields like:
+
+* id
+* order_number
+* user_id
+* service_id
+* width_input
+* height_input
+* unit_input
+* width_m
+* height_m
+* area_m2
+* unit_price_per_m2
+* displayed_price
+* final_price
+* note
+* file_url
+* payment_method
+* payment_status
+* order_status
+* created_at
+* updated_at
+
+### QuoteRequest
+
+Fields like:
+
+* id
+* user_id
+* service_id
+* width_input
+* height_input
+* unit_input
+* width_m
+* height_m
+* area_m2
+* estimated_price
+* note
+* file_url
+* status
+* created_at
+* updated_at
+
+### PortfolioItem
+
+Fields like:
+
+* id
+* title_fr
+* title_ar
+* description_fr
+* description_ar
+* image_url
+* category
+* is_featured
+* created_at
+
+### AdminLog
+
+Fields like:
+
+* id
+* admin_id
+* action_type
+* target_type
+* target_id
+* details
+* created_at
+
+### Setting
+
+Fields like:
+
+* id
+* key
+* value
+
+Make sure relations are properly defined.
+
+## Important data rule
+
+When an order is created, store:
+
+* the exact unit price per m² used at that time
+* the calculated area
+* the final price
+
+This is important because prices may change later in admin, but old orders must keep their historical price.
+
+## File upload
+
+Implement file upload for orders and quote requests.
+Users must be able to upload print files.
+Admin must be able to access uploaded files from order details.
+
+Use a clean and practical upload flow.
+Validate file presence where needed.
+
+## MVP priority
+
+Build the MVP first, but structure the code so it can scale later.
+
+### MVP must include
+
+* public marketing website
+* authentication
+* role-based dashboards
+* service management
+* role-based m² pricing
+* cm/m dimension input
+* automatic price calculation
+* direct order creation
+* quote request creation
+* file upload
+* portfolio
+* French/Arabic support
+* admin dashboard
+* PostgreSQL schema and migrations
+
+## Code quality expectations
+
+* write clean reusable components
+* separate UI, business logic, and data logic
+* use server actions or clean API routes appropriately
+* include validation using Zod or an equivalent validation library
+* add loading states and error states
+* keep naming clear and consistent
+* avoid messy monolithic files
+* build with maintainability in mind
+
+## UX expectations
+
+For the order page:
+
+* service should be preselected when user comes from service detail page
+* dimensions should be easy to input
+* unit switch should be clear
+* total price calculation should update clearly
+* file upload should be obvious
+* order confirmation should feel professional and simple
+
+For public pages:
+
+* highlight trust
+* highlight printing capabilities
+* highlight real business value
+* include strong CTAs like:
+
+  * Demander un devis
+  * Commander maintenant
+  * Voir nos réalisations
+
+## Seed data
+
+Add seed data examples for:
+
+* a few services
+* a few portfolio items
+* one admin user
+* sample pricing values per m²
+
+## Final deliverable
+
+Generate the full project structure, pages, components, Prisma schema, authentication flow, dashboards, and initial UI for the MVP.
+Make the app runnable locally with clear setup instructions.
+Use best practices and make sensible implementation decisions without asking unnecessary questions.

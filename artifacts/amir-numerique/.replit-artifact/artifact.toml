@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Amir Numerique"
+version = "1.0.0"
+id = "artifacts/amir-numerique"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 19081
+
+[services.development]
+run = "pnpm --filter @workspace/amir-numerique run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/amir-numerique", "run", "build" ]
+publicDir = "artifacts/amir-numerique/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "19081"
+BASE_PATH = "/"

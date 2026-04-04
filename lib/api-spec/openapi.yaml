@@ -3,20 +3,38 @@ info:
   # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: Amir Numerique - Digital Printing Agency API
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: auth
+    description: Authentication operations
+  - name: services
+    description: Service management
+  - name: orders
+    description: Order management
+  - name: quotes
+    description: Quote request management
+  - name: portfolio
+    description: Portfolio management
+  - name: users
+    description: User management
+  - name: settings
+    description: Settings management
+  - name: upload
+    description: File upload
+  - name: stats
+    description: Dashboard statistics
+
 paths:
   /healthz:
     get:
       operationId: healthCheck
       tags: [health]
       summary: Health check
-      description: Returns server health status
       responses:
         "200":
           description: Healthy
@@ -24,6 +42,706 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /auth/register:
+    post:
+      operationId: register
+      tags: [auth]
+      summary: Register a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RegisterBody"
+      responses:
+        "201":
+          description: User registered
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /auth/login:
+    post:
+      operationId: login
+      tags: [auth]
+      summary: Login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginBody"
+      responses:
+        "200":
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+        "401":
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /auth/logout:
+    post:
+      operationId: logout
+      tags: [auth]
+      summary: Logout
+      responses:
+        "200":
+          description: Logged out
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+
+  /auth/me:
+    get:
+      operationId: getMe
+      tags: [auth]
+      summary: Get current user
+      responses:
+        "200":
+          description: Current user
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "401":
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /services:
+    get:
+      operationId: listServices
+      tags: [services]
+      summary: List all active services
+      parameters:
+        - name: active
+          in: query
+          schema:
+            type: boolean
+      responses:
+        "200":
+          description: List of services
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Service"
+    post:
+      operationId: createService
+      tags: [services]
+      summary: Create a service (admin only)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateServiceBody"
+      responses:
+        "201":
+          description: Service created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Service"
+
+  /services/{id}:
+    get:
+      operationId: getService
+      tags: [services]
+      summary: Get service by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Service details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Service"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    put:
+      operationId: updateService
+      tags: [services]
+      summary: Update a service (admin only)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateServiceBody"
+      responses:
+        "200":
+          description: Service updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Service"
+    delete:
+      operationId: deleteService
+      tags: [services]
+      summary: Delete a service (admin only)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Service deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+
+  /services/slug/{slug}:
+    get:
+      operationId: getServiceBySlug
+      tags: [services]
+      summary: Get service by slug
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Service details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Service"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /orders:
+    get:
+      operationId: listOrders
+      tags: [orders]
+      summary: List orders (admin gets all, user gets own)
+      parameters:
+        - name: status
+          in: query
+          schema:
+            type: string
+        - name: page
+          in: query
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: List of orders
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrderListResponse"
+    post:
+      operationId: createOrder
+      tags: [orders]
+      summary: Create a new order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateOrderBody"
+      responses:
+        "201":
+          description: Order created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Order"
+
+  /orders/{id}:
+    get:
+      operationId: getOrder
+      tags: [orders]
+      summary: Get order by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Order details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Order"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    patch:
+      operationId: updateOrderStatus
+      tags: [orders]
+      summary: Update order status (admin only)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateOrderStatusBody"
+      responses:
+        "200":
+          description: Order updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Order"
+
+  /quotes:
+    get:
+      operationId: listQuotes
+      tags: [quotes]
+      summary: List quote requests (admin gets all, user gets own)
+      parameters:
+        - name: status
+          in: query
+          schema:
+            type: string
+        - name: page
+          in: query
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: List of quotes
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QuoteListResponse"
+    post:
+      operationId: createQuote
+      tags: [quotes]
+      summary: Create a new quote request
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateQuoteBody"
+      responses:
+        "201":
+          description: Quote created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Quote"
+
+  /quotes/{id}:
+    get:
+      operationId: getQuote
+      tags: [quotes]
+      summary: Get quote by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Quote details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Quote"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    patch:
+      operationId: updateQuoteStatus
+      tags: [quotes]
+      summary: Update quote status (admin only)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateQuoteStatusBody"
+      responses:
+        "200":
+          description: Quote updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Quote"
+
+  /portfolio:
+    get:
+      operationId: listPortfolio
+      tags: [portfolio]
+      summary: List portfolio items
+      parameters:
+        - name: featured
+          in: query
+          schema:
+            type: boolean
+        - name: category
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of portfolio items
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PortfolioItem"
+    post:
+      operationId: createPortfolioItem
+      tags: [portfolio]
+      summary: Create portfolio item (admin only)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreatePortfolioItemBody"
+      responses:
+        "201":
+          description: Portfolio item created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PortfolioItem"
+
+  /portfolio/{id}:
+    get:
+      operationId: getPortfolioItem
+      tags: [portfolio]
+      summary: Get portfolio item by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Portfolio item
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PortfolioItem"
+    put:
+      operationId: updatePortfolioItem
+      tags: [portfolio]
+      summary: Update portfolio item (admin only)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdatePortfolioItemBody"
+      responses:
+        "200":
+          description: Portfolio item updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PortfolioItem"
+    delete:
+      operationId: deletePortfolioItem
+      tags: [portfolio]
+      summary: Delete portfolio item (admin only)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+
+  /users:
+    get:
+      operationId: listUsers
+      tags: [users]
+      summary: List all users (admin only)
+      parameters:
+        - name: role
+          in: query
+          schema:
+            type: string
+        - name: page
+          in: query
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: List of users
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserListResponse"
+
+  /users/{id}:
+    get:
+      operationId: getUser
+      tags: [users]
+      summary: Get user by ID (admin only)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: User details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+    patch:
+      operationId: updateUser
+      tags: [users]
+      summary: Update user (admin only)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateUserBody"
+      responses:
+        "200":
+          description: User updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+
+  /users/profile:
+    put:
+      operationId: updateProfile
+      tags: [users]
+      summary: Update current user profile
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateProfileBody"
+      responses:
+        "200":
+          description: Profile updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+
+  /settings:
+    get:
+      operationId: listSettings
+      tags: [settings]
+      summary: Get all settings
+      responses:
+        "200":
+          description: Settings list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Setting"
+
+  /settings/{key}:
+    put:
+      operationId: updateSetting
+      tags: [settings]
+      summary: Update a setting (admin only)
+      parameters:
+        - name: key
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateSettingBody"
+      responses:
+        "200":
+          description: Setting updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Setting"
+
+  /upload:
+    post:
+      operationId: uploadFile
+      tags: [upload]
+      summary: Upload a file
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+              required:
+                - file
+      responses:
+        "200":
+          description: File uploaded
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UploadResponse"
+
+  /stats/dashboard:
+    get:
+      operationId: getDashboardStats
+      tags: [stats]
+      summary: Get dashboard statistics (admin)
+      responses:
+        "200":
+          description: Dashboard stats
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DashboardStats"
+
+  /stats/client:
+    get:
+      operationId: getClientStats
+      tags: [stats]
+      summary: Get client dashboard stats
+      responses:
+        "200":
+          description: Client stats
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClientStats"
+
+  /stats/orders-by-status:
+    get:
+      operationId: getOrdersByStatus
+      tags: [stats]
+      summary: Get orders grouped by status
+      responses:
+        "200":
+          description: Orders by status
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/StatusCount"
+
+  /stats/recent-orders:
+    get:
+      operationId: getRecentOrders
+      tags: [stats]
+      summary: Get recent orders
+      responses:
+        "200":
+          description: Recent orders
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Order"
+
 components:
   schemas:
     HealthStatus:
@@ -34,3 +752,660 @@ components:
       required:
         - status
 
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+      required:
+        - error
+
+    SuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+      required:
+        - success
+
+    RegisterBody:
+      type: object
+      properties:
+        fullName:
+          type: string
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+        password:
+          type: string
+          minLength: 8
+        preferredLanguage:
+          type: string
+          enum: [fr, ar]
+          default: fr
+      required:
+        - fullName
+        - email
+        - password
+
+    LoginBody:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+      required:
+        - email
+        - password
+
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        fullName:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+          nullable: true
+        role:
+          type: string
+          enum: [visitor, client, subcontractor, admin]
+        preferredLanguage:
+          type: string
+          enum: [fr, ar]
+        accountStatus:
+          type: string
+          enum: [active, suspended]
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - fullName
+        - email
+        - role
+        - preferredLanguage
+        - accountStatus
+        - createdAt
+
+    AuthResponse:
+      type: object
+      properties:
+        user:
+          $ref: "#/components/schemas/User"
+        message:
+          type: string
+      required:
+        - user
+
+    Service:
+      type: object
+      properties:
+        id:
+          type: integer
+        nameFr:
+          type: string
+        nameAr:
+          type: string
+        slug:
+          type: string
+        descriptionFr:
+          type: string
+          nullable: true
+        descriptionAr:
+          type: string
+          nullable: true
+        imageUrl:
+          type: string
+          nullable: true
+        publicPricePerM2:
+          type: number
+        clientPricePerM2:
+          type: number
+        subcontractorPricePerM2:
+          type: number
+        requiresFileUpload:
+          type: boolean
+        active:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - nameFr
+        - nameAr
+        - slug
+        - publicPricePerM2
+        - clientPricePerM2
+        - subcontractorPricePerM2
+        - requiresFileUpload
+        - active
+        - createdAt
+
+    CreateServiceBody:
+      type: object
+      properties:
+        nameFr:
+          type: string
+        nameAr:
+          type: string
+        slug:
+          type: string
+        descriptionFr:
+          type: string
+        descriptionAr:
+          type: string
+        imageUrl:
+          type: string
+        publicPricePerM2:
+          type: number
+        clientPricePerM2:
+          type: number
+        subcontractorPricePerM2:
+          type: number
+        requiresFileUpload:
+          type: boolean
+          default: false
+        active:
+          type: boolean
+          default: true
+      required:
+        - nameFr
+        - nameAr
+        - slug
+        - publicPricePerM2
+        - clientPricePerM2
+        - subcontractorPricePerM2
+
+    UpdateServiceBody:
+      type: object
+      properties:
+        nameFr:
+          type: string
+        nameAr:
+          type: string
+        slug:
+          type: string
+        descriptionFr:
+          type: string
+        descriptionAr:
+          type: string
+        imageUrl:
+          type: string
+        publicPricePerM2:
+          type: number
+        clientPricePerM2:
+          type: number
+        subcontractorPricePerM2:
+          type: number
+        requiresFileUpload:
+          type: boolean
+        active:
+          type: boolean
+
+    Order:
+      type: object
+      properties:
+        id:
+          type: integer
+        orderNumber:
+          type: string
+        userId:
+          type: integer
+        serviceId:
+          type: integer
+        widthInput:
+          type: number
+        heightInput:
+          type: number
+        unitInput:
+          type: string
+          enum: [cm, m]
+        widthM:
+          type: number
+        heightM:
+          type: number
+        areaM2:
+          type: number
+        unitPricePerM2:
+          type: number
+        displayedPrice:
+          type: number
+        finalPrice:
+          type: number
+        note:
+          type: string
+          nullable: true
+        fileUrl:
+          type: string
+          nullable: true
+        paymentMethod:
+          type: string
+        paymentStatus:
+          type: string
+          enum: [pending_on_delivery, paid, cancelled]
+        orderStatus:
+          type: string
+          enum: [pending, confirmed, in_progress, printing, ready, delivered, cancelled]
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        user:
+          $ref: "#/components/schemas/User"
+          nullable: true
+        service:
+          $ref: "#/components/schemas/Service"
+          nullable: true
+      required:
+        - id
+        - orderNumber
+        - userId
+        - serviceId
+        - widthInput
+        - heightInput
+        - unitInput
+        - widthM
+        - heightM
+        - areaM2
+        - unitPricePerM2
+        - displayedPrice
+        - finalPrice
+        - paymentMethod
+        - paymentStatus
+        - orderStatus
+        - createdAt
+        - updatedAt
+
+    CreateOrderBody:
+      type: object
+      properties:
+        serviceId:
+          type: integer
+        widthInput:
+          type: number
+        heightInput:
+          type: number
+        unitInput:
+          type: string
+          enum: [cm, m]
+        note:
+          type: string
+        fileUrl:
+          type: string
+      required:
+        - serviceId
+        - widthInput
+        - heightInput
+        - unitInput
+
+    UpdateOrderStatusBody:
+      type: object
+      properties:
+        orderStatus:
+          type: string
+          enum: [pending, confirmed, in_progress, printing, ready, delivered, cancelled]
+        paymentStatus:
+          type: string
+          enum: [pending_on_delivery, paid, cancelled]
+      required:
+        - orderStatus
+
+    OrderListResponse:
+      type: object
+      properties:
+        orders:
+          type: array
+          items:
+            $ref: "#/components/schemas/Order"
+        total:
+          type: integer
+        page:
+          type: integer
+        limit:
+          type: integer
+      required:
+        - orders
+        - total
+        - page
+        - limit
+
+    Quote:
+      type: object
+      properties:
+        id:
+          type: integer
+        userId:
+          type: integer
+        serviceId:
+          type: integer
+        widthInput:
+          type: number
+        heightInput:
+          type: number
+        unitInput:
+          type: string
+          enum: [cm, m]
+        widthM:
+          type: number
+        heightM:
+          type: number
+        areaM2:
+          type: number
+        estimatedPrice:
+          type: number
+          nullable: true
+        note:
+          type: string
+          nullable: true
+        fileUrl:
+          type: string
+          nullable: true
+        status:
+          type: string
+          enum: [pending, responded, accepted, refused, converted_to_order]
+        adminResponse:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        user:
+          $ref: "#/components/schemas/User"
+          nullable: true
+        service:
+          $ref: "#/components/schemas/Service"
+          nullable: true
+      required:
+        - id
+        - userId
+        - serviceId
+        - widthInput
+        - heightInput
+        - unitInput
+        - widthM
+        - heightM
+        - areaM2
+        - status
+        - createdAt
+        - updatedAt
+
+    CreateQuoteBody:
+      type: object
+      properties:
+        serviceId:
+          type: integer
+        widthInput:
+          type: number
+        heightInput:
+          type: number
+        unitInput:
+          type: string
+          enum: [cm, m]
+        note:
+          type: string
+        fileUrl:
+          type: string
+      required:
+        - serviceId
+        - widthInput
+        - heightInput
+        - unitInput
+
+    UpdateQuoteStatusBody:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [pending, responded, accepted, refused, converted_to_order]
+        adminResponse:
+          type: string
+      required:
+        - status
+
+    QuoteListResponse:
+      type: object
+      properties:
+        quotes:
+          type: array
+          items:
+            $ref: "#/components/schemas/Quote"
+        total:
+          type: integer
+        page:
+          type: integer
+        limit:
+          type: integer
+      required:
+        - quotes
+        - total
+        - page
+        - limit
+
+    PortfolioItem:
+      type: object
+      properties:
+        id:
+          type: integer
+        titleFr:
+          type: string
+        titleAr:
+          type: string
+        descriptionFr:
+          type: string
+          nullable: true
+        descriptionAr:
+          type: string
+          nullable: true
+        imageUrl:
+          type: string
+        category:
+          type: string
+          nullable: true
+        isFeatured:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - titleFr
+        - titleAr
+        - imageUrl
+        - isFeatured
+        - createdAt
+
+    CreatePortfolioItemBody:
+      type: object
+      properties:
+        titleFr:
+          type: string
+        titleAr:
+          type: string
+        descriptionFr:
+          type: string
+        descriptionAr:
+          type: string
+        imageUrl:
+          type: string
+        category:
+          type: string
+        isFeatured:
+          type: boolean
+          default: false
+      required:
+        - titleFr
+        - titleAr
+        - imageUrl
+
+    UpdatePortfolioItemBody:
+      type: object
+      properties:
+        titleFr:
+          type: string
+        titleAr:
+          type: string
+        descriptionFr:
+          type: string
+        descriptionAr:
+          type: string
+        imageUrl:
+          type: string
+        category:
+          type: string
+        isFeatured:
+          type: boolean
+
+    UserListResponse:
+      type: object
+      properties:
+        users:
+          type: array
+          items:
+            $ref: "#/components/schemas/User"
+        total:
+          type: integer
+        page:
+          type: integer
+        limit:
+          type: integer
+      required:
+        - users
+        - total
+        - page
+        - limit
+
+    UpdateUserBody:
+      type: object
+      properties:
+        role:
+          type: string
+          enum: [client, subcontractor, admin]
+        accountStatus:
+          type: string
+          enum: [active, suspended]
+
+    UpdateProfileBody:
+      type: object
+      properties:
+        fullName:
+          type: string
+        phone:
+          type: string
+        preferredLanguage:
+          type: string
+          enum: [fr, ar]
+        currentPassword:
+          type: string
+        newPassword:
+          type: string
+
+    Setting:
+      type: object
+      properties:
+        id:
+          type: integer
+        key:
+          type: string
+        value:
+          type: string
+      required:
+        - id
+        - key
+        - value
+
+    UpdateSettingBody:
+      type: object
+      properties:
+        value:
+          type: string
+      required:
+        - value
+
+    UploadResponse:
+      type: object
+      properties:
+        url:
+          type: string
+        filename:
+          type: string
+      required:
+        - url
+        - filename
+
+    DashboardStats:
+      type: object
+      properties:
+        totalOrders:
+          type: integer
+        pendingOrders:
+          type: integer
+        totalRevenue:
+          type: number
+        totalUsers:
+          type: integer
+        totalQuotes:
+          type: integer
+        pendingQuotes:
+          type: integer
+        totalServices:
+          type: integer
+        revenueThisMonth:
+          type: number
+      required:
+        - totalOrders
+        - pendingOrders
+        - totalRevenue
+        - totalUsers
+        - totalQuotes
+        - pendingQuotes
+        - totalServices
+        - revenueThisMonth
+
+    ClientStats:
+      type: object
+      properties:
+        totalOrders:
+          type: integer
+        pendingOrders:
+          type: integer
+        totalSpent:
+          type: number
+        totalQuotes:
+          type: integer
+        pendingQuotes:
+          type: integer
+      required:
+        - totalOrders
+        - pendingOrders
+        - totalSpent
+        - totalQuotes
+        - pendingQuotes
+
+    StatusCount:
+      type: object
+      properties:
+        status:
+          type: string
+        count:
+          type: integer
+      required:
+        - status
+        - count
