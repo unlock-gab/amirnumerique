@@ -19,7 +19,7 @@ export default function About() {
               L'Expertise Visuelle
             </h1>
             <p className="text-xl text-muted-foreground leading-relaxed">
-              Depuis plus de 10 ans, nous accompagnons les entreprises algériennes dans leur communication visuelle avec des solutions d'impression de pointe.
+              Depuis plus de 20 ans, nous accompagnons les entreprises algériennes dans leur communication visuelle avec des solutions d'impression de pointe.
             </p>
           </div>
         </div>

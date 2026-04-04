@@ -17,7 +17,7 @@ const fadeUp = {
 const STATS = [
   { value: "500+", label: "Clients satisfaits" },
   { value: "1 200+", label: "Projets réalisés" },
-  { value: "10 ans", label: "D'expérience" },
+  { value: "+20 ans", label: "D'expérience" },
   { value: "48h", label: "Délai livraison" },
 ];
 

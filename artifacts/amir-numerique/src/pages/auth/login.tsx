@@ -59,7 +59,7 @@ export default function Login() {
             La plateforme de référence pour l'impression numérique professionnelle en Algérie.
           </p>
           <div className="grid grid-cols-2 gap-3 pt-4">
-            {[{ v: "500+", l: "Clients" }, { v: "1200+", l: "Projets" }, { v: "10 ans", l: "Expérience" }, { v: "48h", l: "Livraison" }].map((s) => (
+            {[{ v: "500+", l: "Clients" }, { v: "1200+", l: "Projets" }, { v: "+20 ans", l: "Expérience" }, { v: "48h", l: "Livraison" }].map((s) => (
               <div key={s.l} className="bg-muted/40 rounded-xl p-3 text-center">
                 <div className="font-display font-700 text-primary text-lg">{s.v}</div>
                 <div className="text-xs text-muted-foreground">{s.l}</div>
