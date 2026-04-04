@@ -123,6 +123,14 @@
   }
 }
 
+/* Custom font-weight utilities — must come before @layer utilities to support @apply */
+.font-400 { font-weight: 400; }
+.font-500 { font-weight: 500; }
+.font-600 { font-weight: 600; }
+.font-700 { font-weight: 700; }
+.font-800 { font-weight: 800; }
+.font-900 { font-weight: 900; }
+
 @layer utilities {
   .font-display {
     font-family: var(--app-font-display);
@@ -200,12 +208,15 @@
 
   /* Stat chip */
   .stat-chip {
-    @apply inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-600;
+    @apply inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs;
+    font-weight: 600;
   }
 
   /* Premium badge */
   .badge-premium {
-    @apply inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[10px] font-700 font-display uppercase tracking-wide;
+    @apply inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[10px] uppercase tracking-wide;
+    font-family: var(--app-font-display);
+    font-weight: 700;
   }
 
   /* Smooth scale hover */
