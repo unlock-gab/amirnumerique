@@ -4,8 +4,10 @@ import { useI18n } from "@/hooks/use-i18n";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, Users } from "lucide-react";
+import { Loader2, Users, Search } from "lucide-react";
 import { motion } from "framer-motion";
+import { useState } from "react";
+import { Input } from "@/components/ui/input";
 
 const ROLE_OPTIONS = [
   { value: "visitor", label: "Visiteur" },
@@ -14,19 +16,26 @@ const ROLE_OPTIONS = [
   { value: "admin", label: "Administrateur" },
 ];
 
-const ROLE_COLORS: Record<string, string> = {
-  visitor: "bg-muted text-muted-foreground border-border",
-  client: "bg-blue-500/10 text-blue-600 border-blue-500/20",
-  subcontractor: "bg-amber-500/10 text-amber-600 border-amber-500/20",
-  admin: "bg-primary/10 text-primary border-primary/20",
+const ROLE_STYLES: Record<string, { badge: string; selector: string }> = {
+  visitor: { badge: "bg-muted/60 text-muted-foreground border-border/60", selector: "border-border/50" },
+  client: { badge: "bg-blue-500/10 text-blue-400 border-blue-500/25", selector: "border-blue-500/30" },
+  subcontractor: { badge: "bg-amber-500/10 text-amber-400 border-amber-500/25", selector: "border-amber-500/30" },
+  admin: { badge: "bg-primary/10 text-primary border-primary/25", selector: "border-primary/30" },
 };
 
 export default function AdminUsers() {
   const { t } = useI18n();
   const { toast } = useToast();
   const { data: result, isLoading, refetch } = useListUsers({});
-  const users = (result as any)?.users || (Array.isArray(result) ? result : []);
+  const allUsers = (result as any)?.users || (Array.isArray(result) ? result : []);
   const updateUser = useUpdateUser();
+  const [search, setSearch] = useState("");
+
+  const users = search
+    ? allUsers.filter((u: any) =>
+        u.fullName?.toLowerCase().includes(search.toLowerCase()) ||
+        u.email?.toLowerCase().includes(search.toLowerCase()))
+    : allUsers;
 
   const handleRoleChange = (userId: number, role: string) => {
     updateUser.mutate({ id: userId, data: { role: role as any } }, {
@@ -38,50 +47,67 @@ export default function AdminUsers() {
   return (
     <AdminLayout>
       <div className="space-y-6">
-        <h1 className="text-2xl font-bold">{t("manageUsers")}</h1>
+        {/* Header */}
+        <div className="flex items-center justify-between gap-4">
+          <div>
+            <h1 className="font-display text-2xl font-700 tracking-tight">{t("manageUsers")}</h1>
+            <p className="text-sm text-muted-foreground mt-1">{allUsers.length} utilisateur{allUsers.length !== 1 ? "s" : ""} enregistré{allUsers.length !== 1 ? "s" : ""}</p>
+          </div>
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/50" />
+            <Input
+              placeholder="Rechercher..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="pl-9 w-56 h-9 text-sm border-border/60"
+            />
+          </div>
+        </div>
 
         {isLoading ? (
-          <div className="flex justify-center py-20"><Loader2 className="h-8 w-8 animate-spin text-primary" /></div>
+          <div className="flex justify-center py-24"><Loader2 className="h-8 w-8 animate-spin text-primary" /></div>
         ) : users.length === 0 ? (
-          <div className="text-center py-20">
-            <Users className="h-12 w-12 mx-auto mb-4 text-muted-foreground/30" />
-            <h3 className="text-lg font-semibold">Aucun utilisateur</h3>
+          <div className="text-center py-24 rounded-2xl border border-border/50 bg-card/40">
+            <Users className="h-10 w-10 mx-auto mb-4 text-muted-foreground/20" />
+            <h3 className="font-display font-600 text-lg mb-1">Aucun utilisateur trouvé</h3>
           </div>
         ) : (
-          <div className="bg-card border border-border rounded-xl overflow-hidden">
+          <div className="rounded-2xl border border-border/60 bg-card overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr className="border-b border-border bg-muted/50">
-                    <th className="text-left p-4 text-sm font-semibold text-muted-foreground">Utilisateur</th>
-                    <th className="text-left p-4 text-sm font-semibold text-muted-foreground">Email</th>
-                    <th className="text-left p-4 text-sm font-semibold text-muted-foreground">Téléphone</th>
-                    <th className="text-left p-4 text-sm font-semibold text-muted-foreground">Inscription</th>
-                    <th className="text-left p-4 text-sm font-semibold text-muted-foreground">Rôle</th>
+                  <tr className="border-b border-border/50 bg-muted/20">
+                    <th className="text-left px-5 py-3.5 text-xs font-600 font-display uppercase tracking-wider text-muted-foreground">Utilisateur</th>
+                    <th className="text-left px-5 py-3.5 text-xs font-600 font-display uppercase tracking-wider text-muted-foreground">Email</th>
+                    <th className="text-left px-5 py-3.5 text-xs font-600 font-display uppercase tracking-wider text-muted-foreground">Téléphone</th>
+                    <th className="text-left px-5 py-3.5 text-xs font-600 font-display uppercase tracking-wider text-muted-foreground">Inscription</th>
+                    <th className="text-left px-5 py-3.5 text-xs font-600 font-display uppercase tracking-wider text-muted-foreground">Rôle</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody className="divide-y divide-border/30">
                   {users.map((user: any, i: number) => (
                     <motion.tr key={user.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.03 }}
-                      className="border-b border-border/50 hover:bg-muted/30 transition-colors" data-testid={`admin-user-row-${user.id}`}>
-                      <td className="p-4">
+                      className="hover:bg-muted/15 transition-colors" data-testid={`admin-user-row-${user.id}`}>
+                      <td className="px-5 py-4">
                         <div className="flex items-center gap-3">
-                          <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center text-sm font-bold text-primary">
-                            {user.fullName[0].toUpperCase()}
+                          <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                            <span className="text-xs font-bold text-primary">{user.fullName?.[0]?.toUpperCase() || "?"}</span>
                           </div>
                           <span className="font-medium text-sm">{user.fullName}</span>
                         </div>
                       </td>
-                      <td className="p-4 text-sm text-muted-foreground">{user.email}</td>
-                      <td className="p-4 text-sm text-muted-foreground">{user.phone || "—"}</td>
-                      <td className="p-4 text-sm text-muted-foreground">{new Date(user.createdAt).toLocaleDateString("fr-DZ")}</td>
-                      <td className="p-4">
+                      <td className="px-5 py-4 text-sm text-muted-foreground">{user.email}</td>
+                      <td className="px-5 py-4 text-sm text-muted-foreground">{user.phone || "—"}</td>
+                      <td className="px-5 py-4 text-sm text-muted-foreground tabular-nums">{new Date(user.createdAt).toLocaleDateString("fr-DZ")}</td>
+                      <td className="px-5 py-4">
                         <Select value={user.role} onValueChange={(role) => handleRoleChange(user.id, role)}>
-                          <SelectTrigger className={`w-36 h-8 text-xs border ${ROLE_COLORS[user.role] || ""}`}>
+                          <SelectTrigger className={`w-36 h-8 text-xs border ${ROLE_STYLES[user.role]?.selector || "border-border/60"}`}>
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent>
-                            {ROLE_OPTIONS.map(o => <SelectItem key={o.value} value={o.value} className="text-xs">{o.label}</SelectItem>)}
+                            {ROLE_OPTIONS.map((o) => (
+                              <SelectItem key={o.value} value={o.value} className="text-xs">{o.label}</SelectItem>
+                            ))}
                           </SelectContent>
                         </Select>
                       </td>

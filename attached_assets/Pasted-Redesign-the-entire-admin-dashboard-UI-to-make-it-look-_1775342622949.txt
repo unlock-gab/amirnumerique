@@ -1,0 +1,180 @@
+Redesign the entire admin dashboard UI to make it look premium, modern, polished, and truly professional.
+
+The current admin interface is functional but visually weak, flat, outdated, and not impressive enough.
+I want a much stronger internal business dashboard design that feels custom-made for a real digital printing and advertising company.
+
+## Main objective
+
+Transform the admin panel into a high-end professional management interface.
+It should feel:
+
+* premium
+* modern
+* elegant
+* structured
+* visually balanced
+* operationally efficient
+* more expensive and more custom-designed
+
+## General admin design direction
+
+Use a premium dark dashboard aesthetic with:
+
+* deep navy / charcoal background
+* refined contrast
+* subtle borders
+* soft shadows
+* elegant card depth
+* better spacing
+* cleaner typography hierarchy
+* stronger section separation
+* more modern icon treatment
+* better hover and active states
+* more visual rhythm and consistency
+
+Do not make it look playful or generic.
+It must feel like a serious business control panel.
+
+## Problems to fix in the current dashboard
+
+Fix these specific issues:
+
+* the sidebar feels too basic and visually outdated
+* service cards look flat and repetitive
+* the page lacks visual hierarchy
+* spacing and alignment need improvement
+* pricing blocks do not feel premium
+* action icons look weak and disconnected
+* the whole page needs better composition and stronger design language
+
+## Sidebar redesign
+
+Redesign the sidebar to feel much more premium and modern:
+
+* cleaner vertical spacing
+* better typography hierarchy
+* improved active menu state
+* elegant icons
+* more refined section grouping
+* better footer/user account area
+* premium logout button styling
+* subtle separators or background layers
+* sticky sidebar with polished visual depth
+
+The sidebar should feel like a modern SaaS/admin system, but adapted for a printing agency business.
+
+## Main content area redesign
+
+Improve the main content layout:
+
+* better top spacing
+* more breathing room
+* stronger page title styling
+* optional page subtitle/description
+* better page header layout
+* better placement and styling for the “Créer” button
+* improved grid spacing between service cards
+
+## Services management page redesign
+
+Completely redesign the “Gérer les services” page.
+
+### Service cards must feel premium
+
+Each service card should become a modern admin management card with:
+
+* better visual hierarchy
+* more elegant title styling
+* better Arabic/French text alignment
+* improved slug presentation
+* refined status indicator
+* more professional card padding
+* stronger depth with subtle shadow and border
+* better hover effect
+* consistent internal spacing
+
+### Pricing section inside each card
+
+The pricing blocks for Public / Client / S-Trait must be redesigned to look much better:
+
+* more premium mini-cards or segmented pricing panels
+* stronger distinction between pricing tiers
+* better label styling
+* cleaner number styling
+* better emphasis on the actual price
+* more visually balanced layout
+* subtle accent colors without looking noisy
+
+Public / Client / Subcontractor prices should feel clear, elegant, and easy to scan.
+
+## Card actions
+
+Improve edit/delete actions:
+
+* make them more refined
+* align them properly
+* place them inside a cleaner action zone
+* improve icon button design
+* add hover states
+* make them feel intentional, not floating
+
+## Typography
+
+Upgrade typography across the admin panel:
+
+* stronger main heading
+* more elegant section labels
+* cleaner card titles
+* better muted text styling
+* high readability in both French and Arabic
+* better numeric styling for prices
+
+## Color system
+
+Refine the admin dashboard color palette:
+
+* dark premium base background
+* slightly elevated card backgrounds
+* subtle border color
+* gold/amber accent can be kept but made more refined
+* blue accent should feel richer and more modern
+* green status indicators should be elegant, not harsh
+* use color with restraint and consistency
+
+## Visual style references
+
+The result should feel like a mix of:
+
+* premium SaaS admin dashboard
+* modern agency internal CRM
+* elegant B2B operations panel
+* custom-built business management system
+
+## Layout improvements
+
+Use:
+
+* larger border radius
+* stronger card grouping
+* more whitespace
+* better content density
+* polished grid system
+* cleaner vertical rhythm
+* more luxurious spacing
+
+## UX improvements
+
+Without changing core functionality, improve the admin UX by making the page easier to scan and manage:
+
+* service cards easier to read
+* actions easier to find
+* prices easier to compare
+* content blocks more structured
+* page visually calmer and more professional
+
+## Important
+
+Do not only apply cosmetic changes.
+Refactor the admin dashboard UI structure and styling system to create a genuinely more premium and high-quality interface.
+
+Start with the Services admin page, then apply the same improved design system consistently across the rest of the admin dashboard.
