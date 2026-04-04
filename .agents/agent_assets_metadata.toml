@@ -36,3 +36,39 @@ id = "tvy-AjRV6ysP9anl7Md4x"
 uri = "file://artifacts/amir-numerique/public/hero-printer.png"
 type = "image"
 title = "uv printer machine hero"
+
+[[generated]]
+id = "-fUWN_J6hO6PzyTPosf5u"
+uri = "file://artifacts/amir-numerique/public/portfolio-enseignes.png"
+type = "image"
+title = "portfolio billboard signage"
+
+[[generated]]
+id = "KBUUwJ7o48iZw0GUprZRB"
+uri = "file://artifacts/amir-numerique/public/portfolio-vehicule.png"
+type = "image"
+title = "portfolio vehicle wrap"
+
+[[generated]]
+id = "bPuuaFpmyrVfUi2gqmaJp"
+uri = "file://artifacts/amir-numerique/public/portfolio-evenement.png"
+type = "image"
+title = "portfolio event display"
+
+[[generated]]
+id = "dUaMcizzJLJob5gg0KGLK"
+uri = "file://artifacts/amir-numerique/public/portfolio-vitrophanie.png"
+type = "image"
+title = "portfolio window graphics"
+
+[[generated]]
+id = "9BJipulKvV6kkJ11zjY2V"
+uri = "file://artifacts/amir-numerique/public/portfolio-panneau.png"
+type = "image"
+title = "portfolio panel sign"
+
+[[generated]]
+id = "pEPkfgs5BAtc3I6MaHwi0"
+uri = "file://artifacts/amir-numerique/public/portfolio-decoration.png"
+type = "image"
+title = "portfolio decoration interior"
