@@ -2,9 +2,39 @@ import { PublicLayout } from "@/components/layouts/public-layout";
 import { useListServices, useGetMe } from "@workspace/api-client-react";
 import { useI18n } from "@/hooks/use-i18n";
 import { motion } from "framer-motion";
-import { Loader2, CheckCircle } from "lucide-react";
+import { Loader2, CheckCircle, Star, Building2, Users, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
+
+const TIERS = [
+  {
+    title: "Visiteur",
+    desc: "Prix catalogue standard",
+    key: "public",
+    highlight: false,
+    icon: Users,
+    features: ["Calcul automatique m²", "Devis instantané", "Support par email"],
+    cta: null,
+  },
+  {
+    title: "Client Enregistré",
+    desc: "Tarifs préférentiels exclusifs",
+    key: "client",
+    highlight: true,
+    icon: Star,
+    features: ["Calcul automatique m²", "Suivi commandes en ligne", "Devis instantané", "Tarifs réduits garantis", "Support prioritaire"],
+    cta: { label: "Créer un compte", href: "/auth/register" },
+  },
+  {
+    title: "Sous-Traitant",
+    desc: "Tarifs professionnels compétitifs",
+    key: "subcontractor",
+    highlight: false,
+    icon: Building2,
+    features: ["Calcul automatique m²", "Suivi commandes en ligne", "Tarifs professionnels", "Facturation dédiée"],
+    cta: { label: "Nous contacter", href: "/contact" },
+  },
+];
 
 export default function Pricing() {
   const { language } = useI18n();
@@ -13,38 +43,71 @@ export default function Pricing() {
 
   return (
     <PublicLayout>
-      <div className="container mx-auto px-4 py-16">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Nos Tarifs</h1>
-          <div className="h-1 w-20 bg-primary mx-auto rounded-full mb-6" />
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Tarifs transparents par m² selon votre profil. Inscrivez-vous pour bénéficier de tarifs préférentiels.
-          </p>
-        </motion.div>
+      {/* Header */}
+      <section className="relative py-20 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-card/60 to-transparent" />
+        <div className="absolute top-0 left-0 right-0 h-px section-divider" />
+        <div className="container relative mx-auto px-4 text-center">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-2xl mx-auto">
+            <h1 className="font-display text-4xl md:text-5xl font-700 tracking-tight mb-4">Nos Tarifs</h1>
+            <div className="h-0.5 w-12 bg-primary rounded-full mx-auto mb-5" />
+            <p className="text-muted-foreground text-lg leading-relaxed">
+              Tarifs transparents par m² selon votre profil. Inscrivez-vous pour bénéficier de tarifs préférentiels.
+            </p>
+          </motion.div>
+        </div>
+      </section>
 
-        {/* Role cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-          {[
-            { title: "Visiteur", desc: "Prix catalogue standard", key: "public", highlight: false },
-            { title: "Client enregistré", desc: "Tarifs préférentiels exclusifs", key: "client", highlight: true },
-            { title: "Sous-traitant", desc: "Tarifs professionnels compétitifs", key: "subcontractor", highlight: false },
-          ].map((tier, i) => (
-            <motion.div key={tier.key} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}
-              className={`rounded-2xl p-8 border ${tier.highlight ? "border-primary bg-primary/5 shadow-lg shadow-primary/10" : "border-border bg-card"}`}>
-              {tier.highlight && <div className="text-xs font-semibold text-primary mb-3 uppercase tracking-wider">Recommandé</div>}
-              <h3 className="text-xl font-bold mb-2">{tier.title}</h3>
-              <p className="text-muted-foreground text-sm mb-4">{tier.desc}</p>
-              <div className="space-y-2">
-                {["Calcul automatique m²", "Suivi commandes en ligne", "Devis instantané"].map((f) => (
-                  <div key={f} className="flex items-center gap-2 text-sm">
-                    <CheckCircle className={`h-4 w-4 ${tier.highlight ? "text-primary" : "text-green-500"}`} />
-                    <span>{f}</span>
+      <div className="container mx-auto px-4 pb-24 space-y-16">
+        {/* Tier cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          {TIERS.map((tier, i) => (
+            <motion.div
+              key={tier.key}
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+              className={`relative rounded-2xl p-8 border flex flex-col ${
+                tier.highlight
+                  ? "border-primary/50 bg-gradient-to-b from-primary/8 to-transparent shadow-xl shadow-primary/10"
+                  : "border-border/60 bg-card"
+              }`}
+            >
+              {tier.highlight && (
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                  <span className="bg-primary text-primary-foreground text-[10px] font-700 font-display uppercase tracking-widest px-3 py-1 rounded-full shadow-lg">
+                    Recommandé
+                  </span>
+                </div>
+              )}
+
+              <div className="mb-6">
+                <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-4 ${tier.highlight ? "bg-primary/20" : "bg-muted"}`}>
+                  <tier.icon className={`h-5 w-5 ${tier.highlight ? "text-primary" : "text-muted-foreground"}`} />
+                </div>
+                <h3 className="font-display font-700 text-xl mb-1">{tier.title}</h3>
+                <p className="text-muted-foreground text-sm">{tier.desc}</p>
+              </div>
+
+              <div className="space-y-3 flex-1 mb-6">
+                {tier.features.map((f) => (
+                  <div key={f} className="flex items-center gap-2.5 text-sm">
+                    <CheckCircle className={`h-4 w-4 shrink-0 ${tier.highlight ? "text-primary" : "text-green-500"}`} />
+                    <span className="text-muted-foreground">{f}</span>
                   </div>
                 ))}
               </div>
-              {!user && tier.key === "client" && (
-                <Button className="w-full mt-6" asChild>
-                  <Link href="/auth/register">Créer un compte</Link>
+
+              {!user && tier.cta && (
+                <Button
+                  className={`w-full ${tier.highlight ? "shadow-lg shadow-primary/20" : ""}`}
+                  variant={tier.highlight ? "default" : "outline"}
+                  asChild
+                >
+                  <Link href={tier.cta.href}>
+                    {tier.cta.label}
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
                 </Button>
               )}
             </motion.div>
@@ -52,45 +115,76 @@ export default function Pricing() {
         </div>
 
         {/* Pricing table */}
-        {isLoading ? (
-          <div className="flex justify-center py-10"><Loader2 className="h-8 w-8 animate-spin text-primary" /></div>
-        ) : (
-          <div className="bg-card border border-border rounded-2xl overflow-hidden">
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead>
-                  <tr className="border-b border-border bg-muted/50">
-                    <th className="text-left p-4 font-semibold">Service</th>
-                    <th className="text-right p-4 font-semibold text-muted-foreground">Visiteur</th>
-                    <th className="text-right p-4 font-semibold text-primary">Client</th>
-                    <th className="text-right p-4 font-semibold text-amber-500">Sous-traitant</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {services?.map((service, i) => (
-                    <tr key={service.id} className={`border-b border-border/50 hover:bg-muted/30 transition-colors ${i % 2 === 0 ? "" : "bg-muted/10"}`}>
-                      <td className="p-4 font-medium">
-                        <Link href={`/services/${service.slug}`} className="hover:text-primary transition-colors">
-                          {language === "ar" ? service.nameAr : service.nameFr}
-                        </Link>
-                      </td>
-                      <td className="text-right p-4 text-muted-foreground">{service.publicPricePerM2.toLocaleString()} DA/m²</td>
-                      <td className="text-right p-4 font-semibold text-primary">{service.clientPricePerM2.toLocaleString()} DA/m²</td>
-                      <td className="text-right p-4 font-semibold text-amber-500">{service.subcontractorPricePerM2.toLocaleString()} DA/m²</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="max-w-5xl mx-auto"
+        >
+          <h2 className="font-display font-700 text-2xl mb-6">Grille tarifaire complète</h2>
+          {isLoading ? (
+            <div className="flex justify-center py-10">
+              <Loader2 className="h-8 w-8 animate-spin text-primary" />
             </div>
-          </div>
-        )}
+          ) : (
+            <div className="rounded-2xl border border-border/60 overflow-hidden bg-card">
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead>
+                    <tr className="border-b border-border/60 bg-muted/30">
+                      <th className="text-left px-5 py-4 font-display font-600 text-sm text-foreground">Service</th>
+                      <th className="text-right px-5 py-4 font-display font-600 text-sm text-muted-foreground">Visiteur</th>
+                      <th className="text-right px-5 py-4 font-display font-600 text-sm text-primary">Client</th>
+                      <th className="text-right px-5 py-4 font-display font-600 text-sm" style={{ color: "hsl(38 80% 60%)" }}>Sous-traitant</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {services?.map((service, i) => (
+                      <tr
+                        key={service.id}
+                        className="border-b border-border/30 hover:bg-muted/20 transition-colors group"
+                      >
+                        <td className="px-5 py-4">
+                          <Link
+                            href={`/services/${service.slug}`}
+                            className="font-medium text-sm hover:text-primary transition-colors group-hover:text-primary"
+                          >
+                            {language === "ar" ? service.nameAr : service.nameFr}
+                          </Link>
+                        </td>
+                        <td className="text-right px-5 py-4 text-sm text-muted-foreground tabular-nums">
+                          {service.publicPricePerM2.toLocaleString()} DA/m²
+                        </td>
+                        <td className="text-right px-5 py-4 text-sm font-semibold text-primary tabular-nums">
+                          {service.clientPricePerM2.toLocaleString()} DA/m²
+                        </td>
+                        <td className="text-right px-5 py-4 text-sm font-semibold tabular-nums" style={{ color: "hsl(38 80% 60%)" }}>
+                          {service.subcontractorPricePerM2.toLocaleString()} DA/m²
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+        </motion.div>
 
-        <div className="text-center mt-12">
-          <p className="text-muted-foreground mb-4">Besoin d'un tarif spécial ou d'une grande quantité?</p>
-          <Button size="lg" asChild variant="outline">
-            <Link href="/contact">Contactez-nous pour un devis sur mesure</Link>
+        {/* Custom quote CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center py-10 max-w-2xl mx-auto"
+        >
+          <p className="text-muted-foreground mb-5 text-lg">Besoin d'un tarif spécial ou d'une grande quantité ?</p>
+          <Button size="lg" variant="outline" className="border-border/60 hover:border-primary/50 hover:bg-primary/5" asChild>
+            <Link href="/contact">
+              Demander un devis sur mesure
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Link>
           </Button>
-        </div>
+        </motion.div>
       </div>
     </PublicLayout>
   );
