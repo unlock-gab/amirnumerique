@@ -52,10 +52,19 @@ export default function Home() {
       <section className="relative min-h-[92vh] flex items-center overflow-hidden">
         {/* BG layers */}
         <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-background" />
+          {/* Machine UV background image */}
+          <img
+            src="/hero-printer.png"
+            alt=""
+            className="absolute inset-0 w-full h-full object-cover object-center"
+            style={{ opacity: 0.22 }}
+          />
+          {/* Dark gradient overlays */}
+          <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-background/40" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/60" />
           <div className="absolute -top-60 right-0 w-[800px] h-[800px] rounded-full bg-primary/4 blur-[120px]" />
           <div className="absolute bottom-0 -left-40 w-96 h-96 bg-primary/3 blur-3xl rounded-full" />
-          <div className="absolute inset-0 opacity-[0.025]" style={{
+          <div className="absolute inset-0 opacity-[0.02]" style={{
             backgroundImage: "linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)",
             backgroundSize: "64px 64px",
           }} />

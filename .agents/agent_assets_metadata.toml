@@ -30,3 +30,9 @@ id = "UZw2aPE07xzaCDyTbFNjv"
 uri = "file://artifacts/amir-numerique/public/service-signage.png"
 type = "image"
 title = "Service signage"
+
+[[generated]]
+id = "tvy-AjRV6ysP9anl7Md4x"
+uri = "file://artifacts/amir-numerique/public/hero-printer.png"
+type = "image"
+title = "uv printer machine hero"
