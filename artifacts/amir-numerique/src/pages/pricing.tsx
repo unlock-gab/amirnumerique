@@ -114,62 +114,6 @@ export default function Pricing() {
           ))}
         </div>
 
-        {/* Pricing table */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="max-w-5xl mx-auto"
-        >
-          <h2 className="font-display font-700 text-2xl mb-6">Grille tarifaire complète</h2>
-          {isLoading ? (
-            <div className="flex justify-center py-10">
-              <Loader2 className="h-8 w-8 animate-spin text-primary" />
-            </div>
-          ) : (
-            <div className="rounded-2xl border border-border/60 overflow-hidden bg-card">
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead>
-                    <tr className="border-b border-border/60 bg-muted/30">
-                      <th className="text-left px-5 py-4 font-display font-600 text-sm text-foreground">Service</th>
-                      <th className="text-right px-5 py-4 font-display font-600 text-sm text-muted-foreground">Visiteur</th>
-                      <th className="text-right px-5 py-4 font-display font-600 text-sm text-primary">Client</th>
-                      <th className="text-right px-5 py-4 font-display font-600 text-sm" style={{ color: "hsl(38 80% 60%)" }}>Sous-traitant</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {services?.map((service, i) => (
-                      <tr
-                        key={service.id}
-                        className="border-b border-border/30 hover:bg-muted/20 transition-colors group"
-                      >
-                        <td className="px-5 py-4">
-                          <Link
-                            href={`/services/${service.slug}`}
-                            className="font-medium text-sm hover:text-primary transition-colors group-hover:text-primary"
-                          >
-                            {language === "ar" ? service.nameAr : service.nameFr}
-                          </Link>
-                        </td>
-                        <td className="text-right px-5 py-4 text-sm text-muted-foreground tabular-nums">
-                          {service.publicPricePerM2.toLocaleString()} DA/m²
-                        </td>
-                        <td className="text-right px-5 py-4 text-sm font-semibold text-primary tabular-nums">
-                          {service.clientPricePerM2.toLocaleString()} DA/m²
-                        </td>
-                        <td className="text-right px-5 py-4 text-sm font-semibold tabular-nums" style={{ color: "hsl(38 80% 60%)" }}>
-                          {service.subcontractorPricePerM2.toLocaleString()} DA/m²
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          )}
-        </motion.div>
-
         {/* Custom quote CTA */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
