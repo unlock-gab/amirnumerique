@@ -1,0 +1,120 @@
+Now improve the entire UI/UX and visual direction of the project to make it feel much more premium, modern, elegant, and visually strong.
+
+## Visual objective
+
+The website must look like a high-end professional digital printing and advertising agency, not like a generic template.
+
+The design should feel:
+
+* premium
+* modern
+* polished
+* visually impressive
+* conversion-focused
+* professional for real business clients
+* suitable for a real printing/branding/advertising company
+
+## Style direction
+
+Use a strong, luxurious, modern agency aesthetic.
+
+Design inspiration should feel like a mix of:
+
+* premium creative agency
+* modern SaaS clarity
+* industrial print business credibility
+* high-end service presentation
+
+## UI principles
+
+* strong visual hierarchy
+* clean spacing
+* large sections with breathing room
+* elegant typography
+* modern cards
+* rich but controlled gradients
+* subtle shadows
+* rounded corners but not overly playful
+* premium hover effects
+* smooth transitions
+* polished responsive layout
+
+## Layout direction
+
+* large hero sections
+* bold headlines
+* clean supporting text
+* clear call-to-action buttons
+* strong service presentation blocks
+* modern pricing presentation
+* premium portfolio gallery
+* dashboard interfaces that feel clean and advanced
+
+## Color direction
+
+Create a premium brand palette suitable for a modern print/advertising company.
+
+Suggested direction:
+
+* dark charcoal / deep navy for premium foundation
+* white / soft light gray for balance
+* one powerful accent color for CTAs
+* one secondary accent for modern gradients
+
+The palette must feel:
+
+* strong
+* modern
+* corporate
+* premium
+* not childish
+
+## Typography direction
+
+Use typography that feels:
+
+* bold for headings
+* clean and modern for body text
+* highly readable
+* professional
+* elegant in both French and Arabic
+
+Headlines should feel powerful and premium.
+Body text should feel clean and calm.
+
+## Components styling
+
+Make all components visually stronger:
+
+* navbar
+* hero
+* buttons
+* service cards
+* pricing cards
+* portfolio cards
+* forms
+* dashboards
+* tables
+* admin panels
+* status badges
+* upload areas
+
+## Effects
+
+Use tasteful modern UI effects:
+
+* glassmorphism only if subtle and elegant
+* soft gradients
+* layered sections
+* image overlays
+* premium hover states
+* animated counters or subtle entrance motion where appropriate
+
+Do not overdo animations.
+Everything must remain professional.
+
+## Specific expectation
+
+The project should feel custom-designed for a real business, not auto-generated.
+Make the visuals memorable and premium.
+Improve spacing, alignment, hierarchy, colors, and component consistency across the entire app.
