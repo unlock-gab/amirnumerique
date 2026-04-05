@@ -42,7 +42,7 @@ export function AdminLayout({ children }: { children: ReactNode }) {
   }
 
   if (!user) {
-    window.location.href = "/auth/login";
+    window.location.href = "/admin/login";
     return null;
   }
 
