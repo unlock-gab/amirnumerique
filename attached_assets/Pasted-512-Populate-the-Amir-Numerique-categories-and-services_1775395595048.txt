@@ -1,0 +1,103 @@
+512"}
+Populate the Amir Numerique categories and services with real ready-made internet images fetched automatically from stock image providers.
+
+## Goal
+I want the site to feel visually complete immediately.
+Instead of using empty placeholders, fetch relevant ready-made images from the internet and link them to categories and services.
+
+## Preferred source
+Use a proper stock image API integration, preferably:
+- Pexels API
+or
+- Unsplash API
+
+Use environment variables for API keys.
+
+## Important behavior
+Do not hardcode random external image URLs manually in the UI.
+Build a clean image fetching/import flow.
+
+## Requirements
+For each service category and each service:
+- fetch multiple relevant images from the internet
+- save them properly in the database
+- assign one featured image
+- assign additional gallery images
+- make them editable later from the admin panel
+
+## Image matching logic
+Use search terms that match the printing/signage/advertising industry.
+
+### Example search queries by category
+- Impression grand format → "large format printing", "wide format printer", "print shop large format"
+- Enseignes & signalétique → "signage shop", "store sign", "wayfinding sign", "business signage"
+- Bâches publicitaires → "banner printing", "advertising banner", "outdoor banner"
+- Impression papier → "business cards printing", "flyers printing", "brochure printing"
+- Stickers & adhésifs → "vinyl sticker printing", "window decal", "vehicle wrap"
+- Panneaux & plaques → "aluminum sign", "PVC board printing", "acrylic sign"
+- PLV & affichage événementiel → "roll up banner", "event display", "trade show display"
+- Impression UV sur supports rigides → "UV printer", "UV flatbed printing", "rigid board printing"
+
+## Number of images
+- each category should get 2 to 4 images
+- each service should get 2 to 5 images
+- one image must be marked as featured
+- others should be stored as gallery images
+
+## Database requirement
+Store fetched images in proper related image tables, such as:
+- CategoryImage
+- ServiceImage
+
+Each image record should include:
+- image_url
+- alt_text
+- source_provider
+- is_featured
+- sort_order
+- created_at
+
+## Admin requirements
+In the admin panel, allow:
+- viewing imported images
+- changing featured image
+- deleting imported images
+- reordering images
+- uploading replacement local images later
+
+## Frontend requirements
+Use these imported images in:
+- service category cards
+- category hero sections
+- service cards
+- service detail galleries
+- featured visual sections
+
+## Image quality rules
+Only use images that feel:
+- premium
+- professional
+- relevant to printing / signage / branding / advertising
+- visually clean
+- suitable for a business website
+
+Avoid:
+- unrelated images
+- people selfies
+- generic abstract filler
+- low-quality visuals
+- duplicate images
+
+## Technical implementation
+- use API key from env variables
+- build a reusable import script or service
+- support re-running imports without duplicate records
+- match images intelligently to categories/services
+- if API fetch fails, keep system stable
+
+## Final result
+After running the import/seed flow:
+- the categories page should have real visuals
+- service pages should have image galleries
+- the website should feel much richer and more premium immediately
+- all imported images should remain manageable from the admin
