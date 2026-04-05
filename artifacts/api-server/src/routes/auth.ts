@@ -37,8 +37,15 @@ router.post("/auth/register", async (req, res): Promise<void> => {
   req.session.userId = user.id;
   req.session.userRole = user.role;
 
-  const { passwordHash: _, ...safeUser } = user;
-  res.status(201).json({ user: safeUser, message: "Registration successful" });
+  req.session.save((err) => {
+    if (err) {
+      req.log.error({ err }, "Session save error on register");
+      res.status(500).json({ error: "Session error" });
+      return;
+    }
+    const { passwordHash: _, ...safeUser } = user;
+    res.status(201).json({ user: safeUser, message: "Registration successful" });
+  });
 });
 
 router.post("/auth/login", async (req, res): Promise<void> => {
@@ -70,8 +77,15 @@ router.post("/auth/login", async (req, res): Promise<void> => {
   req.session.userId = user.id;
   req.session.userRole = user.role;
 
-  const { passwordHash: _, ...safeUser } = user;
-  res.json({ user: safeUser, message: "Login successful" });
+  req.session.save((err) => {
+    if (err) {
+      req.log.error({ err }, "Session save error on login");
+      res.status(500).json({ error: "Session error" });
+      return;
+    }
+    const { passwordHash: _, ...safeUser } = user;
+    res.json({ user: safeUser, message: "Login successful" });
+  });
 });
 
 router.post("/auth/logout", requireAuth, async (req, res): Promise<void> => {
