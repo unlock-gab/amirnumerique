@@ -12,7 +12,7 @@ import { z } from "zod";
 import { Link } from "wouter";
 import { useToast } from "@/hooks/use-toast";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, Loader2, Upload, X, CheckCircle, ArrowRight, Layers, Calculator, FileText, Home } from "lucide-react";
+import { ArrowLeft, Loader2, Upload, X, CheckCircle, ArrowRight, Layers, Calculator, FileText } from "lucide-react";
 import { useState, useRef, useCallback } from "react";
 import { PriceCalculator } from "@/components/price-calculator";
 
@@ -145,14 +145,14 @@ export default function NewQuote() {
               </motion.div>
 
               <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }}>
-                <h2 className="font-display text-2xl font-800 tracking-tight mb-3">
+                <h2 className="font-display text-2xl font-800 tracking-tight mb-4">
                   Votre demande a bien été envoyée
                 </h2>
                 <p className="text-muted-foreground leading-relaxed max-w-sm mx-auto mb-2">
-                  Nous avons reçu votre demande de devis. Notre équipe vous répondra dans les meilleurs délais.
+                  Merci pour votre confiance. Nous avons bien reçu votre demande et notre équipe vous contactera dans les plus brefs délais.
                 </p>
-                <p className="text-xs text-muted-foreground/60 mb-8">
-                  Délai de réponse habituel : 24 à 48h ouvrables
+                <p className="text-sm text-muted-foreground/60 mb-8">
+                  En attendant, découvrez quelques-unes de nos réalisations.
                 </p>
 
                 {/* reference number */}
@@ -164,18 +164,13 @@ export default function NewQuote() {
                 )}
 
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-                  <Button asChild variant="outline" className="gap-2">
-                    <Link href="/">
-                      <Home className="h-4 w-4" /> Accueil
+                  <Button asChild className="gap-2 btn-premium">
+                    <Link href="/portfolio">
+                      <Layers className="h-4 w-4" /> Voir nos réalisations
                     </Link>
                   </Button>
-                  <Button asChild variant="outline" className="gap-2">
-                    <Link href="/services">
-                      <Layers className="h-4 w-4" /> Voir les services
-                    </Link>
-                  </Button>
-                  <Button onClick={resetForm} className="gap-2 btn-premium">
-                    <FileText className="h-4 w-4" /> Nouvelle demande
+                  <Button onClick={resetForm} variant="outline" className="gap-2">
+                    <FileText className="h-4 w-4" /> Envoyer une autre demande
                   </Button>
                 </div>
               </motion.div>
