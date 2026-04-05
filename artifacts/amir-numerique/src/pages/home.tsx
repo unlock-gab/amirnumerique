@@ -49,7 +49,7 @@ export default function Home() {
   return (
     <PublicLayout>
       {/* ═══════════════════ HERO ═══════════════════ */}
-      <section className="relative min-h-screen flex items-start md:items-center overflow-hidden -mt-[68px] pt-[68px]">
+      <section className="relative min-h-screen flex items-start overflow-hidden -mt-[68px] pt-[68px]">
         {/* BG layers */}
         <div className="absolute inset-0 z-0">
           {/* Machine UV background image */}
@@ -70,7 +70,7 @@ export default function Home() {
           }} />
         </div>
 
-        <div className="container relative z-10 px-4 pt-10 pb-16 md:py-24 mx-auto">
+        <div className="container relative z-10 px-4 pt-2 pb-16 md:pt-8 md:pb-24 mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             {/* Left content */}
             <motion.div initial="hidden" animate="visible" className="space-y-8">

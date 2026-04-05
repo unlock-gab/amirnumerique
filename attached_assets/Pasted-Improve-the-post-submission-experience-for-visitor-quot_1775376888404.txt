@@ -1,0 +1,104 @@
+Improve the post-submission experience for visitor quote/contact requests.
+
+The quote request is now being saved correctly, but the success experience is still not good enough.
+Right now, after a visitor sends a request, the page stays visually almost the same and only shows a small toast.
+I do not want that.
+
+## New expected behavior
+
+After a visitor successfully submits a devis/contact request:
+
+* do not leave the page in the same state
+* do not rely only on a bottom corner toast
+* show a proper animated success state inside the main content area
+* make the experience feel premium, reassuring, and polished
+
+## Success state requirements
+
+Replace the form area with a premium success block after successful submission.
+
+The success block must include:
+
+* an elegant animated success icon or checkmark
+* a strong French success title
+* a reassuring French message
+* a clear CTA button leading to the portfolio / réalisations page
+
+## French text to use
+
+Use professional French copy such as:
+
+### Title
+
+**Message envoyé avec succès**
+
+### Message
+
+**Merci, votre demande a bien été envoyée. Notre équipe vous contactera dans les plus brefs délais.**
+
+### CTA button
+
+**Voir nos réalisations**
+
+You can also add a secondary subtle action like:
+**Envoyer une autre demande**
+
+## Redirection behavior
+
+Preferred flow:
+
+* show the premium animated success state first
+* keep it visible for a short moment
+* then either:
+
+  * automatically redirect after a few seconds to `/realisations` or portfolio page
+  * or let the user click the CTA button manually
+
+Best option:
+
+* show the success block immediately
+* add a note like:
+  **Redirection vers nos réalisations...**
+* auto-redirect after about 2.5 to 4 seconds
+* also keep the CTA button visible in case the user wants to click immediately
+
+## Animation direction
+
+Use refined premium animation:
+
+* smooth fade in
+* slight upward motion
+* subtle scale
+* elegant animated checkmark
+* soft transition replacing the form
+
+Do not use childish effects.
+No confetti.
+No overly playful animation.
+
+## UI style
+
+The success state must match the premium dark design of the site:
+
+* dark elegant card/panel
+* subtle gold accent
+* clean typography
+* premium spacing
+* centered and balanced composition
+* more visually important than a toast
+
+## UX requirements
+
+* clear the form only after successful submission
+* disable the submit button during sending
+* show loading state while sending
+* prevent duplicate submission
+* do not show success UI unless database save succeeded
+* success state should appear inside the main form section, not only as a floating notification
+
+## Important
+
+The page should feel like the user has successfully completed an important step.
+The success state should be visually satisfying and more professional than the current behavior.
+
+Implement this specifically for visitor devis/contact submission flow.
