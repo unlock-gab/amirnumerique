@@ -1,0 +1,259 @@
+Redesign and rebuild the Services experience of this agency website into a premium, high-end, visually polished, and professionally structured system.
+
+IMPORTANT:
+The current services page feels too generic, too empty, and not premium enough. The new version must feel like a custom-designed agency website with strong visual hierarchy, elegant color usage, refined spacing, luxury-inspired UI, and excellent mobile responsiveness.
+
+I want you to completely rethink the services architecture and UI/UX.
+
+CORE GOAL:
+Turn the current flat services page into a premium category-based service system:
+- main services page shows only high-level categories / sections
+- each category has its own dedicated page
+- inside each category page, show the related sub-services
+- all categories and sub-services must be manageable from the admin dashboard
+- each category and each service must support image uploads
+
+TECH STACK:
+- Next.js
+- TypeScript
+- Tailwind CSS
+- Shadcn UI
+- PostgreSQL
+- Prisma ORM
+- image upload support
+- reusable component architecture
+- responsive mobile-first implementation
+
+DESIGN DIRECTION:
+Create a visually refined premium agency look.
+The design must feel:
+- elegant
+- modern
+- warm but luxurious
+- minimal without feeling empty
+- high-conversion and client-facing
+- clearly better than a basic template
+
+VISUAL STYLE RULES:
+- use an elegant neutral base palette: off-white, warm white, soft beige, charcoal, deep gray
+- use orange only as a refined accent, not too much
+- improve typography hierarchy dramatically
+- use better card styling, better hover states, stronger section rhythm
+- create more premium spacing
+- use strong image presentation
+- avoid empty placeholder-style boxes
+- avoid flat boring cards
+- use subtle gradients, soft shadows, and high-end border treatments
+- desktop and mobile must both feel polished
+- the page should look expensive and carefully designed
+
+SERVICES ARCHITECTURE:
+Build the services system as:
+1. Services index page = categories only
+2. Category details page = related sub-services
+3. Optional service details page for deeper service content and SEO
+
+SERVICES INDEX PAGE:
+Route: /services
+
+This page should not list all services mixed together.
+It should display only service categories in a premium way.
+
+Each category card/section must include:
+- title
+- short description
+- cover image
+- icon
+- number of related services
+- CTA button
+- hover animation
+- visual distinction between categories
+
+Example categories:
+- Web Development
+- Branding & Visual Identity
+- Social Media Marketing
+- UGC & Video Production
+- Paid Ads Management
+- E-commerce Solutions
+- Graphic Design
+
+The services page should feel editorial and premium, not like a dashboard grid.
+Use larger category blocks with image-first presentation.
+Some categories can be featured larger than others for visual hierarchy.
+
+CATEGORY PAGE:
+Route: /services/[categorySlug]
+
+When a user clicks a category, open a dedicated page for that category.
+This page must include:
+- category hero section
+- title
+- premium cover image
+- clear description
+- trust-building intro text
+- list/grid of related sub-services
+- CTA area at the bottom
+
+Each sub-service card should include:
+- image
+- title
+- short description
+- 3 key benefits or deliverables
+- CTA button such as “Request this service” or “Get a quote”
+
+Example:
+Category: UGC & Video Production
+
+Sub-services under it might be:
+- UGC Video
+- UGC + Mannequin
+- Product Demo Video
+- Scripted UGC
+- Voice-over UGC
+- Short-form Ad Creative
+- Video Editing
+- Reels / TikTok Editing
+
+These sub-services must be created dynamically from the admin, not hardcoded.
+
+OPTIONAL SERVICE DETAIL PAGE:
+Route: /services/[categorySlug]/[serviceSlug]
+
+If implemented, this page should include:
+- large hero image
+- service title
+- full description
+- benefits
+- deliverables
+- optional pricing indication
+- CTA form or WhatsApp CTA
+- related services
+- FAQ block
+- SEO-ready content structure
+
+ADMIN DASHBOARD REQUIREMENTS:
+Create a protected admin dashboard that lets me manage the full services system.
+
+I need to be able to:
+- create/edit/delete service categories
+- upload a cover image for each category
+- set category icon
+- write category short and full description
+- set display order
+- publish/unpublish categories
+- mark featured categories
+
+Also I need to:
+- create/edit/delete services inside a category
+- assign each service to a category
+- upload a cover image for each service
+- add short description
+- add full description
+- add benefits list
+- add deliverables
+- set optional starting price
+- set display order
+- publish/unpublish services
+- mark featured services
+
+DATABASE MODELS:
+Create Prisma schema for these models:
+
+ServiceCategory:
+- id
+- name
+- slug
+- shortDescription
+- fullDescription
+- coverImage
+- icon
+- themeColor
+- displayOrder
+- isFeatured
+- isPublished
+- seoTitle
+- seoDescription
+- createdAt
+- updatedAt
+
+Service:
+- id
+- categoryId
+- name
+- slug
+- shortDescription
+- fullDescription
+- coverImage
+- startingPrice
+- benefits (JSON or structured array)
+- deliverables (JSON or structured array)
+- isFeatured
+- isPublished
+- displayOrder
+- seoTitle
+- seoDescription
+- createdAt
+- updatedAt
+
+Category should have one-to-many relation with services.
+
+IMAGE HANDLING:
+I want image upload support for:
+- category cover image
+- service cover image
+
+In the admin:
+- show image preview before save
+- allow replacing image
+- keep image ratios consistent
+- ensure frontend cards look uniform and polished
+
+CARD / SECTION DESIGN REQUIREMENTS:
+Do not use the current generic card style.
+Replace it with premium cards that have:
+- better proportions
+- better padding
+- stronger typography
+- elegant rounded corners
+- subtle layered shadows
+- image-first layout
+- clean CTA styling
+- refined hover transitions
+- more premium spacing rhythm
+
+MOBILE UX:
+The mobile version is extremely important.
+Make sure:
+- cards stack beautifully
+- text remains readable
+- images stay visually strong
+- spacing feels premium, not cramped
+- category pages are easy to browse on phone
+- buttons are clean and easy to tap
+
+COPY STYLE:
+Use realistic French placeholder content by default.
+The tone should feel professional, agency-level, persuasive, and premium.
+Do not use generic lorem ipsum.
+
+SEO / STRUCTURE:
+Add SEO-friendly metadata and page structure for:
+- services page
+- category pages
+- optional service detail pages
+
+FINAL DESIGN GOAL:
+The new services system must feel:
+- more luxurious
+- more professional
+- more visual
+- more structured
+- easier to manage
+- easier to scale
+- more convincing for potential clients
+
+FINAL INSTRUCTION:
+Do not make this look like a generic template.
+Make it feel custom, premium, elegant, and thoughtfully art-directed.
+The result should look like a serious creative agency website built for high-end client trust and conversion.

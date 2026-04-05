@@ -1,0 +1,212 @@
+Fix the quote request system end-to-end and improve its UI/UX professionally.
+
+Right now there are two major problems:
+
+1. When a user submits a quote request / devis form, it does not appear in the admin quotes page (`/admin/quotes`).
+2. The submission success experience is visually weak and not premium enough.
+
+I want you to fix the full quote request flow functionally and visually.
+
+## Part 1 — Functional bug fix: quote requests are not reaching admin
+
+Investigate and fix the full flow from frontend submission to database persistence to admin display.
+
+### Required checks
+
+Audit the quote request system completely:
+
+* check the frontend form submission logic
+* check the API route or server action handling the form
+* check validation
+* check database insert logic
+* check whether data is actually saved in PostgreSQL
+* check whether the correct table/model is used
+* check whether the admin quotes page is reading from the correct source
+* check whether authentication/session affects visibility
+* check cache/revalidation issues if any
+* check whether quote requests are silently failing while still showing success UI
+
+### Expected result
+
+When a user submits a devis request successfully:
+
+* it must be stored correctly in PostgreSQL
+* it must appear in the admin page `/admin/quotes`
+* the admin list/count must update correctly
+* the quote request must be associated with the correct user if logged in
+* all important fields must be saved properly
+
+### Fields to save for a quote request
+
+At minimum save:
+
+* user_id if available
+* service_id if available
+* width_input
+* height_input
+* unit_input
+* width_m
+* height_m
+* area_m2
+* estimated_price or calculated price
+* note/message
+* uploaded file URL if present
+* status
+* created_at
+
+If the current schema is wrong or incomplete, refactor it properly.
+
+## Part 2 — Admin quotes page must work properly
+
+Fix and improve `/admin/quotes`.
+
+### Functional requirements
+
+The admin quotes page must:
+
+* fetch real quote requests from database
+* show correct count at the top
+* display newest requests first
+* handle empty state correctly
+* refresh after new submissions
+* show actual quote request data in a structured way
+
+### Display requirements
+
+Each quote request item should show:
+
+* customer name
+* email or contact if available
+* selected service
+* dimensions
+* calculated area
+* estimated price
+* submission date
+* status
+* note preview
+* file indicator if uploaded
+
+### Admin actions
+
+Add practical actions such as:
+
+* view details
+* mark as responded
+* mark as accepted
+* mark as refused
+* convert to order if needed later
+
+## Part 3 — Improve success UI after devis submission
+
+The current success feedback is too weak.
+Do not only show a small toast.
+
+### New expected behavior
+
+After a successful devis submission:
+
+* replace the form with a premium success state
+  or
+* show a large success confirmation block inside the main content area
+
+### Success state requirements
+
+Include:
+
+* elegant animated success icon
+* strong heading like “Votre demande de devis a bien été envoyée”
+* reassuring text
+* optional response-time note
+* action buttons such as:
+
+  * Retour à l’accueil
+  * Voir les services
+  * Envoyer une autre demande
+
+### Interaction requirements
+
+* submit button must show loading state while sending
+* form must be disabled during submission
+* prevent duplicate submissions
+* after success, clear form and transition smoothly
+* auto-scroll to success block if useful
+
+### Animation direction
+
+Use refined premium animation:
+
+* fade in
+* slight upward motion
+* subtle scale
+* smooth transition from form to success block
+
+Do not use childish or excessive animation.
+
+## Part 4 — Improve admin quotes page design
+
+The current empty / quotes page design feels too basic and not premium enough.
+Redesign it to match the premium admin dashboard style.
+
+### Design goals
+
+Make `/admin/quotes` feel:
+
+* more professional
+* more polished
+* more operational
+* more premium
+* easier to scan
+
+### Improve
+
+* page header hierarchy
+* count display
+* empty state design
+* cards or table layout for quote requests
+* spacing and alignment
+* icon treatment
+* status badges
+* action buttons
+
+### Empty state
+
+If there are no quote requests, the empty state should still look elegant and intentional:
+
+* better icon
+* stronger heading
+* supporting text
+* optional hint about where requests will come from
+
+## Part 5 — Debug visibly and safely
+
+If needed, add proper logging and error handling so the issue is not hidden.
+Do not show a false success state if database persistence fails.
+
+### Important rule
+
+Only show success UI if the quote request is actually saved successfully in PostgreSQL.
+
+If save fails:
+
+* show a proper error message
+* keep the form values if possible
+* let the user retry
+
+## Technical expectations
+
+* use proper server-side validation
+* use correct Prisma model usage
+* use revalidation or router refresh where needed
+* keep code clean and maintainable
+* do not hardcode fake data
+* ensure the admin page uses real database data
+
+## Final goal
+
+I want a complete professional devis workflow:
+
+* user submits a devis
+* request is truly saved in database
+* user sees a premium animated success state
+* admin sees the request immediately in `/admin/quotes`
+* the quotes admin page looks polished and professional
