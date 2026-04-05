@@ -9,8 +9,9 @@ router.get("/stats/dashboard", requireAdmin, async (req, res): Promise<void> => 
   const [orderStats] = await db
     .select({
       totalOrders: sql<number>`count(*)`,
-      pendingOrders: sql<number>`count(*) filter (where order_status = 'pending')`,
-      totalRevenue: sql<number>`coalesce(sum(final_price), 0)`,
+      newOrders: sql<number>`count(*) filter (where order_status = 'pending')`,
+      cancelledOrders: sql<number>`count(*) filter (where order_status = 'cancelled')`,
+      totalRevenue: sql<number>`coalesce(sum(final_price) filter (where order_status <> 'cancelled'), 0)`,
     })
     .from(ordersTable);
 
@@ -32,13 +33,14 @@ router.get("/stats/dashboard", requireAdmin, async (req, res): Promise<void> => 
   const now = new Date();
   const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
   const [monthlyRevenue] = await db
-    .select({ revenue: sql<number>`coalesce(sum(final_price), 0)` })
+    .select({ revenue: sql<number>`coalesce(sum(final_price) filter (where order_status <> 'cancelled'), 0)` })
     .from(ordersTable)
     .where(sql`created_at >= ${startOfMonth}`);
 
   res.json({
     totalOrders: Number(orderStats.totalOrders),
-    pendingOrders: Number(orderStats.pendingOrders),
+    newOrders: Number(orderStats.newOrders),
+    cancelledOrders: Number(orderStats.cancelledOrders),
     totalRevenue: Number(orderStats.totalRevenue),
     totalUsers: Number(userStats.totalUsers),
     totalQuotes: Number(quoteStats.totalQuotes),

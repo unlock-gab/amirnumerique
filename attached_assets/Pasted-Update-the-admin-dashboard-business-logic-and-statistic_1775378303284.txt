@@ -1,0 +1,143 @@
+Update the admin dashboard business logic and statistics for orders.
+
+There is an important business rule that must be fixed.
+
+## Problem to fix
+
+When an order is cancelled (`Annulée`), its amount is still being included in the total revenue / total turnover shown on the admin dashboard.
+
+This is wrong.
+
+If an order is cancelled, it must **not** be counted inside the total amount / CA total, because it did not actually generate revenue.
+
+## Required business logic changes
+
+### 1) Exclude cancelled orders from total revenue
+
+Update the dashboard calculation so that:
+
+* **CA total / total revenue** only includes valid revenue-generating orders
+* orders with status `cancelled` / `Annulée` must be excluded from the total amount
+
+If needed, compute revenue only from statuses such as:
+
+* confirmed
+* in_progress
+* printing
+* ready
+* delivered
+
+But do **not** include:
+
+* cancelled
+
+## 2) Add a dedicated cancelled orders metric
+
+Add a new stat card on the admin dashboard for cancelled orders.
+
+### Label
+
+Use French:
+
+* **Commandes annulées**
+
+This card should display:
+
+* total number of cancelled orders
+
+Use a visually appropriate warning/danger style, but keep it premium and elegant.
+
+## 3) Add a “new orders” metric
+
+Add another stat card for newly created orders.
+
+### Label
+
+Use French:
+
+* **Nouvelles commandes**
+
+This card should display:
+
+* total number of recent/new orders
+  or
+* total number of orders with status `pending` / newly submitted orders
+
+If needed, define “new orders” as:
+
+* orders with status `pending`
+  or
+* recently created orders awaiting processing
+
+Use the most logical implementation for the current system.
+
+## 4) Make “Nouvelles commandes” appear first
+
+In the dashboard stats section, reorder the cards so that:
+
+* **Nouvelles commandes** appears first
+* then the rest of the important metrics follow
+
+The order of cards should feel more operational and useful for admin review.
+
+## 5) Keep “Commandes totales” separate
+
+Do not remove total orders.
+Keep:
+
+* **Commandes totales**
+  as a separate metric showing the total number of all orders
+
+So the dashboard should now distinguish clearly between:
+
+* Nouvelles commandes
+* Commandes totales
+* Commandes annulées
+* CA total
+* other metrics
+
+## 6) Update dashboard logic consistently
+
+Make sure all dashboard cards use real database values and correct filtered queries.
+
+### Expected logic
+
+* **CA total** = sum of non-cancelled orders only
+* **Commandes annulées** = count of cancelled orders
+* **Nouvelles commandes** = count of pending/newly created orders
+* **Commandes totales** = count of all orders
+
+## 7) Improve wording and labels in French
+
+Use clean professional French labels:
+
+* **Nouvelles commandes**
+* **Commandes totales**
+* **Commandes annulées**
+* **CA total**
+* **Devis en attente**
+* **Utilisateurs**
+* **Services actifs**
+
+## 8) Optional visual refinement
+
+If needed, slightly improve the dashboard cards so the new statistics integrate cleanly with the current premium admin style:
+
+* consistent spacing
+* strong card hierarchy
+* elegant icon usage
+* proper color meaning
+* premium dark dashboard consistency
+
+## Important
+
+Do not hardcode values.
+Use real database queries and correct filtering by order status.
+
+## Goal
+
+I want the admin dashboard to reflect the real business situation:
+
+* cancelled orders should not inflate the revenue
+* cancelled orders should have their own stat
+* new orders should appear first as the most operationally important metric

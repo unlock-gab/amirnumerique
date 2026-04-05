@@ -2,14 +2,15 @@ import { AdminLayout } from "@/components/layouts/admin-layout";
 import { useGetDashboardStats } from "@workspace/api-client-react";
 import { useI18n } from "@/hooks/use-i18n";
 import { motion } from "framer-motion";
-import { ShoppingCart, FileText, Users, TrendingUp, DollarSign, Clock, Loader2, ArrowRight, Activity } from "lucide-react";
+import { ShoppingCart, FileText, Users, TrendingUp, DollarSign, Sparkles, XCircle, Loader2, ArrowRight, Activity } from "lucide-react";
 import { Link } from "wouter";
 
 const STAT_CARDS = (stats: any) => [
+  { label: "Nouvelles commandes", value: stats?.newOrders ?? "—", icon: Sparkles, color: "text-primary", bg: "bg-primary/8", border: "border-primary/20", href: "/admin/orders" },
   { label: "Commandes totales", value: stats?.totalOrders ?? "—", icon: ShoppingCart, color: "text-blue-400", bg: "bg-blue-500/8", border: "border-blue-500/15", href: "/admin/orders" },
-  { label: "CA total", value: stats?.totalRevenue ? `${Number(stats.totalRevenue).toLocaleString("fr-DZ")} DA` : "0 DA", icon: DollarSign, color: "text-emerald-400", bg: "bg-emerald-500/8", border: "border-emerald-500/15", href: "/admin/orders" },
+  { label: "CA total", value: stats?.totalRevenue != null ? `${Number(stats.totalRevenue).toLocaleString("fr-DZ")} DA` : "0 DA", icon: DollarSign, color: "text-emerald-400", bg: "bg-emerald-500/8", border: "border-emerald-500/15", href: "/admin/orders" },
+  { label: "Commandes annulées", value: stats?.cancelledOrders ?? "—", icon: XCircle, color: "text-red-400", bg: "bg-red-500/8", border: "border-red-500/20", href: "/admin/orders" },
   { label: "Devis en attente", value: stats?.pendingQuotes ?? "—", icon: FileText, color: "text-amber-400", bg: "bg-amber-500/8", border: "border-amber-500/15", href: "/admin/quotes" },
-  { label: "Commandes en attente", value: stats?.pendingOrders ?? "—", icon: Clock, color: "text-orange-400", bg: "bg-orange-500/8", border: "border-orange-500/15", href: "/admin/orders" },
   { label: "Utilisateurs", value: stats?.totalUsers ?? "—", icon: Users, color: "text-violet-400", bg: "bg-violet-500/8", border: "border-violet-500/15", href: "/admin/users" },
   { label: "Services actifs", value: stats?.totalServices ?? "—", icon: TrendingUp, color: "text-cyan-400", bg: "bg-cyan-500/8", border: "border-cyan-500/15", href: "/admin/services" },
 ];
@@ -93,7 +94,7 @@ export default function AdminDashboard() {
             </div>
             <div className="p-5 space-y-4">
               {stats ? [
-                { label: "Taux de commandes actives", value: stats.pendingOrders || 0, total: Math.max(1, stats.totalOrders || 1), color: "bg-amber-500", display: `${stats.pendingOrders || 0} en attente` },
+                { label: "Nouvelles commandes en attente", value: stats.newOrders || 0, total: Math.max(1, stats.totalOrders || 1), color: "bg-primary", display: `${stats.newOrders || 0} nouvelles` },
                 { label: "CA ce mois vs total", value: Math.round((stats.revenueThisMonth || 0) / 1000), total: Math.max(1, Math.round((stats.totalRevenue || 0) / 1000)), color: "bg-emerald-500", display: `${((stats.revenueThisMonth || 0) / 1000).toFixed(0)}K DA ce mois` },
                 { label: "Devis en attente de traitement", value: stats.pendingQuotes || 0, total: Math.max(1, stats.totalQuotes || 1), color: "bg-blue-500", display: `${stats.pendingQuotes || 0} devis` },
               ].map((bar) => (
