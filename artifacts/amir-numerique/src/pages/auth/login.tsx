@@ -33,7 +33,7 @@ export default function Login() {
     login.mutate({ data }, {
       onSuccess: (res) => {
         queryClient.invalidateQueries({ queryKey: getGetMeQueryKey() });
-        setLocation(res.user.role === "admin" ? "/admin" : "/dashboard");
+        window.location.href = res.user.role === "admin" ? "/admin" : "/dashboard";
       },
       onError: (err: any) => {
         toast({ title: "Erreur de connexion", description: err?.response?.data?.error || "Identifiants incorrects", variant: "destructive" });

@@ -35,7 +35,7 @@ export default function AdminLogin() {
         await fetch("/api/auth/logout", { method: "POST", credentials: "include" });
         return;
       }
-      navigate("/admin");
+      window.location.href = "/admin";
     } catch (err) {
       setError("Erreur réseau — serveur inaccessible");
     } finally {
