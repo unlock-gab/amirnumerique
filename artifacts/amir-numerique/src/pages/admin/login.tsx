@@ -19,9 +19,15 @@ export default function AdminLogin() {
         credentials: "include",
         body: JSON.stringify({ email, password }),
       });
-      const data = await res.json();
+      let data: { user?: { role?: string }; error?: string; message?: string } = {};
+      try {
+        data = await res.json();
+      } catch {
+        setError(`Erreur serveur (${res.status}) — vérifiez les logs Dokploy`);
+        return;
+      }
       if (!res.ok) {
-        setError(data.error || "Identifiants incorrects");
+        setError(data.error || data.message || "Identifiants incorrects");
         return;
       }
       if (data.user?.role !== "admin") {
@@ -30,8 +36,8 @@ export default function AdminLogin() {
         return;
       }
       navigate("/admin");
-    } catch {
-      setError("Erreur de connexion au serveur");
+    } catch (err) {
+      setError("Erreur réseau — serveur inaccessible");
     } finally {
       setLoading(false);
     }

@@ -67,6 +67,12 @@ app.use(
 
 app.use("/api", router);
 
+// Global JSON error handler — must be after routes
+app.use((err: Error, req: express.Request, res: express.Response, _next: express.NextFunction) => {
+  logger.error({ err, url: req.url }, "Unhandled error");
+  res.status(500).json({ error: "Internal server error", message: err.message });
+});
+
 // In production the React SPA is served from the same Express server
 if (process.env.NODE_ENV === "production") {
   const __dirname = path.dirname(fileURLToPath(import.meta.url));
