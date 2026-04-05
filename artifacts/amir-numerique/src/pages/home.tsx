@@ -118,25 +118,68 @@ export default function Home() {
               </motion.div>
             </motion.div>
 
-            {/* Right: stats grid */}
+            {/* Right: unified premium stats panel */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.96 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.65, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
-              className="hidden lg:grid grid-cols-2 gap-4"
+              initial={{ opacity: 0, x: 28 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              className="hidden lg:flex flex-col justify-center"
             >
-              {STATS.map((s, i) => (
-                <motion.div
-                  key={s.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.35 + i * 0.1 }}
-                  className={`glass rounded-2xl p-7 ${i % 2 === 1 ? "mt-8" : ""}`}
+              <div
+                className="relative overflow-hidden rounded-2xl"
+                style={{
+                  background: "linear-gradient(135deg, rgba(255,255,255,0.055) 0%, rgba(0,0,0,0.38) 100%)",
+                  border: "1px solid rgba(255,255,255,0.08)",
+                  boxShadow: "0 0 0 1px rgba(255,255,255,0.03), 0 40px 80px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.06)",
+                  backdropFilter: "blur(8px)",
+                }}
+              >
+                {/* Top amber accent line */}
+                <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent opacity-80" />
+
+                {/* 2×2 stats grid with inner dividers */}
+                <div className="grid grid-cols-2">
+                  {STATS.map((s, i) => {
+                    const isRight = i % 2 === 1;
+                    const isBottom = i >= 2;
+                    return (
+                      <motion.div
+                        key={s.label}
+                        initial={{ opacity: 0, y: 18 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.42 + i * 0.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                        className="relative px-8 py-9 group"
+                        style={{
+                          borderLeft: isRight ? "1px solid rgba(255,255,255,0.06)" : undefined,
+                          borderTop: isBottom ? "1px solid rgba(255,255,255,0.06)" : undefined,
+                        }}
+                      >
+                        {/* Subtle glow on hover */}
+                        <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/[0.03] transition-colors duration-500" />
+                        {/* Number */}
+                        <div className="font-display text-[52px] font-800 leading-none tracking-tight text-gradient mb-2.5 relative">
+                          {s.value}
+                        </div>
+                        {/* Label */}
+                        <div className="text-[13px] text-muted-foreground/70 font-500 tracking-[0.04em] uppercase relative">
+                          {s.label}
+                        </div>
+                      </motion.div>
+                    );
+                  })}
+                </div>
+
+                {/* Bottom strip */}
+                <div
+                  className="flex items-center gap-3 px-8 py-4"
+                  style={{ borderTop: "1px solid rgba(255,255,255,0.05)", background: "rgba(0,0,0,0.22)" }}
                 >
-                  <div className="font-display text-4xl font-800 text-gradient mb-2">{s.value}</div>
-                  <div className="text-sm text-muted-foreground">{s.label}</div>
-                </motion.div>
-              ))}
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0 animate-pulse" />
+                  <p className="text-[11px] text-muted-foreground/60 tracking-wide">
+                    Référence de l'impression grand format en Algérie depuis 2004
+                  </p>
+                </div>
+              </div>
             </motion.div>
           </div>
 

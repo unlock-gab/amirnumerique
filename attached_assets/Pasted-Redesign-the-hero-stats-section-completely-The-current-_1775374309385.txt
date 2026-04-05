@@ -1,0 +1,109 @@
+Redesign the hero stats section completely.
+
+The current metric boxes are not visually strong enough.
+They feel too generic, too repetitive, too heavy, and they do not match the premium quality of the hero section.
+I do not want these separate floating rounded boxes anymore in their current form.
+
+## Main goal
+
+Make the stats area feel much more premium, elegant, modern, and custom-designed.
+It should feel like a luxury agency landing page, not a generic template.
+
+## Important
+
+Do not keep the current 4-card layout style.
+Replace it with a more refined visual concept.
+
+## Preferred direction
+
+Create **one premium unified stats panel** instead of 4 disconnected boxes.
+
+### The panel should feel:
+
+* sleek
+* premium
+* elegant
+* modern
+* slightly futuristic
+* visually integrated with the hero background
+
+## Inside the stats panel
+
+Display the same 4 metrics:
+
+* 500+ Clients satisfaits
+* 1 200+ Projets réalisés
+* +20 ans d’expérience
+* 48h Délai livraison
+
+But organize them in a much more refined way:
+
+* clean grid inside one larger container
+* elegant spacing
+* subtle dividers
+* strong typography hierarchy
+* better balance between numbers and labels
+* more premium composition
+
+## Styling direction
+
+Use a dark premium glass-like or matte panel with:
+
+* subtle transparency
+* elegant border
+* very soft shadow
+* refined blur only if tasteful
+* slightly elevated look
+* better proportion and spacing than the current boxes
+
+## Typography
+
+Make the numbers look more premium and powerful:
+
+* large
+* bold
+* elegant
+* high contrast
+* visually dominant
+
+Make the labels:
+
+* smaller
+* cleaner
+* more muted
+* very readable
+
+## Composition
+
+The stats block should feel intentionally designed as part of the hero.
+It should not look like random cards placed over an image.
+
+The whole right side of the hero should feel:
+
+* more structured
+* more luxurious
+* more visually balanced
+* less repetitive
+
+## Optional improvements
+
+You may add:
+
+* subtle internal separators
+* slight glowing accent
+* soft gradient overlay
+* elegant icon accents only if very minimal
+
+## Avoid
+
+* generic dashboard card look
+* repeated identical boxes
+* bulky or clumsy layout
+* excessive blur
+* cheap glassmorphism
+* overly rounded playful cards
+
+## Final visual result
+
+I want the stats section to look like a premium high-end landing page component that matches the strong hero title and the luxury dark visual direction of the site.
+Make it feel much more custom, premium, and visually impressive.
