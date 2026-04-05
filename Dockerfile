@@ -41,6 +41,9 @@ WORKDIR /app
 # Copy the fully-bundled API server (includes static files)
 COPY --from=builder /app/artifacts/api-server/dist ./dist
 
+# Copy DB init script (executed by the app on first start)
+COPY init.sql ./init.sql
+
 # Create uploads directory (persist via Docker volume)
 RUN mkdir -p /app/uploads
 

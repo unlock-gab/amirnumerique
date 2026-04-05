@@ -2,6 +2,8 @@ import app from "./app";
 import { logger } from "./lib/logger";
 import { pool } from "@workspace/db";
 import bcrypt from "bcryptjs";
+import fs from "fs";
+import path from "path";
 
 const rawPort = process.env["PORT"];
 
@@ -15,6 +17,26 @@ const port = Number(rawPort);
 
 if (Number.isNaN(port) || port <= 0) {
   throw new Error(`Invalid PORT value: "${rawPort}"`);
+}
+
+async function runInitSql() {
+  const candidates = [
+    path.resolve("/app/init.sql"),
+    path.resolve(process.cwd(), "../../init.sql"),
+    path.resolve(process.cwd(), "init.sql"),
+  ];
+  const sqlFile = candidates.find((f) => fs.existsSync(f));
+  if (!sqlFile) {
+    logger.info("init.sql not found — skipping DB init");
+    return;
+  }
+  try {
+    const sql = fs.readFileSync(sqlFile, "utf8");
+    await pool.query(sql);
+    logger.info({ file: sqlFile }, "DB initialised via init.sql");
+  } catch (err) {
+    logger.error({ err }, "init.sql execution failed");
+  }
 }
 
 async function seedAdmin() {
@@ -44,5 +66,6 @@ app.listen(port, async (err) => {
   }
 
   logger.info({ port }, "Server listening");
+  await runInitSql();
   await seedAdmin();
 });
