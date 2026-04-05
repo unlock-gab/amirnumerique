@@ -12,14 +12,14 @@ import { OrderTimeline } from "@/components/order-timeline";
 import { cn } from "@/lib/utils";
 
 const PAYMENT_META: Record<string, { label: string; cls: string }> = {
-  pending_on_delivery: { label: "À la livraison", cls: "bg-amber-500/10 text-amber-400 border-amber-500/20" },
-  paid:                { label: "Payé",           cls: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20" },
-  cancelled:           { label: "Annulé",         cls: "bg-red-500/10 text-red-400 border-red-500/20" },
+  pending_on_delivery: { label: "À la livraison", cls: "bg-amber-50 text-amber-700 border-amber-200" },
+  paid:                { label: "Payé",           cls: "bg-emerald-50 text-emerald-700 border-emerald-200" },
+  cancelled:           { label: "Annulé",         cls: "bg-red-50 text-red-700 border-red-200" },
 };
 
 function Card({ children, className }: { children: React.ReactNode; className?: string }) {
   return (
-    <div className={cn("rounded-2xl border border-white/[0.07] bg-[hsl(222,30%,8%)] overflow-hidden", className)}>
+    <div className={cn("rounded-2xl border border-border bg-card overflow-hidden shadow-sm", className)}>
       {children}
     </div>
   );
@@ -27,18 +27,18 @@ function Card({ children, className }: { children: React.ReactNode; className?: 
 
 function CardHeader({ icon: Icon, label }: { icon: React.ElementType; label: string }) {
   return (
-    <div className="flex items-center gap-2.5 px-5 py-3.5 border-b border-white/[0.05]">
-      <Icon className="h-3.5 w-3.5 text-primary/70" strokeWidth={2} />
-      <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-white/40">{label}</span>
+    <div className="flex items-center gap-2.5 px-5 py-3.5 border-b border-border/60 bg-muted/30">
+      <Icon className="h-3.5 w-3.5 text-primary" strokeWidth={2} />
+      <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-muted-foreground">{label}</span>
     </div>
   );
 }
 
 function Row({ label, value }: { label: string; value: React.ReactNode }) {
   return (
-    <div className="flex justify-between items-center px-5 py-3 border-b border-white/[0.04] last:border-0">
-      <span className="text-sm text-white/40">{label}</span>
-      <span className="text-sm font-medium text-white/80 text-right">{value}</span>
+    <div className="flex justify-between items-center px-5 py-3 border-b border-border/40 last:border-0">
+      <span className="text-sm text-muted-foreground">{label}</span>
+      <span className="text-sm font-medium text-foreground text-right">{value}</span>
     </div>
   );
 }
@@ -63,7 +63,7 @@ export default function OrderDetail() {
     return (
       <DashboardLayout>
         <div className="text-center py-24">
-          <p className="text-white/30 mb-4">Commande introuvable</p>
+          <p className="text-muted-foreground mb-4">Commande introuvable</p>
           <Button asChild><Link href="/dashboard/orders">Retour aux commandes</Link></Button>
         </div>
       </DashboardLayout>
@@ -73,7 +73,7 @@ export default function OrderDetail() {
   const o = order as any;
   const service   = o.service;
   const category  = o.category;
-  const payment   = PAYMENT_META[order.paymentStatus] ?? { label: order.paymentStatus, cls: "bg-white/5 text-white/40 border-white/10" };
+  const payment   = PAYMENT_META[order.paymentStatus] ?? { label: order.paymentStatus, cls: "bg-muted text-muted-foreground border-border" };
   const totalDA   = (order.finalPrice || order.displayedPrice).toLocaleString("fr-DZ");
 
   return (
@@ -81,7 +81,7 @@ export default function OrderDetail() {
       <div className="max-w-3xl">
 
         {/* ── Nav ─────────────────────────────────────────── */}
-        <Button variant="ghost" size="sm" asChild className="text-white/35 hover:text-white/60 -ml-2 mb-5">
+        <Button variant="ghost" size="sm" asChild className="text-muted-foreground hover:text-foreground -ml-2 mb-5">
           <Link href="/dashboard/orders">
             <ArrowLeft className="mr-2 h-4 w-4" />{t("myOrders")}
           </Link>
@@ -90,26 +90,26 @@ export default function OrderDetail() {
         {/* ── Page Header ──────────────────────────────────── */}
         <div className="flex items-start justify-between gap-4 mb-5 flex-wrap">
           <div>
-            <h1 className="text-xl font-bold tracking-tight text-white">{order.orderNumber}</h1>
-            <p className="text-sm text-white/35 mt-1 flex items-center gap-1.5">
+            <h1 className="text-xl font-bold tracking-tight text-foreground">{order.orderNumber}</h1>
+            <p className="text-sm text-muted-foreground mt-1 flex items-center gap-1.5">
               <CalendarDays className="h-3.5 w-3.5 flex-shrink-0" />
               {new Date(order.createdAt).toLocaleDateString("fr-DZ", { day: "numeric", month: "long", year: "numeric" })}
               {service && (
                 <>
-                  <span className="text-white/15 mx-0.5">·</span>
+                  <span className="text-border mx-0.5">·</span>
                   {service.nameFr}
-                  {category && <><span className="text-white/15 mx-0.5">·</span>{category.nameFr}</>}
+                  {category && <><span className="text-border mx-0.5">·</span>{category.nameFr}</>}
                 </>
               )}
             </p>
           </div>
           <div className="text-right">
-            <p className="text-2xl font-bold text-white leading-none">{totalDA}</p>
-            <p className="text-xs text-white/30 mt-1">Dinars (DA)</p>
+            <p className="text-2xl font-bold text-foreground leading-none">{totalDA}</p>
+            <p className="text-xs text-muted-foreground mt-1">Dinars (DA)</p>
           </div>
         </div>
 
-        {/* ── Timeline — the spine of this page ───────────── */}
+        {/* ── Timeline ────────────────────────────────────── */}
         <div className="mb-5">
           <OrderTimeline orderId={order.id} currentStatus={order.orderStatus} />
         </div>
@@ -130,9 +130,9 @@ export default function OrderDetail() {
           <div className="space-y-4">
             <Card>
               <CardHeader icon={Package2} label="Montant de la commande" />
-              <div className="px-5 py-5 text-center border-b border-white/[0.04]">
-                <p className="text-3xl font-bold text-white tabular-nums">{totalDA}</p>
-                <p className="text-xs text-white/30 mt-1">Dinars algériens</p>
+              <div className="px-5 py-5 text-center border-b border-border/40">
+                <p className="text-3xl font-bold text-foreground tabular-nums">{totalDA}</p>
+                <p className="text-xs text-muted-foreground mt-1">Dinars algériens</p>
               </div>
               <Row label="Surface" value={`${order.areaM2.toFixed(2)} m²`} />
               <Row label="Prix / m²" value={`${order.unitPricePerM2.toLocaleString()} DA`} />
@@ -158,7 +158,7 @@ export default function OrderDetail() {
           <Card className="mb-4">
             <CardHeader icon={FileText} label="Votre message" />
             <div className="px-5 py-4">
-              <p className="text-sm text-white/55 leading-relaxed">{order.note}</p>
+              <p className="text-sm text-muted-foreground leading-relaxed">{order.note}</p>
             </div>
           </Card>
         )}
@@ -171,8 +171,8 @@ export default function OrderDetail() {
                 <FileText className="h-4 w-4 text-primary" />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-white/75">Fichier d'impression</p>
-                <p className="text-xs text-white/30 truncate mt-0.5">
+                <p className="text-sm font-medium text-foreground">Fichier d'impression</p>
+                <p className="text-xs text-muted-foreground truncate mt-0.5">
                   {order.fileUrl.split("/").pop() || "Fichier joint"}
                 </p>
               </div>

@@ -32,10 +32,10 @@ function getPricePerM2(s: Service, role?: string) {
 }
 
 const ROLE_META: Record<string, { label: string; color: string }> = {
-  client:        { label: "Tarif Client",       color: "text-emerald-400 bg-emerald-400/10 border-emerald-400/20" },
-  subcontractor: { label: "Tarif Pro",          color: "text-violet-400  bg-violet-400/10  border-violet-400/20"  },
-  admin:         { label: "Tarif Admin",        color: "text-amber-400   bg-amber-400/10   border-amber-400/20"   },
-  visitor:       { label: "Tarif Visiteur",     color: "text-blue-400   bg-blue-400/10    border-blue-400/20"    },
+  client:        { label: "Tarif Client",       color: "text-emerald-700 bg-emerald-50 border-emerald-200" },
+  subcontractor: { label: "Tarif Pro",          color: "text-violet-700  bg-violet-50  border-violet-200"  },
+  admin:         { label: "Tarif Admin",        color: "text-amber-700   bg-amber-50   border-amber-200"   },
+  visitor:       { label: "Tarif Visiteur",     color: "text-blue-700    bg-blue-50    border-blue-200"    },
 };
 
 /* ── Animated number ────────────────────────────────────────────────────── */
@@ -135,13 +135,13 @@ export function PricingSimulator({ services, user }: PricingSimulatorProps) {
   const hError = height && (isNaN(parseFloat(height)) || parseFloat(height) <= 0) ? true : false;
 
   return (
-    <div className="relative rounded-3xl border border-white/[0.09] bg-[hsl(222,30%,7%)] overflow-hidden shadow-2xl shadow-black/40">
+    <div className="relative rounded-3xl border border-border bg-card overflow-hidden shadow-xl">
       {/* ambient glow */}
       <div className="pointer-events-none absolute -top-32 -left-20 w-[500px] h-[300px] bg-primary/[0.07] rounded-full blur-[100px]" />
       <div className="pointer-events-none absolute -bottom-32 -right-20 w-[400px] h-[260px] bg-primary/[0.05] rounded-full blur-[100px]" />
 
       {/* ── Header ────────────────────────────────────────────────────────── */}
-      <div className="relative flex flex-wrap items-center justify-between gap-4 px-6 md:px-8 py-5 border-b border-white/[0.06]">
+      <div className="relative flex flex-wrap items-center justify-between gap-4 px-6 md:px-8 py-5 border-b border-border/60 bg-muted/20">
         <div className="flex items-center gap-3">
           <div className="w-9 h-9 rounded-xl bg-primary/15 border border-primary/20 flex items-center justify-center shadow-lg shadow-primary/10">
             <Calculator className="h-4.5 w-4.5 text-primary" />
@@ -182,13 +182,13 @@ export function PricingSimulator({ services, user }: PricingSimulatorProps) {
                 onChange={e => setSelectedId(Number(e.target.value))}
                 className={cn(
                   "w-full appearance-none rounded-xl px-4 py-3 text-sm font-500 text-foreground",
-                  "bg-white/[0.04] border border-white/[0.09]",
+                  "bg-background border border-border",
                   "hover:border-primary/40 focus:border-primary/60 focus:outline-none",
                   "transition-all duration-200 cursor-pointer pr-10"
                 )}
               >
                 {services.map(s => (
-                  <option key={s.id} value={s.id} className="bg-[#1a1f2e]">
+                  <option key={s.id} value={s.id}>
                     {serviceName(s)}
                   </option>
                 ))}
@@ -205,7 +205,7 @@ export function PricingSimulator({ services, user }: PricingSimulatorProps) {
             <label className="block text-[10px] font-700 uppercase tracking-[0.12em] text-muted-foreground/60 mb-2.5">
               Unité de mesure
             </label>
-            <div className="relative flex rounded-xl bg-white/[0.04] border border-white/[0.08] p-1 gap-1">
+            <div className="relative flex rounded-xl bg-muted/40 border border-border p-1 gap-1">
               {(["cm", "m"] as Unit[]).map(u => (
                 <button
                   key={u}
@@ -246,12 +246,12 @@ export function PricingSimulator({ services, user }: PricingSimulatorProps) {
                       placeholder={ph}
                       className={cn(
                         "w-full rounded-xl px-4 py-3 text-sm font-500 pr-10",
-                        "bg-white/[0.04] border text-foreground",
+                        "bg-background border text-foreground",
                         "placeholder:text-muted-foreground/30",
                         "focus:outline-none transition-all duration-200",
                         err
-                          ? "border-red-500/50 focus:border-red-500/80"
-                          : "border-white/[0.09] hover:border-primary/40 focus:border-primary/60"
+                          ? "border-red-400 focus:border-red-500"
+                          : "border-border hover:border-primary/40 focus:border-primary/60"
                       )}
                     />
                     <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[11px] font-600 text-muted-foreground/40">
@@ -280,9 +280,9 @@ export function PricingSimulator({ services, user }: PricingSimulatorProps) {
                 transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                 className="overflow-hidden"
               >
-                <div className="rounded-xl border border-white/[0.07] bg-white/[0.025] overflow-hidden">
+                <div className="rounded-xl border border-border bg-muted/20 overflow-hidden">
                   <DimensionPreview wm={calc.wm} hm={calc.hm} />
-                  <div className="grid grid-cols-2 divide-x divide-white/[0.06] border-t border-white/[0.06]">
+                  <div className="grid grid-cols-2 divide-x divide-border/60 border-t border-border/60">
                     <div className="flex items-center gap-2.5 px-4 py-2.5">
                       <Ruler className="h-3.5 w-3.5 text-muted-foreground/50 shrink-0" />
                       <div>
@@ -309,7 +309,7 @@ export function PricingSimulator({ services, user }: PricingSimulatorProps) {
         </div>
 
         {/* Vertical divider */}
-        <div className="hidden lg:block w-px bg-white/[0.06] self-stretch" />
+        <div className="hidden lg:block w-px bg-border/60 self-stretch" />
 
         {/* RIGHT — Result */}
         <div className="p-6 md:p-8 flex flex-col">
@@ -324,14 +324,14 @@ export function PricingSimulator({ services, user }: PricingSimulatorProps) {
                 className="flex flex-col flex-1 gap-5"
               >
                 {/* Calculation breakdown */}
-                <div className="rounded-xl border border-white/[0.07] bg-white/[0.025] overflow-hidden">
-                  <div className="px-4 py-2.5 border-b border-white/[0.06] flex items-center gap-2">
+                <div className="rounded-xl border border-border bg-muted/20 overflow-hidden">
+                  <div className="px-4 py-2.5 border-b border-border/60 flex items-center gap-2">
                     <Zap className="h-3 w-3 text-primary/70" />
                     <span className="text-[10px] font-700 uppercase tracking-[0.12em] text-muted-foreground/50">
                       Détail du calcul
                     </span>
                   </div>
-                  <div className="divide-y divide-white/[0.05]">
+                  <div className="divide-y divide-border/50">
                     {[
                       { label: "Surface calculée", value: `${calc.area.toFixed(4)} m²` },
                       { label: `Prix au m² (${roleMeta.label})`, value: `${calc.pricePerM2.toLocaleString("fr-DZ")} DA` },
@@ -381,7 +381,7 @@ export function PricingSimulator({ services, user }: PricingSimulatorProps) {
                       whileTap={{ scale: 0.985 }}
                       className={cn(
                         "w-full inline-flex items-center justify-center gap-2.5 px-5 py-3 rounded-xl font-600 text-sm cursor-pointer",
-                        "border border-white/[0.09] text-muted-foreground",
+                        "border border-border text-muted-foreground",
                         "hover:border-primary/30 hover:text-foreground hover:bg-primary/[0.04]",
                         "transition-all duration-200"
                       )}
@@ -402,10 +402,10 @@ export function PricingSimulator({ services, user }: PricingSimulatorProps) {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="flex-1 flex flex-col items-center justify-center min-h-[320px] rounded-2xl border border-dashed border-white/[0.09] p-8 text-center gap-4"
+                className="flex-1 flex flex-col items-center justify-center min-h-[320px] rounded-2xl border border-dashed border-border p-8 text-center gap-4"
               >
                 <div className="relative">
-                  <div className="w-16 h-16 rounded-2xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center">
+                  <div className="w-16 h-16 rounded-2xl bg-muted border border-border flex items-center justify-center">
                     <Calculator className="h-7 w-7 text-muted-foreground/25" />
                   </div>
                   <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-lg bg-primary/20 border border-primary/30 flex items-center justify-center">
@@ -421,9 +421,9 @@ export function PricingSimulator({ services, user }: PricingSimulatorProps) {
                   </p>
                 </div>
                 <div className="flex items-center gap-2 text-[10px] text-muted-foreground/25 font-500">
-                  <span className="px-2 py-1 rounded-md bg-white/[0.03] border border-white/[0.06]">Largeur</span>
+                  <span className="px-2 py-1 rounded-md bg-muted border border-border">Largeur</span>
                   <X className="h-3 w-3" />
-                  <span className="px-2 py-1 rounded-md bg-white/[0.03] border border-white/[0.06]">Hauteur</span>
+                  <span className="px-2 py-1 rounded-md bg-muted border border-border">Hauteur</span>
                   <span className="mx-1 text-muted-foreground/20">=</span>
                   <span className="px-2 py-1 rounded-md bg-primary/[0.08] border border-primary/20 text-primary/50">Prix</span>
                 </div>

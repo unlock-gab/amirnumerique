@@ -33,13 +33,13 @@ const STAGE_THEME: Record<string, {
   accent: string; bg: string; border: string; text: string;
   ring: string; glow: string; bar: string;
 }> = {
-  pending:     { accent:"text-amber-400",   bg:"bg-amber-400/10",   border:"border-amber-400/30",   text:"text-amber-300",   ring:"ring-amber-400/30",   glow:"shadow-amber-500/20",  bar:"from-amber-500/60 to-amber-400/20" },
-  confirmed:   { accent:"text-blue-400",    bg:"bg-blue-400/10",    border:"border-blue-400/30",    text:"text-blue-300",    ring:"ring-blue-400/30",    glow:"shadow-blue-500/20",   bar:"from-blue-500/60 to-blue-400/20" },
-  in_progress: { accent:"text-violet-400",  bg:"bg-violet-400/10",  border:"border-violet-400/30",  text:"text-violet-300",  ring:"ring-violet-400/30",  glow:"shadow-violet-500/20", bar:"from-violet-500/60 to-violet-400/20" },
-  printing:    { accent:"text-indigo-400",  bg:"bg-indigo-400/10",  border:"border-indigo-400/30",  text:"text-indigo-300",  ring:"ring-indigo-400/30",  glow:"shadow-indigo-500/20", bar:"from-indigo-500/60 to-indigo-400/20" },
-  ready:       { accent:"text-cyan-400",    bg:"bg-cyan-400/10",    border:"border-cyan-400/30",    text:"text-cyan-300",    ring:"ring-cyan-400/30",    glow:"shadow-cyan-500/20",   bar:"from-cyan-500/60 to-cyan-400/20" },
-  delivered:   { accent:"text-emerald-400", bg:"bg-emerald-400/10", border:"border-emerald-400/30", text:"text-emerald-300", ring:"ring-emerald-400/30", glow:"shadow-emerald-500/20",bar:"from-emerald-500/60 to-emerald-400/20" },
-  cancelled:   { accent:"text-red-400",     bg:"bg-red-400/10",     border:"border-red-400/30",     text:"text-red-300",     ring:"ring-red-400/30",     glow:"shadow-red-500/20",    bar:"from-red-500/60 to-red-400/20" },
+  pending:     { accent:"text-amber-600",   bg:"bg-amber-50",   border:"border-amber-300",   text:"text-amber-700",   ring:"ring-amber-300",   glow:"shadow-amber-200",  bar:"from-amber-500 to-amber-300" },
+  confirmed:   { accent:"text-blue-600",    bg:"bg-blue-50",    border:"border-blue-300",    text:"text-blue-700",    ring:"ring-blue-300",    glow:"shadow-blue-200",   bar:"from-blue-500 to-blue-300" },
+  in_progress: { accent:"text-violet-600",  bg:"bg-violet-50",  border:"border-violet-300",  text:"text-violet-700",  ring:"ring-violet-300",  glow:"shadow-violet-200", bar:"from-violet-500 to-violet-300" },
+  printing:    { accent:"text-indigo-600",  bg:"bg-indigo-50",  border:"border-indigo-300",  text:"text-indigo-700",  ring:"ring-indigo-300",  glow:"shadow-indigo-200", bar:"from-indigo-500 to-indigo-300" },
+  ready:       { accent:"text-cyan-600",    bg:"bg-cyan-50",    border:"border-cyan-300",    text:"text-cyan-700",    ring:"ring-cyan-300",    glow:"shadow-cyan-200",   bar:"from-cyan-500 to-cyan-300" },
+  delivered:   { accent:"text-emerald-600", bg:"bg-emerald-50", border:"border-emerald-300", text:"text-emerald-700", ring:"ring-emerald-300", glow:"shadow-emerald-200",bar:"from-emerald-500 to-emerald-300" },
+  cancelled:   { accent:"text-red-600",     bg:"bg-red-50",     border:"border-red-300",     text:"text-red-700",     ring:"ring-red-300",     glow:"shadow-red-200",    bar:"from-red-500 to-red-300" },
 };
 
 function formatShort(iso: string) {
@@ -82,41 +82,38 @@ export function OrderTimeline({ orderId, currentStatus }: OrderTimelineProps) {
 
   if (loading) {
     return (
-      <div className="rounded-2xl border border-white/[0.07] bg-[hsl(222,30%,7.5%)] flex items-center justify-center h-36">
-        <Loader2 className="h-5 w-5 animate-spin text-white/20" />
+      <div className="rounded-2xl border border-border bg-card shadow-sm flex items-center justify-center h-36">
+        <Loader2 className="h-5 w-5 animate-spin text-muted-foreground/30" />
       </div>
     );
   }
 
   return (
-    <div className="rounded-2xl border border-white/[0.07] bg-[hsl(222,30%,7.5%)] overflow-hidden">
+    <div className="rounded-2xl border border-border bg-card shadow-sm overflow-hidden">
 
       {isCancelled ? (
         <CancelledBanner cancelEntry={cancelEntry} />
       ) : (
         <>
           {/* ── Status Banner ─────────────────────────────────── */}
-          <div className={cn(
-            "relative px-6 py-5 border-b border-white/[0.05] overflow-hidden",
-          )}>
-            {/* Subtle glow blob behind icon */}
-            <div className={cn("absolute -left-8 -top-8 w-40 h-40 rounded-full blur-3xl opacity-20", theme.bg)} />
+          <div className="relative px-6 py-5 border-b border-border/50 overflow-hidden bg-muted/20">
+            <div className={cn("absolute -left-8 -top-8 w-40 h-40 rounded-full blur-3xl opacity-30", theme.bg)} />
 
             <div className="relative flex items-center justify-between gap-4 flex-wrap">
               <div className="flex items-center gap-4">
                 <div className={cn(
-                  "w-12 h-12 rounded-2xl border flex items-center justify-center flex-shrink-0 shadow-lg",
+                  "w-12 h-12 rounded-2xl border-2 flex items-center justify-center flex-shrink-0 shadow-md",
                   theme.bg, theme.border, theme.glow
                 )}>
                   {currentStage ? (
                     <currentStage.icon className={cn("w-5 h-5", theme.accent)} strokeWidth={2} />
                   ) : (
-                    <Clock className="w-5 h-5 text-white/30" strokeWidth={2} />
+                    <Clock className="w-5 h-5 text-muted-foreground/40" strokeWidth={2} />
                   )}
                 </div>
                 <div>
                   <div className="flex items-center gap-2.5 flex-wrap">
-                    <p className="text-base font-bold text-white leading-none">
+                    <p className="text-base font-bold text-foreground leading-none">
                       {currentStage?.label ?? "Statut inconnu"}
                     </p>
                     <span className={cn(
@@ -126,24 +123,24 @@ export function OrderTimeline({ orderId, currentStatus }: OrderTimelineProps) {
                       En cours
                     </span>
                   </div>
-                  <p className="text-xs text-white/40 mt-1">
+                  <p className="text-xs text-muted-foreground mt-1">
                     {currentStage?.note}
                     {currentEntry?.createdAt && (
-                      <span className="text-white/25 ml-1">· {formatFull(currentEntry.createdAt)}</span>
+                      <span className="text-muted-foreground/50 ml-1">· {formatFull(currentEntry.createdAt)}</span>
                     )}
                   </p>
                 </div>
               </div>
               <div className="text-right flex-shrink-0">
-                <p className="text-2xl font-bold text-white leading-none">
-                  {currentIndex + 1}<span className="text-sm text-white/30 font-normal"> / {STAGES.length}</span>
+                <p className="text-2xl font-bold text-foreground leading-none">
+                  {currentIndex + 1}<span className="text-sm text-muted-foreground font-normal"> / {STAGES.length}</span>
                 </p>
-                <p className="text-xs text-white/30 mt-1">étapes</p>
+                <p className="text-xs text-muted-foreground mt-1">étapes</p>
               </div>
             </div>
 
             {/* Progress bar */}
-            <div className="relative mt-4 h-1 rounded-full bg-white/[0.05]">
+            <div className="relative mt-4 h-1.5 rounded-full bg-muted">
               <div
                 className={cn("h-full rounded-full bg-gradient-to-r transition-all duration-700", theme.bar)}
                 style={{ width: `${progressPct}%` }}
@@ -151,7 +148,7 @@ export function OrderTimeline({ orderId, currentStatus }: OrderTimelineProps) {
             </div>
           </div>
 
-          {/* ── Horizontal Step Tracker (desktop) / Vertical (mobile) ── */}
+          {/* ── Step Tracker ── */}
           <div className="hidden md:block px-6 pt-6 pb-5">
             <HorizontalSteps stages={STAGES} currentIndex={currentIndex} getEntry={getEntry} theme={theme} />
           </div>
@@ -176,7 +173,7 @@ function HorizontalSteps({ stages, currentIndex, getEntry, theme }: {
   return (
     <div className="relative">
       {/* Background connector line */}
-      <div className="absolute top-[22px] left-[28px] right-[28px] h-px bg-white/[0.06]" />
+      <div className="absolute top-[22px] left-[28px] right-[28px] h-px bg-border/60" />
       {/* Progress fill */}
       <div
         className={cn("absolute top-[22px] left-[28px] h-px bg-gradient-to-r transition-all duration-700", theme.bar)}
@@ -199,25 +196,25 @@ function HorizontalSteps({ stages, currentIndex, getEntry, theme }: {
               {/* Circle */}
               <div className={cn(
                 "w-11 h-11 rounded-full border-2 flex items-center justify-center transition-all duration-300 relative z-10",
-                isDone    && "border-white/20 bg-white/[0.08]",
-                isCurrent && cn("border-2 shadow-xl", theme.border, theme.bg, theme.glow),
-                isFuture  && "border-white/[0.07] bg-[hsl(222,30%,6%)]",
+                isDone    && "border-border bg-muted/60",
+                isCurrent && cn("border-2 shadow-lg", theme.border, theme.bg, theme.glow),
+                isFuture  && "border-border/50 bg-background",
                 isCurrent && "ring-4 ring-offset-0 ring-offset-transparent " + theme.ring,
               )}>
                 {isDone ? (
-                  <Check className="w-4 h-4 text-white/50" strokeWidth={2.5} />
+                  <Check className="w-4 h-4 text-muted-foreground" strokeWidth={2.5} />
                 ) : (
                   <Icon
                     className={cn(
                       "w-4 h-4",
                       isCurrent && theme.accent,
-                      isFuture  && "text-white/15",
+                      isFuture  && "text-muted-foreground/30",
                     )}
                     strokeWidth={isCurrent ? 2.5 : 1.5}
                   />
                 )}
                 {isCurrent && (
-                  <span className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-white/90 animate-ping opacity-60" />
+                  <span className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-primary animate-ping opacity-60" />
                 )}
               </div>
 
@@ -225,18 +222,18 @@ function HorizontalSteps({ stages, currentIndex, getEntry, theme }: {
               <div className="text-center px-1">
                 <p className={cn(
                   "text-[11px] font-semibold leading-tight",
-                  isDone    && "text-white/40",
-                  isCurrent && "text-white",
-                  isFuture  && "text-white/18",
+                  isDone    && "text-muted-foreground",
+                  isCurrent && "text-foreground",
+                  isFuture  && "text-muted-foreground/35",
                 )}>
                   {stage.labelShort}
                 </p>
                 {entry?.createdAt ? (
-                  <p className="text-[10px] text-white/25 mt-0.5 font-mono leading-none">
+                  <p className="text-[10px] text-muted-foreground/50 mt-0.5 font-mono leading-none">
                     {formatShort(entry.createdAt)}
                   </p>
                 ) : isFuture ? (
-                  <p className="text-[10px] text-white/12 mt-0.5">—</p>
+                  <p className="text-[10px] text-muted-foreground/30 mt-0.5">—</p>
                 ) : null}
               </div>
             </div>
@@ -269,25 +266,25 @@ function VerticalSteps({ stages, currentIndex, getEntry, theme }: {
             <div className="flex flex-col items-center">
               <div className={cn(
                 "w-9 h-9 rounded-full border-2 flex items-center justify-center flex-shrink-0 z-10 transition-all",
-                isDone    && "border-white/20 bg-white/[0.06]",
-                isCurrent && cn("border-2 shadow-lg", theme.border, theme.bg),
-                isFuture  && "border-white/[0.07] bg-[hsl(222,30%,6%)]",
+                isDone    && "border-border bg-muted/60",
+                isCurrent && cn("border-2 shadow-md", theme.border, theme.bg),
+                isFuture  && "border-border/50 bg-background",
               )}>
                 {isDone ? (
-                  <Check className="w-3.5 h-3.5 text-white/40" strokeWidth={2.5} />
+                  <Check className="w-3.5 h-3.5 text-muted-foreground" strokeWidth={2.5} />
                 ) : (
-                  <Icon className={cn("w-3.5 h-3.5", isCurrent && theme.accent, isFuture && "text-white/15")} strokeWidth={2} />
+                  <Icon className={cn("w-3.5 h-3.5", isCurrent && theme.accent, isFuture && "text-muted-foreground/30")} strokeWidth={2} />
                 )}
               </div>
               {!isLast && (
-                <div className={cn("w-px flex-1 my-1", isDone ? "bg-white/15" : "bg-white/[0.04]")} style={{ minHeight: 20 }} />
+                <div className={cn("w-px flex-1 my-1", isDone ? "bg-border" : "bg-border/40")} style={{ minHeight: 20 }} />
               )}
             </div>
             <div className={cn("pb-4 flex-1 min-w-0", isLast && "pb-0")}>
               <div className="flex items-center gap-2 flex-wrap">
                 <span className={cn(
                   "text-sm font-semibold",
-                  isDone && "text-white/45", isCurrent && "text-white", isFuture && "text-white/20",
+                  isDone && "text-muted-foreground", isCurrent && "text-foreground", isFuture && "text-muted-foreground/35",
                 )}>
                   {stage.label}
                 </span>
@@ -298,9 +295,9 @@ function VerticalSteps({ stages, currentIndex, getEntry, theme }: {
                 )}
               </div>
               {entry?.createdAt ? (
-                <p className="text-xs text-white/25 mt-0.5 font-mono">{formatShort(entry.createdAt)}</p>
+                <p className="text-xs text-muted-foreground/50 mt-0.5 font-mono">{formatShort(entry.createdAt)}</p>
               ) : isFuture ? (
-                <p className="text-xs text-white/15 mt-0.5">En attente</p>
+                <p className="text-xs text-muted-foreground/30 mt-0.5">En attente</p>
               ) : null}
             </div>
           </div>
@@ -314,26 +311,26 @@ function VerticalSteps({ stages, currentIndex, getEntry, theme }: {
 function CancelledBanner({ cancelEntry }: { cancelEntry?: HistoryEntry }) {
   const theme = STAGE_THEME["cancelled"];
   return (
-    <div className="relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-r from-red-500/5 via-transparent to-transparent" />
+    <div className="relative overflow-hidden bg-red-50/50">
+      <div className="absolute inset-0 bg-gradient-to-r from-red-100/60 via-transparent to-transparent" />
       <div className="relative px-6 py-8 flex items-center gap-6">
-        <div className={cn("w-14 h-14 rounded-2xl border flex items-center justify-center flex-shrink-0 shadow-xl", theme.bg, theme.border, theme.glow)}>
+        <div className={cn("w-14 h-14 rounded-2xl border-2 flex items-center justify-center flex-shrink-0 shadow-md", theme.bg, theme.border)}>
           <XCircle className={cn("w-7 h-7", theme.accent)} strokeWidth={1.5} />
         </div>
         <div>
-          <p className="text-lg font-bold text-red-300">Commande annulée</p>
+          <p className="text-lg font-bold text-red-700">Commande annulée</p>
           {cancelEntry?.createdAt && (
-            <p className="text-sm text-white/35 mt-1 font-mono">{formatFull(cancelEntry.createdAt)}</p>
+            <p className="text-sm text-muted-foreground mt-1 font-mono">{formatFull(cancelEntry.createdAt)}</p>
           )}
           {cancelEntry?.note && (
-            <p className="text-sm text-white/45 mt-2">{cancelEntry.note}</p>
+            <p className="text-sm text-muted-foreground mt-2">{cancelEntry.note}</p>
           )}
         </div>
       </div>
-      <div className="h-px bg-gradient-to-r from-red-500/20 via-red-500/10 to-transparent" />
+      <div className="h-px bg-gradient-to-r from-red-200 via-red-100 to-transparent" />
       <div className="px-6 py-4 flex items-center gap-2">
         {[0,1,2,3,4,5].map(i => (
-          <div key={i} className={cn("flex-1 h-1 rounded-full", i === 0 ? "bg-red-500/30" : "bg-white/[0.04]")} />
+          <div key={i} className={cn("flex-1 h-1 rounded-full", i === 0 ? "bg-red-400/50" : "bg-border/40")} />
         ))}
       </div>
     </div>

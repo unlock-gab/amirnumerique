@@ -31,14 +31,14 @@ const PAYMENT_OPTIONS = [
   { value: "cancelled",           label: "Annulé" },
 ];
 const PAYMENT_META: Record<string, { label: string; cls: string }> = {
-  pending_on_delivery: { label: "À la livraison", cls: "bg-amber-500/10 text-amber-400 border-amber-400/25" },
-  paid:                { label: "Payé",           cls: "bg-emerald-500/10 text-emerald-400 border-emerald-400/25" },
-  cancelled:           { label: "Annulé",         cls: "bg-red-500/10 text-red-400 border-red-400/25" },
+  pending_on_delivery: { label: "À la livraison", cls: "bg-amber-50 text-amber-700 border-amber-200" },
+  paid:                { label: "Payé",           cls: "bg-emerald-50 text-emerald-700 border-emerald-200" },
+  cancelled:           { label: "Annulé",         cls: "bg-red-50 text-red-700 border-red-200" },
 };
 
 function Card({ children, className }: { children: React.ReactNode; className?: string }) {
   return (
-    <div className={cn("rounded-2xl border border-white/[0.07] bg-[hsl(222,30%,8%)] overflow-hidden", className)}>
+    <div className={cn("rounded-2xl border border-border bg-card overflow-hidden shadow-sm", className)}>
       {children}
     </div>
   );
@@ -48,10 +48,10 @@ function CardHeader({ icon: Icon, label, action }: {
   icon: React.ElementType; label: string; action?: React.ReactNode;
 }) {
   return (
-    <div className="flex items-center justify-between px-5 py-3.5 border-b border-white/[0.05]">
+    <div className="flex items-center justify-between px-5 py-3.5 border-b border-border/60 bg-muted/30">
       <div className="flex items-center gap-2.5">
-        <Icon className="h-3.5 w-3.5 text-primary/70" strokeWidth={2} />
-        <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-white/40">{label}</span>
+        <Icon className="h-3.5 w-3.5 text-primary" strokeWidth={2} />
+        <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-muted-foreground">{label}</span>
       </div>
       {action}
     </div>
@@ -60,9 +60,9 @@ function CardHeader({ icon: Icon, label, action }: {
 
 function Row({ label, value }: { label: string; value: React.ReactNode }) {
   return (
-    <div className="flex justify-between items-center px-5 py-3 border-b border-white/[0.04] last:border-0">
-      <span className="text-sm text-white/40">{label}</span>
-      <span className="text-sm font-medium text-white/80 text-right max-w-[55%]">{value}</span>
+    <div className="flex justify-between items-center px-5 py-3 border-b border-border/40 last:border-0">
+      <span className="text-sm text-muted-foreground">{label}</span>
+      <span className="text-sm font-medium text-foreground text-right max-w-[55%]">{value}</span>
     </div>
   );
 }
@@ -138,7 +138,7 @@ export default function AdminOrderDetail() {
     return (
       <AdminLayout>
         <div className="text-center py-24">
-          <p className="text-white/30 mb-4">Commande introuvable</p>
+          <p className="text-muted-foreground mb-4">Commande introuvable</p>
           <Button asChild><Link href="/admin/orders">Retour aux commandes</Link></Button>
         </div>
       </AdminLayout>
@@ -150,14 +150,14 @@ export default function AdminOrderDetail() {
   const service  = o.service;
   const category = o.category;
   const totalDA  = (order.finalPrice || order.displayedPrice).toLocaleString("fr-DZ");
-  const payment  = PAYMENT_META[order.paymentStatus] ?? { label: order.paymentStatus, cls: "bg-white/5 text-white/40 border-white/10" };
+  const payment  = PAYMENT_META[order.paymentStatus] ?? { label: order.paymentStatus, cls: "bg-muted text-muted-foreground border-border" };
 
   return (
     <AdminLayout>
       <div className="space-y-5">
 
         {/* ── Nav ─────────────────────────────────────────── */}
-        <Button variant="ghost" size="sm" asChild className="text-white/35 hover:text-white/60 -ml-2">
+        <Button variant="ghost" size="sm" asChild className="text-muted-foreground hover:text-foreground -ml-2">
           <Link href="/admin/orders">
             <ArrowLeft className="mr-2 h-4 w-4" />{t("manageOrders")}
           </Link>
@@ -166,17 +166,17 @@ export default function AdminOrderDetail() {
         {/* ── Page Header ──────────────────────────────────── */}
         <div className="flex items-start justify-between gap-4 flex-wrap">
           <div>
-            <h1 className="text-xl font-bold tracking-tight text-white">{order.orderNumber}</h1>
-            <p className="text-sm text-white/35 mt-1 flex items-center gap-1.5">
+            <h1 className="text-xl font-bold tracking-tight text-foreground">{order.orderNumber}</h1>
+            <p className="text-sm text-muted-foreground mt-1 flex items-center gap-1.5">
               <CalendarDays className="h-3.5 w-3.5 flex-shrink-0" />
               {new Date(order.createdAt).toLocaleString("fr-DZ", {
                 weekday: "long", day: "numeric", month: "long", year: "numeric",
               })}
             </p>
           </div>
-          <div className="rounded-xl border border-white/[0.07] bg-[hsl(222,30%,8%)] px-5 py-3 text-right">
-            <p className="text-[10px] font-bold uppercase tracking-widest text-white/30">Total</p>
-            <p className="text-xl font-bold text-white mt-0.5">{totalDA} <span className="text-sm font-normal text-white/30">DA</span></p>
+          <div className="rounded-xl border border-border bg-card shadow-sm px-5 py-3 text-right">
+            <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Total</p>
+            <p className="text-xl font-bold text-foreground mt-0.5">{totalDA} <span className="text-sm font-normal text-muted-foreground">DA</span></p>
           </div>
         </div>
 
@@ -186,7 +186,6 @@ export default function AdminOrderDetail() {
           {/* LEFT — main content */}
           <div className="lg:col-span-2 space-y-4">
 
-            {/* Timeline — first thing in main column, the anchor */}
             <OrderTimeline
               key={timelineKey}
               orderId={order.id}
@@ -203,19 +202,19 @@ export default function AdminOrderDetail() {
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <p className="font-semibold text-white/85">{user.fullName}</p>
+                      <p className="font-semibold text-foreground">{user.fullName}</p>
                       <span className="text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full bg-primary/10 border border-primary/20 text-primary">
                         {user.role}
                       </span>
                     </div>
                     <div className="flex flex-wrap gap-x-4 mt-1.5">
                       {user.email && (
-                        <a href={`mailto:${user.email}`} className="text-xs text-white/35 hover:text-white/60 flex items-center gap-1 transition-colors">
+                        <a href={`mailto:${user.email}`} className="text-xs text-muted-foreground hover:text-foreground flex items-center gap-1 transition-colors">
                           <Mail className="h-3 w-3" />{user.email}
                         </a>
                       )}
                       {user.phone && (
-                        <a href={`tel:${user.phone}`} className="text-xs text-white/35 hover:text-white/60 flex items-center gap-1 transition-colors">
+                        <a href={`tel:${user.phone}`} className="text-xs text-muted-foreground hover:text-foreground flex items-center gap-1 transition-colors">
                           <Phone className="h-3 w-3" />{user.phone}
                         </a>
                       )}
@@ -237,7 +236,7 @@ export default function AdminOrderDetail() {
               <Row label="Prix affiché"         value={`${order.displayedPrice.toLocaleString()} DA`} />
               <Row
                 label="Prix final"
-                value={<span className="text-emerald-400 font-semibold">{totalDA} DA</span>}
+                value={<span className="text-emerald-600 font-semibold">{totalDA} DA</span>}
               />
               <Row
                 label="Paiement"
@@ -254,7 +253,7 @@ export default function AdminOrderDetail() {
               <Card>
                 <CardHeader icon={FileText} label="Message du client" />
                 <div className="px-5 py-4">
-                  <p className="text-sm text-white/50 leading-relaxed">{order.note}</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{order.note}</p>
                 </div>
               </Card>
             )}
@@ -267,8 +266,8 @@ export default function AdminOrderDetail() {
                     <FileText className="h-4 w-4 text-primary" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-white/75">Fichier d'impression</p>
-                    <p className="text-xs text-white/30 truncate mt-0.5">
+                    <p className="text-sm font-medium text-foreground">Fichier d'impression</p>
+                    <p className="text-xs text-muted-foreground truncate mt-0.5">
                       {order.fileUrl.split("/").pop() || "Fichier joint"}
                     </p>
                   </div>
@@ -295,11 +294,11 @@ export default function AdminOrderDetail() {
               <CardHeader icon={Package2} label="Gérer la commande" />
               <div className="p-5 space-y-4">
                 <div>
-                  <label className="text-[10px] font-bold uppercase tracking-widest text-white/35 block mb-2">
+                  <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground block mb-2">
                     Statut
                   </label>
                   <Select value={orderStatus} onValueChange={setOrderStatus}>
-                    <SelectTrigger data-testid="select-status" className="bg-white/[0.04] border-white/[0.08] h-10">
+                    <SelectTrigger data-testid="select-status" className="h-10">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -311,11 +310,11 @@ export default function AdminOrderDetail() {
                 </div>
 
                 <div>
-                  <label className="text-[10px] font-bold uppercase tracking-widest text-white/35 block mb-2">
+                  <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground block mb-2">
                     Paiement
                   </label>
                   <Select value={paymentStatus} onValueChange={setPaymentStatus}>
-                    <SelectTrigger data-testid="select-payment" className="bg-white/[0.04] border-white/[0.08] h-10">
+                    <SelectTrigger data-testid="select-payment" className="h-10">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -348,13 +347,13 @@ export default function AdminOrderDetail() {
                   { label: "Prix / m²", value: `${order.unitPricePerM2.toLocaleString()} DA` },
                 ].map(({ label, value }) => (
                   <div key={label} className="flex justify-between items-center py-1.5">
-                    <span className="text-xs text-white/35">{label}</span>
-                    <span className="text-xs font-medium text-white/60">{value}</span>
+                    <span className="text-xs text-muted-foreground">{label}</span>
+                    <span className="text-xs font-medium text-foreground">{value}</span>
                   </div>
                 ))}
-                <div className="flex justify-between items-center py-2 border-t border-white/[0.06] mt-1">
-                  <span className="text-xs font-semibold text-white/50 uppercase tracking-wide">Total</span>
-                  <span className="text-base font-bold text-emerald-400">{totalDA} DA</span>
+                <div className="flex justify-between items-center py-2 border-t border-border/50 mt-1">
+                  <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Total</span>
+                  <span className="text-base font-bold text-emerald-600">{totalDA} DA</span>
                 </div>
               </div>
             </Card>
@@ -368,14 +367,14 @@ export default function AdminOrderDetail() {
                   onChange={e => setAdminNote(e.target.value)}
                   placeholder="Note interne (visible uniquement par l'équipe)…"
                   rows={5}
-                  className="bg-white/[0.03] border-white/[0.07] text-white/65 placeholder:text-white/18 resize-none text-sm focus:border-primary/30 leading-relaxed"
+                  className="resize-none text-sm leading-relaxed"
                 />
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={handleSaveNote}
                   disabled={savingNote}
-                  className="w-full border-white/[0.08] text-white/50 hover:text-white hover:bg-white/[0.05]"
+                  className="w-full"
                 >
                   {savingNote
                     ? <><Loader2 className="mr-2 h-3.5 w-3.5 animate-spin" />Sauvegarde...</>
