@@ -142,7 +142,7 @@ export function Navbar() {
 
       {/* Mobile menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-border/40 bg-background/98 backdrop-blur-xl py-4 px-4 flex flex-col gap-1">
+        <div className="md:hidden border-t border-border/40 bg-background py-4 px-4 flex flex-col gap-1">
           {navLinks.map((link) => (
             <Link
               key={link.href}
