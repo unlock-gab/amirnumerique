@@ -52,6 +52,15 @@ router.put("/users/profile", requireAuth, async (req, res): Promise<void> => {
   if (parsed.data.phone !== undefined) updateData.phone = parsed.data.phone;
   if (parsed.data.preferredLanguage) updateData.preferredLanguage = parsed.data.preferredLanguage;
 
+  if (parsed.data.email) {
+    const [existing] = await db.select().from(usersTable).where(eq(usersTable.email, parsed.data.email));
+    if (existing && existing.id !== userId) {
+      res.status(400).json({ error: "Email déjà utilisé" });
+      return;
+    }
+    updateData.email = parsed.data.email;
+  }
+
   if (parsed.data.newPassword) {
     if (!parsed.data.currentPassword) {
       res.status(400).json({ error: "Current password required" });

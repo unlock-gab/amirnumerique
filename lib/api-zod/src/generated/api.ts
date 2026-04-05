@@ -1155,6 +1155,7 @@ export const UpdateUserResponse = zod.object({
  */
 export const UpdateProfileBody = zod.object({
   fullName: zod.string().optional(),
+  email: zod.string().email().optional(),
   phone: zod.string().optional(),
   preferredLanguage: zod.enum(["fr", "ar"]).optional(),
   currentPassword: zod.string().optional(),
