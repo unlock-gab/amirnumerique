@@ -2,8 +2,9 @@ import { PublicLayout } from "@/components/layouts/public-layout";
 import { useListPortfolio } from "@workspace/api-client-react";
 import { useI18n } from "@/hooks/use-i18n";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
-import { Loader2, Award, ArrowRight } from "lucide-react";
+import { useState, useMemo } from "react";
+import { Loader2, Award, ArrowRight, Search, X } from "lucide-react";
+import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 
@@ -29,13 +30,27 @@ const MOCK_PROJECTS = [
 export default function Portfolio() {
   const { language } = useI18n();
   const [filter, setFilter] = useState<string | undefined>(undefined);
-  const [hoveredId, setHoveredId] = useState<number | null>(null);
+  const [search, setSearch] = useState("");
   const { data: apiItems, isLoading } = useListPortfolio({});
 
   const rawItems = (apiItems && apiItems.length > 0) ? apiItems : MOCK_PROJECTS;
-  const filtered = filter ? rawItems.filter((i: any) => i.category === filter) : rawItems;
+
+  const filtered = useMemo(() => {
+    let list = filter ? rawItems.filter((i: any) => i.category === filter) : rawItems;
+    if (search.trim()) {
+      const q = search.toLowerCase();
+      list = list.filter((i: any) =>
+        i.titleFr?.toLowerCase().includes(q) ||
+        i.titleAr?.toLowerCase().includes(q) ||
+        i.descriptionFr?.toLowerCase().includes(q)
+      );
+    }
+    return list;
+  }, [rawItems, filter, search]);
+
   const featured = filtered.filter((i: any) => i.isFeatured);
   const rest = filtered.filter((i: any) => !i.isFeatured);
+  const hasFilters = search || filter !== undefined;
 
   return (
     <PublicLayout>
@@ -61,7 +76,30 @@ export default function Portfolio() {
 
       {/* ── FILTER BAR ── */}
       <section className="sticky top-16 z-20 bg-background/80 backdrop-blur-xl border-b border-border/40 py-4">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 space-y-3">
+          {/* Search */}
+          <div className="flex items-center gap-2">
+            <div className="relative flex-1 max-w-sm">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground/50" />
+              <Input
+                placeholder="Rechercher une réalisation…"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                data-testid="portfolio-search"
+                className="pl-9 h-9 text-sm border-border/60 bg-background/60"
+              />
+            </div>
+            {hasFilters && (
+              <Button variant="ghost" size="sm" onClick={() => { setSearch(""); setFilter(undefined); }}
+                className="h-9 text-muted-foreground hover:text-foreground gap-1.5 shrink-0">
+                <X className="h-3.5 w-3.5" /> Réinitialiser
+              </Button>
+            )}
+            {hasFilters && (
+              <span className="text-xs text-muted-foreground shrink-0">{filtered.length} résultat{filtered.length !== 1 ? "s" : ""}</span>
+            )}
+          </div>
+          {/* Category tabs */}
           <div className="flex flex-wrap gap-2">
             {CATEGORIES.map((cat) => {
               const isActive = filter === cat.key;

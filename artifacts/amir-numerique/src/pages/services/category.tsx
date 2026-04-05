@@ -3,8 +3,10 @@ import { Link, useParams } from "wouter";
 import { useGetServicesByCategorySlug, useGetServiceCategoryBySlug, useGetMe } from "@workspace/api-client-react";
 import { useI18n } from "@/hooks/use-i18n";
 import { motion } from "framer-motion";
-import { ArrowRight, ArrowLeft, Loader2, ChevronRight } from "lucide-react";
+import { ArrowRight, ArrowLeft, Loader2, ChevronRight, Search, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { useState, useMemo } from "react";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -17,8 +19,20 @@ export default function ServiceCategory() {
   const { data: category, isLoading: catLoading } = useGetServiceCategoryBySlug(slug ?? "");
   const { data: services, isLoading: svcLoading } = useGetServicesByCategorySlug(slug ?? "");
   const { data: user } = useGetMe();
+  const [search, setSearch] = useState("");
 
   const isLoading = catLoading || svcLoading;
+
+  const filteredServices = useMemo(() => {
+    const list = services ?? [];
+    if (!search.trim()) return list;
+    const q = search.toLowerCase();
+    return list.filter((s: any) =>
+      s.nameFr?.toLowerCase().includes(q) ||
+      s.nameAr?.toLowerCase().includes(q) ||
+      s.descriptionFr?.toLowerCase().includes(q)
+    );
+  }, [services, search]);
 
   const getPrice = (service: any) => {
     if (!user) return service.publicPricePerM2;
@@ -98,18 +112,43 @@ export default function ServiceCategory() {
             </div>
           ) : (
             <>
-              <div className="flex items-center justify-between mb-8">
-                <p className="text-sm text-muted-foreground">
-                  <span className="font-600 text-foreground">{services.length}</span> service{services.length > 1 ? "s" : ""} disponible{services.length > 1 ? "s" : ""}
-                </p>
+              <div className="flex flex-wrap items-center justify-between gap-3 mb-8">
+                <div className="flex items-center gap-3 flex-wrap">
+                  <p className="text-sm text-muted-foreground">
+                    <span className="font-600 text-foreground">{filteredServices.length}</span>
+                    {search && <span className="text-primary"> / {services.length}</span>}
+                    {" "}service{filteredServices.length > 1 ? "s" : ""}
+                  </p>
+                  <div className="relative">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground/50" />
+                    <Input
+                      placeholder="Filtrer les services…"
+                      value={search}
+                      onChange={(e) => setSearch(e.target.value)}
+                      data-testid="category-services-search"
+                      className="pl-9 h-8 w-48 text-sm border-border/60"
+                    />
+                  </div>
+                  {search && (
+                    <button onClick={() => setSearch("")} className="text-xs text-muted-foreground hover:text-foreground flex items-center gap-1">
+                      <X className="h-3 w-3" /> Effacer
+                    </button>
+                  )}
+                </div>
                 <Button variant="ghost" size="sm" asChild className="text-muted-foreground hover:text-foreground">
                   <Link href="/services">
                     <ArrowLeft className="mr-1.5 h-3.5 w-3.5" /> Toutes les catégories
                   </Link>
                 </Button>
               </div>
+              {filteredServices.length === 0 ? (
+                <div className="text-center py-16 text-muted-foreground">
+                  <p className="mb-3">Aucun service ne correspond à « {search} ».</p>
+                  <Button variant="outline" size="sm" onClick={() => setSearch("")}>Voir tous les services</Button>
+                </div>
+              ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {services.map((service, i) => {
+                {filteredServices.map((service: any, i: number) => {
                   const name = language === "ar" ? service.nameAr : service.nameFr;
                   const desc = language === "ar" ? service.descriptionAr : service.descriptionFr;
                   const price = getPrice(service);
@@ -166,6 +205,7 @@ export default function ServiceCategory() {
                   );
                 })}
               </div>
+              )}
             </>
           )}
         </section>

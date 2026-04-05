@@ -3,8 +3,10 @@ import { Link } from "wouter";
 import { useListServiceCategories } from "@workspace/api-client-react";
 import { useI18n } from "@/hooks/use-i18n";
 import { motion } from "framer-motion";
-import { ArrowUpRight, Loader2, Sparkles } from "lucide-react";
-import { useRef } from "react";
+import { ArrowUpRight, Loader2, Sparkles, Search, X } from "lucide-react";
+import { useRef, useState, useMemo } from "react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 28 },
@@ -84,8 +86,21 @@ export default function Services() {
   const { language } = useI18n();
   const { data: categories, isLoading } = useListServiceCategories({ active: true });
   const heroRef = useRef<HTMLDivElement>(null);
+  const [search, setSearch] = useState("");
 
   const sorted = [...(categories ?? [])].sort((a, b) => a.displayOrder - b.displayOrder);
+
+  const displayList = useMemo(() => {
+    if (!search.trim()) return sorted;
+    const q = search.toLowerCase();
+    return sorted.filter((c: any) =>
+      (language === "ar" ? c.nameAr : c.nameFr)?.toLowerCase().includes(q) ||
+      c.nameFr?.toLowerCase().includes(q) ||
+      c.descriptionFr?.toLowerCase().includes(q)
+    );
+  }, [sorted, search, language]);
+
+  const isSearching = search.trim().length > 0;
   const [featured, second, third, ...extra] = sorted;
 
   return (
@@ -134,11 +149,52 @@ export default function Services() {
         </div>
       </section>
 
+      {/* ══ SEARCH BAR ════════════════════════════════════════════════════ */}
+      <div className="container mx-auto px-4 sm:px-6 mb-8">
+        <div className="flex items-center gap-2 max-w-md">
+          <div className="relative flex-1">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/50" />
+            <Input
+              placeholder="Rechercher un service ou catégorie…"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              data-testid="services-index-search"
+              className="pl-10 h-10 border-border/60 bg-card/60"
+            />
+          </div>
+          {search && (
+            <Button variant="ghost" size="sm" onClick={() => setSearch("")} className="h-10 gap-1.5 text-muted-foreground">
+              <X className="h-3.5 w-3.5" /> Effacer
+            </Button>
+          )}
+        </div>
+        {isSearching && (
+          <p className="text-xs text-muted-foreground mt-2">
+            {displayList.length} catégorie{displayList.length !== 1 ? "s" : ""} trouvée{displayList.length !== 1 ? "s" : ""}
+          </p>
+        )}
+      </div>
+
       {/* ══ CATEGORY GRID ═════════════════════════════════════════════════ */}
       <section className="container mx-auto px-4 sm:px-6 pb-28">
         {isLoading ? (
           <div className="flex justify-center py-32">
             <Loader2 className="h-8 w-8 animate-spin text-primary" />
+          </div>
+        ) : isSearching && displayList.length === 0 ? (
+          <div className="text-center py-32">
+            <p className="text-muted-foreground mb-4">Aucun service ne correspond à « {search} ».</p>
+            <Button variant="outline" onClick={() => setSearch("")}>Voir tous les services</Button>
+          </div>
+        ) : isSearching ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {displayList.map((cat: any, i: number) => (
+              <motion.div key={cat.id} variants={fadeUp} initial="hidden" animate="visible" custom={i}>
+                <Link href={`/services/${cat.slug}`}>
+                  <CategoryCard cat={cat} index={i} language={language} size="medium" />
+                </Link>
+              </motion.div>
+            ))}
           </div>
         ) : sorted.length === 0 ? (
           <p className="text-center py-32 text-muted-foreground">Aucune catégorie disponible pour le moment.</p>

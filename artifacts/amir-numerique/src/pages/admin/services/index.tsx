@@ -12,8 +12,10 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
 import { useRef, useState } from "react";
-import { Plus, Loader2, Pencil, Trash2, CheckCircle, XCircle, ImagePlus, X, Globe, Hash, Layers } from "lucide-react";
+import { Plus, Loader2, Pencil, Trash2, CheckCircle, XCircle, ImagePlus, X, Globe, Hash, Layers, Search } from "lucide-react";
 import { motion } from "framer-motion";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useMemo } from "react";
 
 const serviceSchema = z.object({
   categoryId: z.coerce.number().optional(),
@@ -51,6 +53,23 @@ export default function AdminServices() {
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
   const [uploadingImage, setUploadingImage] = useState(false);
   const imageInputRef = useRef<HTMLInputElement>(null);
+  const [search, setSearch] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState("all");
+  const [activeFilter, setActiveFilter] = useState("all");
+
+  const filteredServices = useMemo(() => {
+    let list: any[] = Array.isArray(services) ? services : [];
+    if (activeFilter === "active") list = list.filter((s: any) => s.active);
+    if (activeFilter === "inactive") list = list.filter((s: any) => !s.active);
+    if (categoryFilter !== "all") list = list.filter((s: any) => String(s.categoryId) === categoryFilter);
+    if (search.trim()) {
+      const q = search.toLowerCase();
+      list = list.filter((s: any) => s.nameFr?.toLowerCase().includes(q) || s.slug?.toLowerCase().includes(q));
+    }
+    return list;
+  }, [services, search, categoryFilter, activeFilter]);
+
+  const hasFilters = search || categoryFilter !== "all" || activeFilter !== "all";
 
   const form = useForm<ServiceForm>({
     resolver: zodResolver(serviceSchema),
@@ -127,7 +146,8 @@ export default function AdminServices() {
           <div>
             <h1 className="font-display text-2xl font-700 tracking-tight">{t("manageServices")}</h1>
             <p className="text-sm text-muted-foreground mt-1">
-              {services?.length ?? 0} service{(services?.length ?? 0) !== 1 ? "s" : ""} configuré{(services?.length ?? 0) !== 1 ? "s" : ""}
+              {filteredServices.length} service{filteredServices.length !== 1 ? "s" : ""}
+              {hasFilters && <span className="ml-1 text-primary"> (filtrés)</span>}
             </p>
           </div>
           <Button onClick={openCreate} className="shrink-0 shadow-lg shadow-primary/15" data-testid="button-create-service">
@@ -135,13 +155,65 @@ export default function AdminServices() {
           </Button>
         </div>
 
+        {/* Filter bar */}
+        <div className="flex flex-wrap gap-2 items-center">
+          <div className="relative flex-1 min-w-[200px] max-w-xs">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground/50" />
+            <Input
+              placeholder="Nom du service…"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              data-testid="services-search"
+              className="pl-9 h-9 text-sm border-border/60"
+            />
+          </div>
+          <Select value={categoryFilter} onValueChange={setCategoryFilter}>
+            <SelectTrigger className="w-44 h-9 text-sm border-border/60" data-testid="services-category-filter">
+              <SelectValue placeholder="Catégorie" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">Toutes catégories</SelectItem>
+              {(Array.isArray(categories) ? categories : []).map((c: any) => (
+                <SelectItem key={c.id} value={String(c.id)}>{c.nameFr}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <Select value={activeFilter} onValueChange={setActiveFilter}>
+            <SelectTrigger className="w-36 h-9 text-sm border-border/60" data-testid="services-active-filter">
+              <SelectValue placeholder="Statut" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">Tous statuts</SelectItem>
+              <SelectItem value="active">Actifs</SelectItem>
+              <SelectItem value="inactive">Inactifs</SelectItem>
+            </SelectContent>
+          </Select>
+          {hasFilters && (
+            <Button variant="ghost" size="sm" onClick={() => { setSearch(""); setCategoryFilter("all"); setActiveFilter("all"); }}
+              className="h-9 text-muted-foreground hover:text-foreground gap-1.5">
+              <X className="h-3.5 w-3.5" /> Réinitialiser
+            </Button>
+          )}
+        </div>
+
         {isLoading ? (
           <div className="flex justify-center py-24">
             <Loader2 className="h-8 w-8 animate-spin text-primary" />
           </div>
+        ) : filteredServices.length === 0 ? (
+          <div className="text-center py-24 rounded-2xl border border-border/50 bg-card/40">
+            <Layers className="h-10 w-10 mx-auto mb-4 text-muted-foreground/20" />
+            <h3 className="font-display font-600 text-lg mb-1">Aucun service trouvé</h3>
+            {hasFilters && (
+              <Button variant="outline" size="sm" className="mt-3"
+                onClick={() => { setSearch(""); setCategoryFilter("all"); setActiveFilter("all"); }}>
+                Effacer les filtres
+              </Button>
+            )}
+          </div>
         ) : (
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-5">
-            {services?.map((service, i) => (
+            {filteredServices.map((service, i) => (
               <motion.div
                 key={service.id}
                 initial={{ opacity: 0, y: 12 }}

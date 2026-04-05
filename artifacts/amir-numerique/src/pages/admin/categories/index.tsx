@@ -6,6 +6,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -14,7 +15,8 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
 import { useRef, useState } from "react";
-import { Plus, Loader2, Pencil, Trash2, CheckCircle, XCircle, ImagePlus, X, GripVertical } from "lucide-react";
+import { Plus, Loader2, Pencil, Trash2, CheckCircle, XCircle, ImagePlus, X, GripVertical, Search } from "lucide-react";
+import { useMemo } from "react";
 import { motion } from "framer-motion";
 
 const categorySchema = z.object({
@@ -41,6 +43,21 @@ export default function AdminCategories() {
   const [deleteConfirmId, setDeleteConfirmId] = useState<number | null>(null);
   const [uploadingImage, setUploadingImage] = useState(false);
   const imageInputRef = useRef<HTMLInputElement>(null);
+  const [search, setSearch] = useState("");
+  const [activeFilter, setActiveFilter] = useState("all");
+
+  const filteredCategories = useMemo(() => {
+    let list = [...(categories ?? [])].sort((a, b) => a.displayOrder - b.displayOrder);
+    if (activeFilter === "active") list = list.filter((c: any) => c.isActive);
+    if (activeFilter === "inactive") list = list.filter((c: any) => !c.isActive);
+    if (search.trim()) {
+      const q = search.toLowerCase();
+      list = list.filter((c: any) => c.nameFr?.toLowerCase().includes(q) || c.slug?.toLowerCase().includes(q));
+    }
+    return list;
+  }, [categories, search, activeFilter]);
+
+  const hasFilters = search || activeFilter !== "all";
 
   const form = useForm<CategoryForm>({
     resolver: zodResolver(categorySchema),
@@ -111,16 +128,47 @@ export default function AdminCategories() {
     <AdminLayout>
       <div className="space-y-8">
         {/* Header */}
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-4 flex-wrap">
           <div>
             <h1 className="font-display text-2xl font-700 tracking-tight">Catégories de services</h1>
             <p className="text-muted-foreground text-sm mt-1">
-              Organisez vos services en catégories pour une navigation claire.
+              {filteredCategories.length} catégorie{filteredCategories.length !== 1 ? "s" : ""}
+              {hasFilters && <span className="ml-1 text-primary"> (filtrées)</span>}
             </p>
           </div>
           <Button onClick={openCreate} className="gap-2">
             <Plus className="h-4 w-4" /> Nouvelle catégorie
           </Button>
+        </div>
+
+        {/* Filter bar */}
+        <div className="flex flex-wrap gap-2 items-center">
+          <div className="relative flex-1 min-w-[200px] max-w-xs">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground/50" />
+            <Input
+              placeholder="Nom ou slug…"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              data-testid="categories-search"
+              className="pl-9 h-9 text-sm border-border/60"
+            />
+          </div>
+          <Select value={activeFilter} onValueChange={setActiveFilter}>
+            <SelectTrigger className="w-36 h-9 text-sm border-border/60" data-testid="categories-active-filter">
+              <SelectValue placeholder="Statut" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">Tous statuts</SelectItem>
+              <SelectItem value="active">Actives</SelectItem>
+              <SelectItem value="inactive">Inactives</SelectItem>
+            </SelectContent>
+          </Select>
+          {hasFilters && (
+            <Button variant="ghost" size="sm" onClick={() => { setSearch(""); setActiveFilter("all"); }}
+              className="h-9 text-muted-foreground hover:text-foreground gap-1.5">
+              <X className="h-3.5 w-3.5" /> Réinitialiser
+            </Button>
+          )}
         </div>
 
         {/* Categories list */}
@@ -135,9 +183,14 @@ export default function AdminCategories() {
               <Plus className="h-4 w-4 mr-2" /> Créer la première catégorie
             </Button>
           </div>
+        ) : filteredCategories.length === 0 ? (
+          <div className="text-center py-20 border border-dashed border-border/50 rounded-xl text-muted-foreground">
+            <p className="mb-3">Aucun résultat pour cette recherche.</p>
+            <Button variant="outline" onClick={() => { setSearch(""); setActiveFilter("all"); }}>Réinitialiser les filtres</Button>
+          </div>
         ) : (
           <div className="space-y-3">
-            {[...categories].sort((a, b) => a.displayOrder - b.displayOrder).map((cat, i) => (
+            {filteredCategories.map((cat, i) => (
               <motion.div
                 key={cat.id}
                 initial={{ opacity: 0, y: 10 }}
