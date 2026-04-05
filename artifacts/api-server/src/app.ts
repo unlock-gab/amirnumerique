@@ -73,7 +73,7 @@ if (process.env.NODE_ENV === "production") {
   const staticPath = path.join(__dirname, "public");
   app.use(express.static(staticPath));
   // SPA catch-all: all non-API routes return index.html
-  app.get("*", (_req, res) => {
+  app.use((_req, res) => {
     res.sendFile(path.join(staticPath, "index.html"));
   });
 }
