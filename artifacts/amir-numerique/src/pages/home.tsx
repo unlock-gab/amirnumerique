@@ -49,7 +49,7 @@ export default function Home() {
   return (
     <PublicLayout>
       {/* ═══════════════════ HERO ═══════════════════ */}
-      <section className="relative min-h-screen flex items-start overflow-hidden -mt-[68px] pt-[68px]">
+      <section className="relative flex items-start overflow-hidden -mt-[68px] pt-[68px]">
         {/* BG layers */}
         <div className="absolute inset-0 z-0">
           {/* Machine UV background image */}
