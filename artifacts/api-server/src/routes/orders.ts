@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { db, ordersTable, servicesTable, usersTable } from "@workspace/db";
+import { db, ordersTable, servicesTable, usersTable, orderStatusHistoryTable } from "@workspace/db";
 import { eq, desc, and, sql } from "drizzle-orm";
 import { CreateOrderBody, GetOrderParams, UpdateOrderStatusParams, UpdateOrderStatusBody, ListOrdersQueryParams } from "@workspace/api-zod";
 import { requireAuth, requireAdmin } from "../lib/auth";
@@ -117,7 +117,53 @@ router.post("/orders", requireAuth, async (req, res): Promise<void> => {
     orderStatus: "pending",
   }).returning();
 
+  await db.insert(orderStatusHistoryTable).values({
+    orderId: order.id,
+    status: "pending",
+    changedByUserId: userId,
+    note: "Commande créée",
+  });
+
   res.status(201).json(order);
+});
+
+router.get("/orders/:id/history", requireAuth, async (req, res): Promise<void> => {
+  const id = parseInt(req.params.id);
+  if (isNaN(id)) {
+    res.status(400).json({ error: "Invalid order id" });
+    return;
+  }
+
+  const isAdmin = req.session.userRole === "admin";
+  const userId = req.session.userId!;
+
+  const [order] = await db.select().from(ordersTable).where(eq(ordersTable.id, id));
+  if (!order) {
+    res.status(404).json({ error: "Order not found" });
+    return;
+  }
+  if (!isAdmin && order.userId !== userId) {
+    res.status(403).json({ error: "Forbidden" });
+    return;
+  }
+
+  const history = await db
+    .select({
+      id: orderStatusHistoryTable.id,
+      status: orderStatusHistoryTable.status,
+      note: orderStatusHistoryTable.note,
+      createdAt: orderStatusHistoryTable.createdAt,
+      changedBy: {
+        id: usersTable.id,
+        fullName: usersTable.fullName,
+      },
+    })
+    .from(orderStatusHistoryTable)
+    .leftJoin(usersTable, eq(orderStatusHistoryTable.changedByUserId, usersTable.id))
+    .where(eq(orderStatusHistoryTable.orderId, id))
+    .orderBy(desc(orderStatusHistoryTable.createdAt));
+
+  res.json(history);
 });
 
 router.get("/orders/:id", requireAuth, async (req, res): Promise<void> => {
@@ -176,6 +222,12 @@ router.patch("/orders/:id", requireAdmin, async (req, res): Promise<void> => {
     return;
   }
 
+  const [existing] = await db.select().from(ordersTable).where(eq(ordersTable.id, params.data.id));
+  if (!existing) {
+    res.status(404).json({ error: "Order not found" });
+    return;
+  }
+
   const updateData: any = { orderStatus: body.data.orderStatus };
   if (body.data.paymentStatus) updateData.paymentStatus = body.data.paymentStatus;
 
@@ -185,10 +237,23 @@ router.patch("/orders/:id", requireAdmin, async (req, res): Promise<void> => {
     .where(eq(ordersTable.id, params.data.id))
     .returning();
 
-  if (!order) {
-    res.status(404).json({ error: "Order not found" });
-    return;
+  if (body.data.orderStatus && body.data.orderStatus !== existing.orderStatus) {
+    const statusNotes: Record<string, string> = {
+      confirmed: "Commande confirmée",
+      in_progress: "Préparation en cours",
+      printing: "Impression en cours",
+      ready: "Commande prête",
+      delivered: "Commande livrée",
+      cancelled: "Commande annulée",
+    };
+    await db.insert(orderStatusHistoryTable).values({
+      orderId: order.id,
+      status: body.data.orderStatus,
+      changedByUserId: req.session.userId!,
+      note: statusNotes[body.data.orderStatus] ?? null,
+    });
   }
+
   res.json(order);
 });
 

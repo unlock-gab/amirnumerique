@@ -69,6 +69,17 @@ pnpm workspace monorepo using TypeScript. Main product: **Amir Numérique** — 
 - `/partenariat` — Subcontractor partnership request form (public) + WhatsApp integration
 - `/admin/subcontractor-requests` — Admin view/manage subcontractor requests
 
+### Order Timeline
+- DB table: `order_status_history` (id, order_id, status, changed_by_user_id, note, created_at)
+- API: `GET /api/orders/:id/history` — returns status history (desc order) with changedBy user
+- API: `PATCH /api/orders/:id` — auto-inserts history entry when `orderStatus` changes
+- API: `POST /api/orders` — inserts initial "pending" history entry on order creation
+- Component: `src/components/order-timeline.tsx` — reusable `<OrderTimeline orderId currentStatus />` 
+- Timeline fetches history via `fetch()`, renders vertical step-by-step with icons, timestamps, color per stage
+- Cancelled state: dedicated full-panel "Commande annulée" view with cancellation timestamp
+- Shown on: `/dashboard/orders/:id` (user) and `/admin/orders/:id` (admin)
+- Admin timeline refreshes after every status save via `timelineKey` increment
+
 ### Subcontractor Flow
 - Public `/partenariat` page: collects fullName, companyName, phone, city, activityType, estimatedVolume, message
 - On success: saves to DB + shows WhatsApp CTA with pre-filled structured message

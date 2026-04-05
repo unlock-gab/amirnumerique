@@ -7,3 +7,4 @@ export * from "./portfolio";
 export * from "./settings";
 export * from "./admin_logs";
 export * from "./subcontractor_requests";
+export * from "./order_status_history";

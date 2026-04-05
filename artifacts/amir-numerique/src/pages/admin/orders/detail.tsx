@@ -7,21 +7,22 @@ import { Link } from "wouter";
 import { ArrowLeft, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { useState } from "react";
+import { useState, useCallback } from "react";
+import { OrderTimeline } from "@/components/order-timeline";
 
 const STATUS_OPTIONS = [
-  { value: "pending", label: "En attente" },
-  { value: "confirmed", label: "Confirmée" },
-  { value: "in_progress", label: "En cours" },
-  { value: "printing", label: "En impression" },
-  { value: "ready", label: "Prête" },
-  { value: "delivered", label: "Livrée" },
-  { value: "cancelled", label: "Annulée" },
+  { value: "pending",     label: "En attente" },
+  { value: "confirmed",   label: "Confirmée" },
+  { value: "in_progress", label: "En préparation" },
+  { value: "printing",    label: "En impression" },
+  { value: "ready",       label: "Prête" },
+  { value: "delivered",   label: "Livrée" },
+  { value: "cancelled",   label: "Annulée" },
 ];
 const PAYMENT_OPTIONS = [
   { value: "pending_on_delivery", label: "À la livraison" },
-  { value: "paid", label: "Payé" },
-  { value: "cancelled", label: "Annulé" },
+  { value: "paid",                label: "Payé" },
+  { value: "cancelled",           label: "Annulé" },
 ];
 
 export default function AdminOrderDetail() {
@@ -34,6 +35,7 @@ export default function AdminOrderDetail() {
   const [orderStatus, setOrderStatus] = useState("");
   const [paymentStatus, setPaymentStatus] = useState("");
   const [initialized, setInitialized] = useState(false);
+  const [timelineKey, setTimelineKey] = useState(0);
 
   if (order && !initialized) {
     setOrderStatus(order.orderStatus);
@@ -41,7 +43,7 @@ export default function AdminOrderDetail() {
     setInitialized(true);
   }
 
-  const handleSave = () => {
+  const handleSave = useCallback(() => {
     if (!id) return;
     updateOrder.mutate({
       id,
@@ -53,54 +55,85 @@ export default function AdminOrderDetail() {
       onSuccess: () => {
         toast({ title: "Commande mise à jour" });
         refetch();
+        setTimelineKey(k => k + 1);
       },
       onError: () => toast({ title: "Erreur", variant: "destructive" }),
     });
-  };
+  }, [id, orderStatus, paymentStatus, updateOrder, refetch, toast]);
 
   if (isLoading) {
-    return <AdminLayout><div className="flex justify-center py-20"><Loader2 className="h-8 w-8 animate-spin text-primary" /></div></AdminLayout>;
+    return (
+      <AdminLayout>
+        <div className="flex justify-center py-20">
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        </div>
+      </AdminLayout>
+    );
   }
 
   if (!order) {
-    return <AdminLayout><div className="text-center py-20"><Button asChild><Link href="/admin/orders">Retour</Link></Button></div></AdminLayout>;
+    return (
+      <AdminLayout>
+        <div className="text-center py-20">
+          <Button asChild><Link href="/admin/orders">Retour</Link></Button>
+        </div>
+      </AdminLayout>
+    );
   }
 
   return (
     <AdminLayout>
-      <div className="max-w-2xl">
-        <Button variant="ghost" size="sm" asChild className="mb-6 text-muted-foreground">
-          <Link href="/admin/orders"><ArrowLeft className="mr-2 h-4 w-4" />{t("manageOrders")}</Link>
+      <div className="max-w-2xl space-y-6">
+        <Button variant="ghost" size="sm" asChild className="text-muted-foreground -ml-2">
+          <Link href="/admin/orders">
+            <ArrowLeft className="mr-2 h-4 w-4" />{t("manageOrders")}
+          </Link>
         </Button>
 
-        <h1 className="text-2xl font-bold mb-8">Commande {order.orderNumber}</h1>
+        <div>
+          <h1 className="text-2xl font-bold">Commande {order.orderNumber}</h1>
+          <p className="text-sm text-muted-foreground mt-1">
+            {(order as any).user?.fullName || "—"} · {(order as any).user?.email || "—"}
+          </p>
+        </div>
 
-        <div className="bg-card border border-border rounded-xl divide-y divide-border mb-6">
+        <OrderTimeline
+          key={timelineKey}
+          orderId={order.id}
+          currentStatus={orderStatus || order.orderStatus}
+        />
+
+        <div className="bg-card border border-border rounded-xl divide-y divide-border">
           {[
-            { label: "Client", value: (order as any).user?.fullName || "—" },
-            { label: "Email", value: (order as any).user?.email || "—" },
-            { label: "Date", value: new Date(order.createdAt).toLocaleString("fr-DZ") },
-            { label: "Dimensions", value: `${order.widthInput} × ${order.heightInput} ${order.unitInput}` },
-            { label: "Surface (m²)", value: `${order.areaM2.toFixed(2)} m²` },
-            { label: "Prix unitaire", value: `${order.unitPricePerM2.toLocaleString()} DA/m²` },
-            { label: "Prix affiché", value: `${order.displayedPrice.toLocaleString()} DA` },
-            { label: "Prix final", value: order.finalPrice ? `${order.finalPrice.toLocaleString()} DA` : "—" },
+            { label: "Date",           value: new Date(order.createdAt).toLocaleString("fr-DZ") },
+            { label: "Dimensions",     value: `${order.widthInput} × ${order.heightInput} ${order.unitInput}` },
+            { label: "Surface (m²)",   value: `${order.areaM2.toFixed(2)} m²` },
+            { label: "Prix unitaire",  value: `${order.unitPricePerM2.toLocaleString()} DA/m²` },
+            { label: "Prix affiché",   value: `${order.displayedPrice.toLocaleString()} DA` },
+            { label: "Prix final",     value: order.finalPrice ? `${order.finalPrice.toLocaleString()} DA` : "—" },
           ].map(({ label, value }) => (
-            <div key={label} className="flex justify-between items-center p-4">
+            <div key={label} className="flex justify-between items-center px-4 py-3.5">
               <span className="text-sm text-muted-foreground">{label}</span>
               <span className="font-medium text-sm">{value}</span>
             </div>
           ))}
           {order.note && (
-            <div className="p-4">
+            <div className="px-4 py-3.5">
               <span className="text-sm text-muted-foreground block mb-1">Note client</span>
-              <p className="text-sm">{order.note}</p>
+              <p className="text-sm leading-relaxed">{order.note}</p>
             </div>
           )}
           {order.fileUrl && (
-            <div className="p-4">
-              <span className="text-sm text-muted-foreground block mb-1">Fichier</span>
-              <a href={order.fileUrl} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline text-sm">Télécharger</a>
+            <div className="px-4 py-3.5 flex items-center justify-between">
+              <span className="text-sm text-muted-foreground">Fichier</span>
+              <a
+                href={order.fileUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:underline text-sm font-medium"
+              >
+                Télécharger
+              </a>
             </div>
           )}
         </div>
@@ -113,7 +146,9 @@ export default function AdminOrderDetail() {
             <Select value={orderStatus} onValueChange={setOrderStatus}>
               <SelectTrigger data-testid="select-status"><SelectValue /></SelectTrigger>
               <SelectContent>
-                {STATUS_OPTIONS.map(o => <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>)}
+                {STATUS_OPTIONS.map(o => (
+                  <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>
@@ -123,13 +158,22 @@ export default function AdminOrderDetail() {
             <Select value={paymentStatus} onValueChange={setPaymentStatus}>
               <SelectTrigger data-testid="select-payment"><SelectValue /></SelectTrigger>
               <SelectContent>
-                {PAYMENT_OPTIONS.map(o => <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>)}
+                {PAYMENT_OPTIONS.map(o => (
+                  <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>
 
-          <Button onClick={handleSave} disabled={updateOrder.isPending} data-testid="button-save-order">
-            {updateOrder.isPending ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Sauvegarde...</> : "Enregistrer les modifications"}
+          <Button
+            onClick={handleSave}
+            disabled={updateOrder.isPending}
+            data-testid="button-save-order"
+            className="w-full sm:w-auto"
+          >
+            {updateOrder.isPending
+              ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Sauvegarde...</>
+              : "Enregistrer les modifications"}
           </Button>
         </div>
       </div>
