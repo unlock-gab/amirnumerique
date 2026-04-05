@@ -1,0 +1,158 @@
+Redesign the `/services` page completely to make it look much more stylish, premium, elegant, and visually refined.
+
+The current categories page is not visually strong enough.
+It feels too empty, too blocky, and not premium enough for a real high-end digital printing and advertising agency.
+
+## Main problem
+
+The current category cards are too large, too empty, and not visually sophisticated.
+They do not feel luxurious, polished, or commercially strong.
+The layout currently looks more like large placeholder blocks than premium service category presentation.
+
+## Main objective
+
+Transform the Services page into a premium category showcase that feels:
+
+* stylish
+* elegant
+* high-end
+* modern
+* visually rich
+* professionally art directed
+* suitable for a real printing and branding agency
+
+## Desired result
+
+When a user opens the Services page, they should immediately feel they are browsing a premium visual catalog of service categories, not basic content cards.
+
+## Redesign the overall page structure
+
+Create a more refined page composition:
+
+1. elegant page intro / mini hero
+2. premium category grid
+3. optional CTA section at the bottom
+
+The page should feel more intentional and luxurious.
+
+## Page intro
+
+Improve the top of the page with:
+
+* stronger heading hierarchy
+* short refined supporting text
+* better spacing
+* more elegant composition
+* optional subtle label / eyebrow text
+
+Do not leave the page feeling empty after the heading.
+
+## Category card redesign
+
+Completely redesign the category cards.
+
+Each category card should feel like a premium visual tile, not a plain rectangle.
+
+### Each card should include
+
+* strong visual background or service-related image
+* dark premium overlay for readability
+* category title
+* short elegant description
+* subtle category index or badge
+* refined CTA or arrow treatment
+* optional small supporting label like “Plusieurs services disponibles”
+
+## Visual styling for cards
+
+Cards must feel:
+
+* luxurious
+* editorial
+* modern
+* atmospheric
+* premium
+* not generic
+* not empty
+
+Use:
+
+* strong image treatment
+* elegant overlays
+* layered gradients
+* subtle glow or highlight
+* refined borders
+* smoother shadows
+* better content anchoring
+* richer internal composition
+
+## Important visual improvement
+
+Do not make the cards feel visually empty anymore.
+Add more visual richness and hierarchy inside each category card.
+The cards should have a stronger focal point and better balance between image and text.
+
+## Layout direction
+
+Replace the current heavy oversized block feeling with a more curated premium grid.
+
+The layout should feel more balanced and intentional.
+You may use:
+
+* a sophisticated asymmetric grid
+  or
+* a clean premium equal-card grid
+  whichever looks more elegant and visually polished
+
+But avoid the current composition that feels too blank and awkward.
+
+## Typography
+
+Make titles feel:
+
+* bold
+* premium
+* elegant
+* highly legible
+
+Descriptions should feel:
+
+* refined
+* clean
+* secondary but readable
+
+## Hover effects
+
+Add premium hover interactions:
+
+* subtle image zoom
+* elegant overlay shift
+* arrow motion
+* soft shadow/depth increase
+* smooth transitions
+
+Do not use cheap or excessive effects.
+
+## Color and mood
+
+Keep the premium dark brand direction, but refine it:
+
+* stronger contrast
+* better visual separation
+* richer tones
+* more controlled accents
+* more luxurious atmosphere
+
+## Inspiration direction
+
+The page should feel closer to:
+
+* a premium creative agency portfolio
+* a luxury service catalog
+* a modern high-end design studio
+* a polished B2B brand presentation
+
+## Important
+
+Do not just slightly tweak the existing design.
+Rework the category cards and page composition so the result feels genuinely more stylish, premium, and beautiful.
