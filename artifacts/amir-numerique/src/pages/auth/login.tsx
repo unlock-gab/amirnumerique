@@ -149,11 +149,6 @@ export default function Login() {
               </form>
             </Form>
 
-            <div className="p-4 rounded-xl bg-muted/30 border border-border/40 text-xs text-muted-foreground space-y-1.5">
-              <p className="font-semibold text-foreground/60 uppercase tracking-wider text-[10px] mb-2">Comptes de démonstration</p>
-              <p>Admin: admin@amirnumerique.dz / admin123456</p>
-              <p>Client: client@example.com / client123</p>
-            </div>
           </div>
         </motion.div>
       </div>
