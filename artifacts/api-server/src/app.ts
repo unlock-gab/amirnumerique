@@ -6,8 +6,15 @@ import connectPgSimple from "connect-pg-simple";
 import { pool } from "@workspace/db";
 import router from "./routes";
 import { logger } from "./lib/logger";
+import path from "path";
+import { fileURLToPath } from "url";
 
 const app: Express = express();
+
+// Trust the reverse proxy (Traefik / nginx) in production
+if (process.env.NODE_ENV === "production") {
+  app.set("trust proxy", 1);
+}
 
 app.use(
   pinoHttp({
@@ -59,5 +66,16 @@ app.use(
 );
 
 app.use("/api", router);
+
+// In production the React SPA is served from the same Express server
+if (process.env.NODE_ENV === "production") {
+  const __dirname = path.dirname(fileURLToPath(import.meta.url));
+  const staticPath = path.join(__dirname, "public");
+  app.use(express.static(staticPath));
+  // SPA catch-all: all non-API routes return index.html
+  app.get("*", (_req, res) => {
+    res.sendFile(path.join(staticPath, "index.html"));
+  });
+}
 
 export default app;
