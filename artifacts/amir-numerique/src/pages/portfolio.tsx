@@ -40,7 +40,7 @@ export default function Portfolio() {
   return (
     <PublicLayout>
       {/* ── HERO ── */}
-      <section className="relative overflow-hidden py-24 border-b border-border/30">
+      <section className="relative overflow-hidden pt-6 pb-24 border-b border-border/30">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/4 via-transparent to-transparent pointer-events-none" />
         <div className="absolute top-0 left-0 right-0 h-px section-divider" />
         <div className="container mx-auto px-4 relative">

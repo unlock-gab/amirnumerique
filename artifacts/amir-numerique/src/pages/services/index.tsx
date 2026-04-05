@@ -49,7 +49,7 @@ export default function Services() {
   return (
     <PublicLayout>
       {/* ── Hero ──────────────────────────────────────────────── */}
-      <section ref={heroRef} className="relative pt-24 pb-16 overflow-hidden">
+      <section ref={heroRef} className="relative pt-6 pb-16 overflow-hidden">
         {/* ambient orbs */}
         <div className="absolute -top-32 left-1/4 w-[600px] h-[400px] bg-primary/6 rounded-full blur-[120px] pointer-events-none" />
         <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-violet-500/4 rounded-full blur-[100px] pointer-events-none" />
