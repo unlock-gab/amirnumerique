@@ -34,6 +34,7 @@ import AdminUsers from "@/pages/admin/users";
 import AdminSettings from "@/pages/admin/settings";
 import SubcontractorPage from "@/pages/subcontractor";
 import AdminSubcontractorRequests from "@/pages/admin/subcontractor-requests";
+import AdminLogin from "@/pages/admin/login";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -79,6 +80,7 @@ function Router() {
       <Route path="/dashboard/profile" component={DashboardProfile} />
 
       {/* Admin routes */}
+      <Route path="/admin/login" component={AdminLogin} />
       <Route path="/admin" component={AdminDashboard} />
       <Route path="/admin/orders" component={AdminOrders} />
       <Route path="/admin/orders/:id" component={AdminOrderDetail} />
