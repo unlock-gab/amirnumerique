@@ -191,6 +191,110 @@ async function seedAdmin() {
   }
 }
 
+async function seedImages() {
+  try {
+    const catImages: Record<string, string> = {
+      "impression-bache": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Large_format_printing.jpg/960px-Large_format_printing.jpg",
+      "enseignes-signaletique": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Sign_for_Roses_in_Waynesboro%2C_Virginia_%2850608495051%29.png/960px-Sign_for_Roses_in_Waynesboro%2C_Virginia_%2850608495051%29.png",
+      "adhesifs-vitrophanie": "https://upload.wikimedia.org/wikipedia/commons/8/89/399_Bombardment_Sq_emblem.png",
+      "roll-up-plv": "https://upload.wikimedia.org/wikipedia/commons/d/d8/Bamboo_exhibition_equipment.jpg",
+      "impression-papier": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Offset_printing_at_Watermark_Press%2C_San_Francisco%2C_California.jpg/960px-Offset_printing_at_Watermark_Press%2C_San_Francisco%2C_California.jpg",
+      "impression-grand-format": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Digital_Printing_Press.JPG/960px-Digital_Printing_Press.JPG",
+      "baches-publicitaires": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/NCH_advertising_banner_on_Nantun_Road_20230610a.jpg/960px-NCH_advertising_banner_on_Nantun_Road_20230610a.jpg",
+      "stickers-adhesifs": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Large_format_printing.jpg/960px-Large_format_printing.jpg",
+      "panneaux-plaques": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Lobby_Signage%2C_Severance_Hall%2C_University_Circle%2C_Cleveland%2C_OH.jpg/960px-Lobby_Signage%2C_Severance_Hall%2C_University_Circle%2C_Cleveland%2C_OH.jpg",
+      "plv-affichage-evenementiel": "https://upload.wikimedia.org/wikipedia/commons/2/20/StateLibQld_2_201799_Trade_display_stands_at_the_Brisbane_Exhibition%2C_1907.jpg",
+      "impression-uv-supports-rigides": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Lynx_ULTRA_64_Flatbed_UV_Rotary_Printing.jpg/960px-Lynx_ULTRA_64_Flatbed_UV_Rotary_Printing.jpg",
+    };
+
+    const svcImages: Record<string, string> = {
+      "bache-publicitaire": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Stadium_banner_sign_for_a_kindergarten.jpg/960px-Stadium_banner_sign_for_a_kindergarten.jpg",
+      "panneau-aluminium": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Large_Format_Printing_of_Black_Numbers_on_a_Brushed_Aluminum_Sheet.jpg/960px-Large_Format_Printing_of_Black_Numbers_on_a_Brushed_Aluminum_Sheet.jpg",
+      "flyers-depliants": "https://upload.wikimedia.org/wikipedia/commons/a/a3/The_OUN_leaflet_of_1949_is_dedicated_to_the_25th_anniversary_of_Mykola_Mikhnovsky%27s_death._Back.jpg",
+      "stickers-adhesifs": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Large_Format_Printing_of_Black_Numbers_on_a_Brushed_Aluminum_Sheet.jpg/800px-Large_Format_Printing_of_Black_Numbers_on_a_Brushed_Aluminum_Sheet.jpg",
+      "roll-up-banner": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Medieval_rotating_harness_banner_%28FindID_567306%29.jpg/960px-Medieval_rotating_harness_banner_%28FindID_567306%29.jpg",
+      "cartes-de-visite": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/WMW_business_card.png/960px-WMW_business_card.png",
+      "bache-uv": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Large_Format_Printing_of_Black_Numbers_on_a_Brushed_Aluminum_Sheet.jpg/960px-Large_Format_Printing_of_Black_Numbers_on_a_Brushed_Aluminum_Sheet.jpg",
+      "bache-eco-solvant": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Large_format_printing.jpg/960px-Large_format_printing.jpg",
+      "affiches-grand-format": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Mixing_printing_blocks_and_photographs_in_poster_design_%285463013381%29.jpg/960px-Mixing_printing_blocks_and_photographs_in_poster_design_%285463013381%29.jpg",
+      "toile-canvas": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Mercurius_Abituriens_%28BM_1884%2C0112.64%29.jpg/960px-Mercurius_Abituriens_%28BM_1884%2C0112.64%29.jpg",
+      "roll-up-visuels": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/2d_TSB_Battalions_roll-up_banner_%284999868%29.jpg/960px-2d_TSB_Battalions_roll-up_banner_%284999868%29.jpg",
+      "papier-photo-grand-format": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Large_format_printing.jpg/960px-Large_format_printing.jpg",
+      "enseigne-lumineuse": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Neon_shop_sign%2C_Meneage_Street%2C_Helston%2C_Cornwall_-_August_2024.jpg/960px-Neon_shop_sign%2C_Meneage_Street%2C_Helston%2C_Cornwall_-_August_2024.jpg",
+      "enseigne-non-lumineuse": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Sign-1140371%2C_Blackrock%2C_Co._Dublin%2C_Ireland.jpg/960px-Sign-1140371%2C_Blackrock%2C_Co._Dublin%2C_Ireland.jpg",
+      "caisson-lumineux": "https://upload.wikimedia.org/wikipedia/commons/b/bd/Gourmet_Bakers_backlit_Board.jpg",
+      "lettres-decoupees": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Large_Format_Printing_of_Black_Numbers_on_a_Brushed_Aluminum_Sheet.jpg/960px-Large_Format_Printing_of_Black_Numbers_on_a_Brushed_Aluminum_Sheet.jpg",
+      "signaletique-interieure": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Lobby_Signage%2C_Severance_Hall%2C_University_Circle%2C_Cleveland%2C_OH.jpg/960px-Lobby_Signage%2C_Severance_Hall%2C_University_Circle%2C_Cleveland%2C_OH.jpg",
+      "signaletique-exterieure": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Sign-1230020%2C_Leixlip%2C_Co._Kildare%2C_Ireland.jpg/960px-Sign-1230020%2C_Leixlip%2C_Co._Kildare%2C_Ireland.jpg",
+      "plaque-professionnelle": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Ocasio-Cortez_office_nameplate_during_2018_office_setup.jpg/960px-Ocasio-Cortez_office_nameplate_during_2018_office_setup.jpg",
+      "panneau-chantier": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Sign-1110783%2C_Wainuiomata%2C_Wellington%2C_New_Zealand.jpg/960px-Sign-1110783%2C_Wainuiomata%2C_Wellington%2C_New_Zealand.jpg",
+      "bache-pub-uv": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Stadium_banner_sign_for_a_kindergarten.jpg/960px-Stadium_banner_sign_for_a_kindergarten.jpg",
+      "bache-pub-eco-solvant": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/NCH_advertising_banner_on_Nantun_Road_20230610a.jpg/960px-NCH_advertising_banner_on_Nantun_Road_20230610a.jpg",
+      "bache-facade": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Paris_9e_Wikivoyage_Banner.png/960px-Paris_9e_Wikivoyage_Banner.png",
+      "bache-chantier": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/New_Snow_Fence_and_Concrete_Barrier_%2830533940823%29.jpg/960px-New_Snow_Fence_and_Concrete_Barrier_%2830533940823%29.jpg",
+      "kakemono": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Wall-hanging%2C_commemorative_%28AM_1996.142.2.1%29.jpg/960px-Wall-hanging%2C_commemorative_%28AM_1996.142.2.1%29.jpg",
+      "x-banner": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Belarusian_presidential_election_banner_2015.jpg/960px-Belarusian_presidential_election_banner_2015.jpg",
+      "beach-flag": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/NCH_advertising_banner_on_Nantun_Road_20230610a.jpg/960px-NCH_advertising_banner_on_Nantun_Road_20230610a.jpg",
+      "cartes-visite": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Calling_card_-_DPLA_-_5b4240c1fc8bd4d3f731c2facb743dc4.jpg/960px-Calling_card_-_DPLA_-_5b4240c1fc8bd4d3f731c2facb743dc4.jpg",
+      "flyers": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Mixing_printing_blocks_and_photographs_in_poster_design_%285463013381%29.jpg/960px-Mixing_printing_blocks_and_photographs_in_poster_design_%285463013381%29.jpg",
+      "depliants": "https://upload.wikimedia.org/wikipedia/commons/a/a7/Pioneer_Zephyr_brochure_front.jpg",
+      "brochures": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Offset_printing_at_Watermark_Press%2C_San_Francisco%2C_California.jpg/960px-Offset_printing_at_Watermark_Press%2C_San_Francisco%2C_California.jpg",
+      "affiches-papier": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Mixing_printing_blocks_and_photographs_in_poster_design_%285463013381%29.jpg/960px-Mixing_printing_blocks_and_photographs_in_poster_design_%285463013381%29.jpg",
+      "menus": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Offset_printing_at_Watermark_Press%2C_San_Francisco%2C_California.jpg/960px-Offset_printing_at_Watermark_Press%2C_San_Francisco%2C_California.jpg",
+      "enveloppes-imprimees": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Offset_printing_at_Watermark_Press%2C_San_Francisco%2C_California.jpg/960px-Offset_printing_at_Watermark_Press%2C_San_Francisco%2C_California.jpg",
+      "cartes-fidelite": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/WMW_business_card.png/960px-WMW_business_card.png",
+      "sticker-vitrine": "https://upload.wikimedia.org/wikipedia/commons/a/ad/Pegatina_de_vinilo_mapa_del_mundo.jpg",
+      "sticker-mural": "https://upload.wikimedia.org/wikipedia/commons/a/ad/Pegatina_de_vinilo_mapa_del_mundo.jpg",
+      "vinyle-adhesif-imprime": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Large_format_printing.jpg/960px-Large_format_printing.jpg",
+      "vinyle-decoupe": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Large_format_printing.jpg/960px-Large_format_printing.jpg",
+      "vitrophanie": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Astronaut_dummy_in_store_window_of_Moncler_fashion_shop_in_Prague%2C_Czech_Republic.jpg/960px-Astronaut_dummy_in_store_window_of_Moncler_fashion_shop_in_Prague%2C_Czech_Republic.jpg",
+      "film-microperfore": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/NCH_advertising_banner_on_Nantun_Road_20230610a.jpg/960px-NCH_advertising_banner_on_Nantun_Road_20230610a.jpg",
+      "habillage-vitrine": "https://upload.wikimedia.org/wikipedia/commons/a/ad/Pegatina_de_vinilo_mapa_del_mundo.jpg",
+      "habillage-vehicule": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Jucy_Car_%2820132108710%29.jpg/960px-Jucy_Car_%2820132108710%29.jpg",
+      "panneau-pvc": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Lobby_Signage%2C_Severance_Hall%2C_University_Circle%2C_Cleveland%2C_OH.jpg/960px-Lobby_Signage%2C_Severance_Hall%2C_University_Circle%2C_Cleveland%2C_OH.jpg",
+      "panneau-forex": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Large_Format_Printing_of_Black_Numbers_on_a_Brushed_Aluminum_Sheet.jpg/960px-Large_Format_Printing_of_Black_Numbers_on_a_Brushed_Aluminum_Sheet.jpg",
+      "panneau-aluminium-composite": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Large_Format_Printing_of_Black_Numbers_on_a_Brushed_Aluminum_Sheet.jpg/960px-Large_Format_Printing_of_Black_Numbers_on_a_Brushed_Aluminum_Sheet.jpg",
+      "panneau-plexiglass": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Capp_Towers_Motor_Hotel_Rooftop_Dome_featuring_Plexiglas_panels_-_DPLA_-_628d6c4c19954a8f8b8df8a836cdad8a.jpg/960px-Capp_Towers_Motor_Hotel_Rooftop_Dome_featuring_Plexiglas_panels_-_DPLA_-_628d6c4c19954a8f8b8df8a836cdad8a.jpg",
+      "plaque-de-porte": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Ocasio-Cortez_office_nameplate_during_2018_office_setup.jpg/960px-Ocasio-Cortez_office_nameplate_during_2018_office_setup.jpg",
+      "plaque-bureau": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Ocasio-Cortez_office_nameplate_during_2018_office_setup.jpg/960px-Ocasio-Cortez_office_nameplate_during_2018_office_setup.jpg",
+      "plaque-societe": "https://upload.wikimedia.org/wikipedia/commons/1/13/Hanwell_Community_Centre_-_Charlie_Chaplin_plaque_in_the_entrance_lobby_-_geograph.org.uk_-_1178192.jpg",
+      "plaque-directionnelle": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Signs-1160719%2C_Maynooth%2C_Co._Kildare%2C_Ireland.jpg/960px-Signs-1160719%2C_Maynooth%2C_Co._Kildare%2C_Ireland.jpg",
+      "roll-up-plv": "https://upload.wikimedia.org/wikipedia/commons/d/d8/Bamboo_exhibition_equipment.jpg",
+      "kakemono-evenementiel": "https://upload.wikimedia.org/wikipedia/commons/d/d8/Bamboo_exhibition_equipment.jpg",
+      "stand-parapluie": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Ranger_Pilots_Outdoor_Exhibition_Display_%2803cc68d1-1dd8-b71b-0be7-8a8911207edf%29.jpg/960px-Ranger_Pilots_Outdoor_Exhibition_Display_%2803cc68d1-1dd8-b71b-0be7-8a8911207edf%29.jpg",
+      "comptoir-promotionnel": "https://upload.wikimedia.org/wikipedia/commons/d/d8/Bamboo_exhibition_equipment.jpg",
+      "stop-trottoir": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Lobby_Signage%2C_Severance_Hall%2C_University_Circle%2C_Cleveland%2C_OH.jpg/960px-Lobby_Signage%2C_Severance_Hall%2C_University_Circle%2C_Cleveland%2C_OH.jpg",
+      "porte-affiche": "https://upload.wikimedia.org/wikipedia/commons/d/d8/Bamboo_exhibition_equipment.jpg",
+      "presentoir-produit": "https://upload.wikimedia.org/wikipedia/commons/d/d8/Bamboo_exhibition_equipment.jpg",
+      "backdrop-evenementiel": "https://upload.wikimedia.org/wikipedia/commons/c/c2/WMF_Step_and_Repeat_Banner.jpg",
+      "uv-pvc": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Lynx_ULTRA_64_Flatbed_UV_Rotary_Printing.jpg/960px-Lynx_ULTRA_64_Flatbed_UV_Rotary_Printing.jpg",
+      "uv-plexiglass": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Lynx_ULTRA_64_Flatbed_UV_Rotary_Printing.jpg/960px-Lynx_ULTRA_64_Flatbed_UV_Rotary_Printing.jpg",
+      "uv-aluminium-composite": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Large_Format_Printing_of_Black_Numbers_on_a_Brushed_Aluminum_Sheet.jpg/960px-Large_Format_Printing_of_Black_Numbers_on_a_Brushed_Aluminum_Sheet.jpg",
+      "uv-bois": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Lynx_ULTRA_64_Flatbed_UV_Rotary_Printing.jpg/960px-Lynx_ULTRA_64_Flatbed_UV_Rotary_Printing.jpg",
+      "uv-verre": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Lynx_ULTRA_64_Flatbed_UV_Rotary_Printing.jpg/960px-Lynx_ULTRA_64_Flatbed_UV_Rotary_Printing.jpg",
+      "uv-dibond": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Large_Format_Printing_of_Black_Numbers_on_a_Brushed_Aluminum_Sheet.jpg/960px-Large_Format_Printing_of_Black_Numbers_on_a_Brushed_Aluminum_Sheet.jpg",
+      "uv-carton-rigide": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Recyclable_Cardboard_Packaging.jpg/960px-Recyclable_Cardboard_Packaging.jpg",
+      "uv-support-personnalise": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Lynx_ULTRA_64_Flatbed_UV_Rotary_Printing.jpg/960px-Lynx_ULTRA_64_Flatbed_UV_Rotary_Printing.jpg",
+    };
+
+    for (const [slug, url] of Object.entries(catImages)) {
+      await pool.query(
+        `UPDATE service_categories SET image_url = $1 WHERE slug = $2 AND image_url IS NULL`,
+        [url, slug],
+      );
+    }
+    for (const [slug, url] of Object.entries(svcImages)) {
+      await pool.query(
+        `UPDATE services SET image_url = $1 WHERE slug = $2 AND image_url IS NULL`,
+        [url, slug],
+      );
+    }
+    logger.info("Images seeded for categories and services");
+  } catch (err) {
+    logger.warn({ err }, "Could not seed images");
+  }
+}
+
 app.listen(port, async (err) => {
   if (err) {
     logger.error({ err }, "Error listening on port");
@@ -201,4 +305,5 @@ app.listen(port, async (err) => {
   await runInitSql();
   await seedAdmin();
   await seedCategoriesAndServices();
+  await seedImages();
 });
