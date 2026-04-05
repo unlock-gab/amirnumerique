@@ -55,7 +55,7 @@ export function DashboardLayout({ children }: { children: ReactNode }) {
 
   return (
     <SidebarProvider>
-      <div className="flex min-h-screen w-full bg-background">
+      <div className="dark flex min-h-screen w-full bg-background">
         <Sidebar className="border-r border-border/40">
           <SidebarHeader className="border-b border-border/30 p-5">
             <Link href="/" className="flex items-center gap-2.5 group">
