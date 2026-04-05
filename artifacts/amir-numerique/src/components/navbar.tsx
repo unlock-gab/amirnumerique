@@ -32,6 +32,7 @@ export function Navbar() {
     { href: "/pricing", label: t("pricing") },
     { href: "/portfolio", label: t("portfolio") },
     { href: "/about", label: t("about") },
+    { href: "/partenariat", label: "Partenariat" },
     { href: "/contact", label: t("contact") },
   ];
 

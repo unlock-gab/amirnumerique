@@ -15,6 +15,7 @@ import {
   Globe,
   ExternalLink,
   Layers,
+  Handshake,
 } from "lucide-react";
 import { SidebarProvider, Sidebar, SidebarHeader, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarFooter, SidebarTrigger } from "@/components/ui/sidebar";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -57,6 +58,7 @@ export function AdminLayout({ children }: { children: ReactNode }) {
     { href: "/admin/services", label: t("manageServices"), icon: PrinterCheck },
     { href: "/admin/portfolio", label: t("managePortfolio"), icon: ImageIcon },
     { href: "/admin/users", label: t("manageUsers"), icon: Users },
+    { href: "/admin/subcontractor-requests", label: "Sous-traitants", icon: Handshake },
     { href: "/admin/settings", label: t("settings"), icon: Settings },
   ];
 

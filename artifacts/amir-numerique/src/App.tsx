@@ -31,6 +31,8 @@ import AdminServices from "@/pages/admin/services";
 import AdminPortfolio from "@/pages/admin/portfolio";
 import AdminUsers from "@/pages/admin/users";
 import AdminSettings from "@/pages/admin/settings";
+import SubcontractorPage from "@/pages/subcontractor";
+import AdminSubcontractorRequests from "@/pages/admin/subcontractor-requests";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -53,6 +55,7 @@ function Router() {
       <Route path="/pricing" component={Pricing} />
       <Route path="/portfolio" component={Portfolio} />
       <Route path="/contact" component={Contact} />
+      <Route path="/partenariat" component={SubcontractorPage} />
 
       {/* Auth routes */}
       <Route path="/auth/login" component={Login} />
@@ -79,6 +82,7 @@ function Router() {
       <Route path="/admin/portfolio" component={AdminPortfolio} />
       <Route path="/admin/users" component={AdminUsers} />
       <Route path="/admin/settings" component={AdminSettings} />
+      <Route path="/admin/subcontractor-requests" component={AdminSubcontractorRequests} />
 
       <Route component={NotFound} />
     </Switch>

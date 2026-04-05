@@ -66,5 +66,14 @@ pnpm workspace monorepo using TypeScript. Main product: **Amir Numérique** — 
 - `/admin/orders` — Orders table with status filter
 - `/admin/quotes` — Quotes table
 - `/admin/users` — Users with role management + search
+- `/partenariat` — Subcontractor partnership request form (public) + WhatsApp integration
+- `/admin/subcontractor-requests` — Admin view/manage subcontractor requests
+
+### Subcontractor Flow
+- Public `/partenariat` page: collects fullName, companyName, phone, city, activityType, estimatedVolume, message
+- On success: saves to DB + shows WhatsApp CTA with pre-filled structured message
+- WhatsApp number from settings key `company_whatsapp`
+- Admin `/admin/subcontractor-requests`: list all requests, filter by status, expand details, update status (pending/reviewed/accepted/refused), open WhatsApp directly
+- DB table: `subcontractor_requests` with `subcontractor_request_status` enum
 
 See the `pnpm-workspace` skill for workspace structure, TypeScript setup, and package details.
