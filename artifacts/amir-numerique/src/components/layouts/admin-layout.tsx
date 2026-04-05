@@ -16,7 +16,7 @@ import {
   ExternalLink,
   Layers,
 } from "lucide-react";
-import { SidebarProvider, Sidebar, SidebarHeader, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarFooter } from "@/components/ui/sidebar";
+import { SidebarProvider, Sidebar, SidebarHeader, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarFooter, SidebarTrigger } from "@/components/ui/sidebar";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
 
@@ -150,7 +150,20 @@ export function AdminLayout({ children }: { children: ReactNode }) {
         </Sidebar>
 
         <main className="flex-1 flex flex-col min-w-0 overflow-auto bg-muted/10">
-          <div className="flex-1 p-6 md:p-8 max-w-7xl w-full">
+          {/* Mobile top bar — only visible on small screens */}
+          <div className="md:hidden flex items-center gap-3 px-4 py-3 border-b border-border/40 bg-background/80 backdrop-blur-sm sticky top-0 z-30">
+            <SidebarTrigger className="h-8 w-8 shrink-0" />
+            <div className="flex items-center gap-2">
+              <div className="w-5 h-5 rounded-md bg-primary flex items-center justify-center">
+                <PrinterCheck className="h-3 w-3 text-primary-foreground" strokeWidth={2.5} />
+              </div>
+              <span className="font-display text-sm font-700">
+                Amir <span className="text-primary">Admin</span>
+              </span>
+            </div>
+          </div>
+
+          <div className="flex-1 p-4 md:p-6 lg:p-8 max-w-7xl w-full">
             {children}
           </div>
         </main>
