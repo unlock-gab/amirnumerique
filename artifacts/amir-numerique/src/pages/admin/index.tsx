@@ -7,7 +7,7 @@ import { Link } from "wouter";
 
 const STAT_CARDS = (stats: any) => [
   { label: "Commandes totales", value: stats?.totalOrders ?? "—", icon: ShoppingCart, color: "text-blue-400", bg: "bg-blue-500/8", border: "border-blue-500/15", href: "/admin/orders" },
-  { label: "CA total", value: stats?.totalRevenue ? `${(stats.totalRevenue / 1000).toFixed(0)}K DA` : "0 DA", icon: DollarSign, color: "text-emerald-400", bg: "bg-emerald-500/8", border: "border-emerald-500/15", href: "/admin/orders" },
+  { label: "CA total", value: stats?.totalRevenue ? `${Number(stats.totalRevenue).toLocaleString("fr-DZ")} DA` : "0 DA", icon: DollarSign, color: "text-emerald-400", bg: "bg-emerald-500/8", border: "border-emerald-500/15", href: "/admin/orders" },
   { label: "Devis en attente", value: stats?.pendingQuotes ?? "—", icon: FileText, color: "text-amber-400", bg: "bg-amber-500/8", border: "border-amber-500/15", href: "/admin/quotes" },
   { label: "Commandes en attente", value: stats?.pendingOrders ?? "—", icon: Clock, color: "text-orange-400", bg: "bg-orange-500/8", border: "border-orange-500/15", href: "/admin/orders" },
   { label: "Utilisateurs", value: stats?.totalUsers ?? "—", icon: Users, color: "text-violet-400", bg: "bg-violet-500/8", border: "border-violet-500/15", href: "/admin/users" },
