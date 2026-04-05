@@ -196,6 +196,15 @@ CREATE INDEX IF NOT EXISTS idx_notifications_user_unread ON notifications(user_i
 CREATE INDEX IF NOT EXISTS idx_orders_user_id           ON orders(user_id);
 CREATE INDEX IF NOT EXISTS idx_quotes_user_id           ON quotes(user_id);
 
+-- SESSION TABLE (for connect-pg-simple)
+CREATE TABLE IF NOT EXISTS "session" (
+  "sid"    varchar      NOT NULL COLLATE "default",
+  "sess"   json         NOT NULL,
+  "expire" timestamp(6) NOT NULL,
+  CONSTRAINT "session_pkey" PRIMARY KEY ("sid") NOT DEFERRABLE INITIALLY IMMEDIATE
+) WITH (OIDS=FALSE);
+CREATE INDEX IF NOT EXISTS "IDX_session_expire" ON "session" ("expire");
+
 -- DEFAULT ADMIN USER  (admin@amirnumerique.dz / admin123456)
 INSERT INTO users (full_name, email, password_hash, role, account_status)
 VALUES (
