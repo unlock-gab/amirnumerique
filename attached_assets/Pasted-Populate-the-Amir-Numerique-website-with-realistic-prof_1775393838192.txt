@@ -1,0 +1,250 @@
+Populate the Amir Numerique website with realistic, professional **service categories** and **services** relevant to a digital printing, signage, and advertising production company.
+
+## Goal
+
+I want you to seed the platform with real business-ready content so the website no longer feels empty.
+Create realistic **service categories** and assign multiple **services** under each category.
+
+## Important rules
+
+* Do not hardcode content in the UI only
+* Insert categories and services into the database properly
+* Make them manageable from the admin panel
+* Keep French as the main language
+* Also add Arabic names where possible
+* Generate proper slugs
+* Keep content professional and relevant to a real Algerian digital printing / publicité / signalétique business
+* All services must be linked to their correct category
+* Keep the existing pricing-per-m² logic compatible
+* If a service does not naturally fit per m², still create it as a service entry, but structure it cleanly for future customization
+
+## Create these service categories
+
+### 1) Impression grand format
+
+French name: `Impression grand format`
+Arabic name: `الطباعة كبيرة الحجم`
+
+Description FR:
+`Solutions d’impression grand format pour supports publicitaires, affichage promotionnel et communication visuelle intérieure et extérieure.`
+
+Description AR:
+`حلول الطباعة كبيرة الحجم للدعامات الإشهارية والعروض البصرية الداخلية والخارجية.`
+
+Add these services inside this category:
+
+* Impression bâche UV
+* Impression bâche éco-solvant
+* Impression affiches grand format
+* Impression toile canvas
+* Impression visuels roll-up
+* Impression papier photo grand format
+
+### 2) Enseignes & signalétique
+
+French name: `Enseignes & signalétique`
+Arabic name: `اللافتات والإرشادات`
+
+Description FR:
+`Fabrication d’enseignes, de signalétique intérieure et extérieure, et de supports d’orientation pour commerces, entreprises et chantiers.`
+
+Description AR:
+`تصميم وإنجاز اللافتات والإشارات الداخلية والخارجية ودعامات التوجيه للمحلات والشركات وورشات البناء.`
+
+Add these services inside this category:
+
+* Enseigne lumineuse
+* Enseigne non lumineuse
+* Caisson lumineux
+* Lettres découpées
+* Signalétique intérieure
+* Signalétique extérieure
+* Plaque professionnelle
+* Panneau de chantier
+
+### 3) Bâches publicitaires
+
+French name: `Bâches publicitaires`
+Arabic name: `اللافتات القماشية الإشهارية`
+
+Description FR:
+`Impression et fabrication de bâches publicitaires pour événements, promotions, façades commerciales et chantiers.`
+
+Description AR:
+`طباعة وتصنيع اللافتات القماشية الإشهارية للفعاليات والعروض والواجهات التجارية وورشات البناء.`
+
+Add these services inside this category:
+
+* Bâche publicitaire UV
+* Bâche publicitaire éco-solvant
+* Bâche de façade
+* Bâche de chantier
+* Kakemono
+* Roll-up banner
+* X-banner
+* Beach flag
+
+### 4) Impression papier
+
+French name: `Impression papier`
+Arabic name: `الطباعة الورقية`
+
+Description FR:
+`Impression de supports papier pour la communication commerciale, promotionnelle et institutionnelle.`
+
+Description AR:
+`طباعة مختلف الدعامات الورقية المخصصة للتواصل التجاري والإشهاري والمؤسساتي.`
+
+Add these services inside this category:
+
+* Cartes de visite
+* Flyers
+* Dépliants
+* Brochures
+* Affiches
+* Menus
+* Enveloppes imprimées
+* Cartes de fidélité
+
+### 5) Stickers & adhésifs
+
+French name: `Stickers & adhésifs`
+Arabic name: `الملصقات واللاصق الإشهاري`
+
+Description FR:
+`Création et impression de stickers, vinyles adhésifs et solutions de marquage pour vitrines, murs, véhicules et surfaces diverses.`
+
+Description AR:
+`تصميم وطباعة الملصقات والفينيل اللاصق وحلول التلصيق للواجهات والجدران والمركبات ومختلف الأسطح.`
+
+Add these services inside this category:
+
+* Sticker vitrine
+* Sticker mural
+* Vinyle adhésif imprimé
+* Vinyle découpé
+* Vitrophanie
+* Film microperforé
+* Habillage vitrine
+* Habillage véhicule
+
+### 6) Panneaux & plaques
+
+French name: `Panneaux & plaques`
+Arabic name: `اللوحات والصفائح`
+
+Description FR:
+`Fabrication de panneaux publicitaires, panneaux signalétiques et plaques professionnelles sur différents supports rigides.`
+
+Description AR:
+`تصنيع اللوحات الإشهارية ولوحات التوجيه والصفائح المهنية على مختلف الدعامات الصلبة.`
+
+Add these services inside this category:
+
+* Panneau PVC
+* Panneau forex
+* Panneau aluminium composite
+* Panneau plexiglass
+* Plaque de porte
+* Plaque bureau
+* Plaque société
+* Plaque directionnelle
+
+### 7) PLV & affichage événementiel
+
+French name: `PLV & affichage événementiel`
+Arabic name: `وسائل العرض والإشهار للفعاليات`
+
+Description FR:
+`Supports de communication visuelle pour points de vente, salons, expositions et événements promotionnels.`
+
+Description AR:
+`وسائل العرض والتواصل البصري لنقاط البيع والمعارض والفعاليات الترويجية.`
+
+Add these services inside this category:
+
+* Roll-up
+* Kakemono événementiel
+* Stand parapluie
+* Comptoir promotionnel
+* Stop-trottoir
+* Porte-affiche
+* Présentoir produit
+* Backdrop événementiel
+
+### 8) Impression UV sur supports rigides
+
+French name: `Impression UV sur supports rigides`
+Arabic name: `الطباعة بالأشعة فوق البنفسجية على الدعامات الصلبة`
+
+Description FR:
+`Impression UV haute qualité sur supports rigides pour signalétique, décoration, habillage et communication visuelle durable.`
+
+Description AR:
+`طباعة UV عالية الجودة على الدعامات الصلبة من أجل الإرشاد والديكور والتغليف والتواصل البصري الدائم.`
+
+Add these services inside this category:
+
+* Impression UV sur PVC
+* Impression UV sur plexiglass
+* Impression UV sur aluminium composite
+* Impression UV sur bois
+* Impression UV sur verre
+* Impression UV sur dibond
+* Impression UV sur carton rigide
+* Impression UV sur support personnalisé
+
+## For each service, generate:
+
+* French name
+* Arabic name
+* slug
+* short French description
+* short Arabic description
+* active = true
+* category relation
+* placeholder image if no real image exists
+* pricing fields compatible with the existing system:
+
+  * public_price_per_m2
+  * client_price_per_m2
+  * subcontractor_price_per_m2
+
+## Pricing guidance
+
+Generate realistic sample prices for each service, with subcontractor price lower than client/public.
+Use sensible relative pricing values, not random extreme numbers.
+
+Example pattern:
+
+* public higher
+* client medium
+* subcontractor lower
+
+## Admin integration
+
+Make sure:
+
+* categories appear in admin category management
+* services appear in admin service management
+* every service is correctly assigned to its category
+* content can be edited later from admin
+
+## Frontend integration
+
+Make sure:
+
+* `/services` displays the categories
+* `/services/[category-slug]` displays the services belonging to that category
+* each service detail page works correctly
+* bilingual content works in French and Arabic
+
+## If database seeding already exists
+
+Extend the seed file cleanly instead of breaking it.
+Avoid duplicates if the seed runs multiple times.
+
+## Final result
+
+After this update, the site should no longer be empty.
+It should contain a realistic structure of categories and services suitable for a real printing and advertising agency in Algeria.
