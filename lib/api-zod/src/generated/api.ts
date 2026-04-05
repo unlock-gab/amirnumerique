@@ -76,14 +76,140 @@ export const GetMeResponse = zod.object({
 });
 
 /**
- * @summary List all active services
+ * @summary List service categories
  */
-export const ListServicesQueryParams = zod.object({
+export const ListServiceCategoriesQueryParams = zod.object({
   active: zod.coerce.boolean().optional(),
 });
 
-export const ListServicesResponseItem = zod.object({
+export const ListServiceCategoriesResponseItem = zod.object({
   id: zod.number(),
+  nameFr: zod.string(),
+  nameAr: zod.string(),
+  slug: zod.string(),
+  descriptionFr: zod.string().nullish(),
+  descriptionAr: zod.string().nullish(),
+  imageUrl: zod.string().nullish(),
+  isActive: zod.boolean(),
+  displayOrder: zod.number(),
+  createdAt: zod.coerce.date(),
+});
+export const ListServiceCategoriesResponse = zod.array(
+  ListServiceCategoriesResponseItem,
+);
+
+/**
+ * @summary Create a service category (admin only)
+ */
+export const createServiceCategoryBodyIsActiveDefault = true;
+export const createServiceCategoryBodyDisplayOrderDefault = 0;
+
+export const CreateServiceCategoryBody = zod.object({
+  nameFr: zod.string(),
+  nameAr: zod.string(),
+  slug: zod.string(),
+  descriptionFr: zod.string().optional(),
+  descriptionAr: zod.string().optional(),
+  imageUrl: zod.string().optional(),
+  isActive: zod.boolean().default(createServiceCategoryBodyIsActiveDefault),
+  displayOrder: zod
+    .number()
+    .default(createServiceCategoryBodyDisplayOrderDefault),
+});
+
+/**
+ * @summary Get service category by ID
+ */
+export const GetServiceCategoryParams = zod.object({
+  id: zod.coerce.number(),
+});
+
+export const GetServiceCategoryResponse = zod.object({
+  id: zod.number(),
+  nameFr: zod.string(),
+  nameAr: zod.string(),
+  slug: zod.string(),
+  descriptionFr: zod.string().nullish(),
+  descriptionAr: zod.string().nullish(),
+  imageUrl: zod.string().nullish(),
+  isActive: zod.boolean(),
+  displayOrder: zod.number(),
+  createdAt: zod.coerce.date(),
+});
+
+/**
+ * @summary Update a service category (admin only)
+ */
+export const UpdateServiceCategoryParams = zod.object({
+  id: zod.coerce.number(),
+});
+
+export const UpdateServiceCategoryBody = zod.object({
+  nameFr: zod.string().optional(),
+  nameAr: zod.string().optional(),
+  slug: zod.string().optional(),
+  descriptionFr: zod.string().optional(),
+  descriptionAr: zod.string().optional(),
+  imageUrl: zod.string().optional(),
+  isActive: zod.boolean().optional(),
+  displayOrder: zod.number().optional(),
+});
+
+export const UpdateServiceCategoryResponse = zod.object({
+  id: zod.number(),
+  nameFr: zod.string(),
+  nameAr: zod.string(),
+  slug: zod.string(),
+  descriptionFr: zod.string().nullish(),
+  descriptionAr: zod.string().nullish(),
+  imageUrl: zod.string().nullish(),
+  isActive: zod.boolean(),
+  displayOrder: zod.number(),
+  createdAt: zod.coerce.date(),
+});
+
+/**
+ * @summary Delete a service category (admin only)
+ */
+export const DeleteServiceCategoryParams = zod.object({
+  id: zod.coerce.number(),
+});
+
+export const DeleteServiceCategoryResponse = zod.object({
+  success: zod.boolean(),
+  message: zod.string().optional(),
+});
+
+/**
+ * @summary Get service category by slug
+ */
+export const GetServiceCategoryBySlugParams = zod.object({
+  slug: zod.coerce.string(),
+});
+
+export const GetServiceCategoryBySlugResponse = zod.object({
+  id: zod.number(),
+  nameFr: zod.string(),
+  nameAr: zod.string(),
+  slug: zod.string(),
+  descriptionFr: zod.string().nullish(),
+  descriptionAr: zod.string().nullish(),
+  imageUrl: zod.string().nullish(),
+  isActive: zod.boolean(),
+  displayOrder: zod.number(),
+  createdAt: zod.coerce.date(),
+});
+
+/**
+ * @summary Get all services in a category by category slug
+ */
+export const GetServicesByCategorySlugParams = zod.object({
+  slug: zod.coerce.string(),
+});
+
+export const GetServicesByCategorySlugResponseItem = zod.object({
+  id: zod.number(),
+  categoryId: zod.number().nullish(),
   nameFr: zod.string(),
   nameAr: zod.string(),
   slug: zod.string(),
@@ -96,6 +222,61 @@ export const ListServicesResponseItem = zod.object({
   requiresFileUpload: zod.boolean(),
   active: zod.boolean(),
   createdAt: zod.coerce.date(),
+  category: zod
+    .object({
+      id: zod.number(),
+      nameFr: zod.string(),
+      nameAr: zod.string(),
+      slug: zod.string(),
+      descriptionFr: zod.string().nullish(),
+      descriptionAr: zod.string().nullish(),
+      imageUrl: zod.string().nullish(),
+      isActive: zod.boolean(),
+      displayOrder: zod.number(),
+      createdAt: zod.coerce.date(),
+    })
+    .nullish(),
+});
+export const GetServicesByCategorySlugResponse = zod.array(
+  GetServicesByCategorySlugResponseItem,
+);
+
+/**
+ * @summary List all active services
+ */
+export const ListServicesQueryParams = zod.object({
+  active: zod.coerce.boolean().optional(),
+});
+
+export const ListServicesResponseItem = zod.object({
+  id: zod.number(),
+  categoryId: zod.number().nullish(),
+  nameFr: zod.string(),
+  nameAr: zod.string(),
+  slug: zod.string(),
+  descriptionFr: zod.string().nullish(),
+  descriptionAr: zod.string().nullish(),
+  imageUrl: zod.string().nullish(),
+  publicPricePerM2: zod.number(),
+  clientPricePerM2: zod.number(),
+  subcontractorPricePerM2: zod.number(),
+  requiresFileUpload: zod.boolean(),
+  active: zod.boolean(),
+  createdAt: zod.coerce.date(),
+  category: zod
+    .object({
+      id: zod.number(),
+      nameFr: zod.string(),
+      nameAr: zod.string(),
+      slug: zod.string(),
+      descriptionFr: zod.string().nullish(),
+      descriptionAr: zod.string().nullish(),
+      imageUrl: zod.string().nullish(),
+      isActive: zod.boolean(),
+      displayOrder: zod.number(),
+      createdAt: zod.coerce.date(),
+    })
+    .nullish(),
 });
 export const ListServicesResponse = zod.array(ListServicesResponseItem);
 
@@ -106,6 +287,7 @@ export const createServiceBodyRequiresFileUploadDefault = false;
 export const createServiceBodyActiveDefault = true;
 
 export const CreateServiceBody = zod.object({
+  categoryId: zod.number().optional(),
   nameFr: zod.string(),
   nameAr: zod.string(),
   slug: zod.string(),
@@ -130,6 +312,7 @@ export const GetServiceParams = zod.object({
 
 export const GetServiceResponse = zod.object({
   id: zod.number(),
+  categoryId: zod.number().nullish(),
   nameFr: zod.string(),
   nameAr: zod.string(),
   slug: zod.string(),
@@ -142,6 +325,20 @@ export const GetServiceResponse = zod.object({
   requiresFileUpload: zod.boolean(),
   active: zod.boolean(),
   createdAt: zod.coerce.date(),
+  category: zod
+    .object({
+      id: zod.number(),
+      nameFr: zod.string(),
+      nameAr: zod.string(),
+      slug: zod.string(),
+      descriptionFr: zod.string().nullish(),
+      descriptionAr: zod.string().nullish(),
+      imageUrl: zod.string().nullish(),
+      isActive: zod.boolean(),
+      displayOrder: zod.number(),
+      createdAt: zod.coerce.date(),
+    })
+    .nullish(),
 });
 
 /**
@@ -152,6 +349,7 @@ export const UpdateServiceParams = zod.object({
 });
 
 export const UpdateServiceBody = zod.object({
+  categoryId: zod.number().optional(),
   nameFr: zod.string().optional(),
   nameAr: zod.string().optional(),
   slug: zod.string().optional(),
@@ -167,6 +365,7 @@ export const UpdateServiceBody = zod.object({
 
 export const UpdateServiceResponse = zod.object({
   id: zod.number(),
+  categoryId: zod.number().nullish(),
   nameFr: zod.string(),
   nameAr: zod.string(),
   slug: zod.string(),
@@ -179,6 +378,20 @@ export const UpdateServiceResponse = zod.object({
   requiresFileUpload: zod.boolean(),
   active: zod.boolean(),
   createdAt: zod.coerce.date(),
+  category: zod
+    .object({
+      id: zod.number(),
+      nameFr: zod.string(),
+      nameAr: zod.string(),
+      slug: zod.string(),
+      descriptionFr: zod.string().nullish(),
+      descriptionAr: zod.string().nullish(),
+      imageUrl: zod.string().nullish(),
+      isActive: zod.boolean(),
+      displayOrder: zod.number(),
+      createdAt: zod.coerce.date(),
+    })
+    .nullish(),
 });
 
 /**
@@ -202,6 +415,7 @@ export const GetServiceBySlugParams = zod.object({
 
 export const GetServiceBySlugResponse = zod.object({
   id: zod.number(),
+  categoryId: zod.number().nullish(),
   nameFr: zod.string(),
   nameAr: zod.string(),
   slug: zod.string(),
@@ -214,6 +428,20 @@ export const GetServiceBySlugResponse = zod.object({
   requiresFileUpload: zod.boolean(),
   active: zod.boolean(),
   createdAt: zod.coerce.date(),
+  category: zod
+    .object({
+      id: zod.number(),
+      nameFr: zod.string(),
+      nameAr: zod.string(),
+      slug: zod.string(),
+      descriptionFr: zod.string().nullish(),
+      descriptionAr: zod.string().nullish(),
+      imageUrl: zod.string().nullish(),
+      isActive: zod.boolean(),
+      displayOrder: zod.number(),
+      createdAt: zod.coerce.date(),
+    })
+    .nullish(),
 });
 
 /**
@@ -271,6 +499,7 @@ export const ListOrdersResponse = zod.object({
       service: zod
         .object({
           id: zod.number(),
+          categoryId: zod.number().nullish(),
           nameFr: zod.string(),
           nameAr: zod.string(),
           slug: zod.string(),
@@ -283,6 +512,20 @@ export const ListOrdersResponse = zod.object({
           requiresFileUpload: zod.boolean(),
           active: zod.boolean(),
           createdAt: zod.coerce.date(),
+          category: zod
+            .object({
+              id: zod.number(),
+              nameFr: zod.string(),
+              nameAr: zod.string(),
+              slug: zod.string(),
+              descriptionFr: zod.string().nullish(),
+              descriptionAr: zod.string().nullish(),
+              imageUrl: zod.string().nullish(),
+              isActive: zod.boolean(),
+              displayOrder: zod.number(),
+              createdAt: zod.coerce.date(),
+            })
+            .nullish(),
         })
         .nullish(),
     }),
@@ -355,6 +598,7 @@ export const GetOrderResponse = zod.object({
   service: zod
     .object({
       id: zod.number(),
+      categoryId: zod.number().nullish(),
       nameFr: zod.string(),
       nameAr: zod.string(),
       slug: zod.string(),
@@ -367,6 +611,20 @@ export const GetOrderResponse = zod.object({
       requiresFileUpload: zod.boolean(),
       active: zod.boolean(),
       createdAt: zod.coerce.date(),
+      category: zod
+        .object({
+          id: zod.number(),
+          nameFr: zod.string(),
+          nameAr: zod.string(),
+          slug: zod.string(),
+          descriptionFr: zod.string().nullish(),
+          descriptionAr: zod.string().nullish(),
+          imageUrl: zod.string().nullish(),
+          isActive: zod.boolean(),
+          displayOrder: zod.number(),
+          createdAt: zod.coerce.date(),
+        })
+        .nullish(),
     })
     .nullish(),
 });
@@ -437,6 +695,7 @@ export const UpdateOrderStatusResponse = zod.object({
   service: zod
     .object({
       id: zod.number(),
+      categoryId: zod.number().nullish(),
       nameFr: zod.string(),
       nameAr: zod.string(),
       slug: zod.string(),
@@ -449,6 +708,20 @@ export const UpdateOrderStatusResponse = zod.object({
       requiresFileUpload: zod.boolean(),
       active: zod.boolean(),
       createdAt: zod.coerce.date(),
+      category: zod
+        .object({
+          id: zod.number(),
+          nameFr: zod.string(),
+          nameAr: zod.string(),
+          slug: zod.string(),
+          descriptionFr: zod.string().nullish(),
+          descriptionAr: zod.string().nullish(),
+          imageUrl: zod.string().nullish(),
+          isActive: zod.boolean(),
+          displayOrder: zod.number(),
+          createdAt: zod.coerce.date(),
+        })
+        .nullish(),
     })
     .nullish(),
 });
@@ -502,6 +775,7 @@ export const ListQuotesResponse = zod.object({
       service: zod
         .object({
           id: zod.number(),
+          categoryId: zod.number().nullish(),
           nameFr: zod.string(),
           nameAr: zod.string(),
           slug: zod.string(),
@@ -514,6 +788,20 @@ export const ListQuotesResponse = zod.object({
           requiresFileUpload: zod.boolean(),
           active: zod.boolean(),
           createdAt: zod.coerce.date(),
+          category: zod
+            .object({
+              id: zod.number(),
+              nameFr: zod.string(),
+              nameAr: zod.string(),
+              slug: zod.string(),
+              descriptionFr: zod.string().nullish(),
+              descriptionAr: zod.string().nullish(),
+              imageUrl: zod.string().nullish(),
+              isActive: zod.boolean(),
+              displayOrder: zod.number(),
+              createdAt: zod.coerce.date(),
+            })
+            .nullish(),
         })
         .nullish(),
     }),
@@ -580,6 +868,7 @@ export const GetQuoteResponse = zod.object({
   service: zod
     .object({
       id: zod.number(),
+      categoryId: zod.number().nullish(),
       nameFr: zod.string(),
       nameAr: zod.string(),
       slug: zod.string(),
@@ -592,6 +881,20 @@ export const GetQuoteResponse = zod.object({
       requiresFileUpload: zod.boolean(),
       active: zod.boolean(),
       createdAt: zod.coerce.date(),
+      category: zod
+        .object({
+          id: zod.number(),
+          nameFr: zod.string(),
+          nameAr: zod.string(),
+          slug: zod.string(),
+          descriptionFr: zod.string().nullish(),
+          descriptionAr: zod.string().nullish(),
+          imageUrl: zod.string().nullish(),
+          isActive: zod.boolean(),
+          displayOrder: zod.number(),
+          createdAt: zod.coerce.date(),
+        })
+        .nullish(),
     })
     .nullish(),
 });
@@ -652,6 +955,7 @@ export const UpdateQuoteStatusResponse = zod.object({
   service: zod
     .object({
       id: zod.number(),
+      categoryId: zod.number().nullish(),
       nameFr: zod.string(),
       nameAr: zod.string(),
       slug: zod.string(),
@@ -664,6 +968,20 @@ export const UpdateQuoteStatusResponse = zod.object({
       requiresFileUpload: zod.boolean(),
       active: zod.boolean(),
       createdAt: zod.coerce.date(),
+      category: zod
+        .object({
+          id: zod.number(),
+          nameFr: zod.string(),
+          nameAr: zod.string(),
+          slug: zod.string(),
+          descriptionFr: zod.string().nullish(),
+          descriptionAr: zod.string().nullish(),
+          imageUrl: zod.string().nullish(),
+          isActive: zod.boolean(),
+          displayOrder: zod.number(),
+          createdAt: zod.coerce.date(),
+        })
+        .nullish(),
     })
     .nullish(),
 });
@@ -976,6 +1294,7 @@ export const GetRecentOrdersResponseItem = zod.object({
   service: zod
     .object({
       id: zod.number(),
+      categoryId: zod.number().nullish(),
       nameFr: zod.string(),
       nameAr: zod.string(),
       slug: zod.string(),
@@ -988,6 +1307,20 @@ export const GetRecentOrdersResponseItem = zod.object({
       requiresFileUpload: zod.boolean(),
       active: zod.boolean(),
       createdAt: zod.coerce.date(),
+      category: zod
+        .object({
+          id: zod.number(),
+          nameFr: zod.string(),
+          nameAr: zod.string(),
+          slug: zod.string(),
+          descriptionFr: zod.string().nullish(),
+          descriptionAr: zod.string().nullish(),
+          imageUrl: zod.string().nullish(),
+          isActive: zod.boolean(),
+          displayOrder: zod.number(),
+          createdAt: zod.coerce.date(),
+        })
+        .nullish(),
     })
     .nullish(),
 });

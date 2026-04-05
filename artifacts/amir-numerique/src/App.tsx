@@ -6,6 +6,7 @@ import NotFound from "@/pages/not-found";
 import Home from "@/pages/home";
 import About from "@/pages/about";
 import Services from "@/pages/services";
+import ServiceCategory from "@/pages/services/category";
 import ServiceDetail from "@/pages/services/detail";
 import Pricing from "@/pages/pricing";
 import Portfolio from "@/pages/portfolio";
@@ -25,6 +26,7 @@ import AdminOrders from "@/pages/admin/orders";
 import AdminOrderDetail from "@/pages/admin/orders/detail";
 import AdminQuotes from "@/pages/admin/quotes";
 import AdminQuoteDetail from "@/pages/admin/quotes/detail";
+import AdminCategories from "@/pages/admin/categories";
 import AdminServices from "@/pages/admin/services";
 import AdminPortfolio from "@/pages/admin/portfolio";
 import AdminUsers from "@/pages/admin/users";
@@ -46,7 +48,8 @@ function Router() {
       <Route path="/" component={Home} />
       <Route path="/about" component={About} />
       <Route path="/services" component={Services} />
-      <Route path="/services/:slug" component={ServiceDetail} />
+      <Route path="/services/:categorySlug/:serviceSlug" component={ServiceDetail} />
+      <Route path="/services/:slug" component={ServiceCategory} />
       <Route path="/pricing" component={Pricing} />
       <Route path="/portfolio" component={Portfolio} />
       <Route path="/contact" component={Contact} />
@@ -71,6 +74,7 @@ function Router() {
       <Route path="/admin/orders/:id" component={AdminOrderDetail} />
       <Route path="/admin/quotes" component={AdminQuotes} />
       <Route path="/admin/quotes/:id" component={AdminQuoteDetail} />
+      <Route path="/admin/categories" component={AdminCategories} />
       <Route path="/admin/services" component={AdminServices} />
       <Route path="/admin/portfolio" component={AdminPortfolio} />
       <Route path="/admin/users" component={AdminUsers} />

@@ -1,5 +1,5 @@
 import { AdminLayout } from "@/components/layouts/admin-layout";
-import { useListServices, useCreateService, useUpdateService, useDeleteService, useUploadFile } from "@workspace/api-client-react";
+import { useListServices, useCreateService, useUpdateService, useDeleteService, useUploadFile, useListServiceCategories } from "@workspace/api-client-react";
 import { useI18n } from "@/hooks/use-i18n";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,10 +12,11 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
 import { useRef, useState } from "react";
-import { Plus, Loader2, Pencil, Trash2, CheckCircle, XCircle, ImagePlus, X, Globe, Hash } from "lucide-react";
+import { Plus, Loader2, Pencil, Trash2, CheckCircle, XCircle, ImagePlus, X, Globe, Hash, Layers } from "lucide-react";
 import { motion } from "framer-motion";
 
 const serviceSchema = z.object({
+  categoryId: z.coerce.number().optional(),
   nameFr: z.string().min(1, "Nom FR requis"),
   nameAr: z.string().min(1, "Nom AR requis"),
   descriptionFr: z.string().optional(),
@@ -40,6 +41,7 @@ export default function AdminServices() {
   const { t } = useI18n();
   const { toast } = useToast();
   const { data: services, isLoading, refetch } = useListServices({});
+  const { data: categories } = useListServiceCategories({});
   const createService = useCreateService();
   const updateService = useUpdateService();
   const deleteService = useDeleteService();
@@ -52,17 +54,18 @@ export default function AdminServices() {
 
   const form = useForm<ServiceForm>({
     resolver: zodResolver(serviceSchema),
-    defaultValues: { nameFr: "", nameAr: "", descriptionFr: "", descriptionAr: "", slug: "", imageUrl: "", publicPricePerM2: 0, clientPricePerM2: 0, subcontractorPricePerM2: 0, requiresFileUpload: false, active: true },
+    defaultValues: { categoryId: undefined, nameFr: "", nameAr: "", descriptionFr: "", descriptionAr: "", slug: "", imageUrl: "", publicPricePerM2: 0, clientPricePerM2: 0, subcontractorPricePerM2: 0, requiresFileUpload: false, active: true },
   });
 
   const openCreate = () => {
-    form.reset({ nameFr: "", nameAr: "", descriptionFr: "", descriptionAr: "", slug: "", imageUrl: "", publicPricePerM2: 0, clientPricePerM2: 0, subcontractorPricePerM2: 0, requiresFileUpload: false, active: true });
+    form.reset({ categoryId: undefined, nameFr: "", nameAr: "", descriptionFr: "", descriptionAr: "", slug: "", imageUrl: "", publicPricePerM2: 0, clientPricePerM2: 0, subcontractorPricePerM2: 0, requiresFileUpload: false, active: true });
     setEditingId(null);
     setDialogOpen(true);
   };
 
   const openEdit = (service: any) => {
     form.reset({
+      categoryId: service.categoryId ?? undefined,
       nameFr: service.nameFr, nameAr: service.nameAr,
       descriptionFr: service.descriptionFr || "", descriptionAr: service.descriptionAr || "",
       slug: service.slug, imageUrl: service.imageUrl || "",
@@ -285,6 +288,28 @@ export default function AdminServices() {
                   </FormItem>
                 )} />
               </div>
+
+              {/* Category selector */}
+              <FormField control={form.control} name="categoryId" render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="flex items-center gap-1.5 text-xs">
+                    <Layers className="h-3.5 w-3.5" /> Catégorie
+                  </FormLabel>
+                  <FormControl>
+                    <select
+                      className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                      value={field.value ?? ""}
+                      onChange={(e) => field.onChange(e.target.value ? Number(e.target.value) : undefined)}
+                    >
+                      <option value="">-- Sans catégorie --</option>
+                      {categories?.map((cat) => (
+                        <option key={cat.id} value={cat.id}>{cat.nameFr}</option>
+                      ))}
+                    </select>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )} />
 
               <div className="grid grid-cols-2 gap-4">
                 <FormField control={form.control} name="nameFr" render={({ field }) => (

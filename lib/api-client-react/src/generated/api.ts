@@ -23,12 +23,14 @@ import type {
   CreatePortfolioItemBody,
   CreateQuoteBody,
   CreateServiceBody,
+  CreateServiceCategoryBody,
   DashboardStats,
   ErrorResponse,
   HealthStatus,
   ListOrdersParams,
   ListPortfolioParams,
   ListQuotesParams,
+  ListServiceCategoriesParams,
   ListServicesParams,
   ListUsersParams,
   LoginBody,
@@ -39,6 +41,7 @@ import type {
   QuoteListResponse,
   RegisterBody,
   Service,
+  ServiceCategory,
   Setting,
   StatusCount,
   SuccessResponse,
@@ -47,6 +50,7 @@ import type {
   UpdateProfileBody,
   UpdateQuoteStatusBody,
   UpdateServiceBody,
+  UpdateServiceCategoryBody,
   UpdateSettingBody,
   UpdateUserBody,
   UploadFileBody,
@@ -447,6 +451,630 @@ export function useGetMe<
   request?: SecondParameter<typeof customFetch>;
 }): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
   const queryOptions = getGetMeQueryOptions(options);
+
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey;
+  };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+/**
+ * @summary List service categories
+ */
+export const getListServiceCategoriesUrl = (
+  params?: ListServiceCategoriesParams,
+) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? "null" : value.toString());
+    }
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0
+    ? `/api/service-categories?${stringifiedParams}`
+    : `/api/service-categories`;
+};
+
+export const listServiceCategories = async (
+  params?: ListServiceCategoriesParams,
+  options?: RequestInit,
+): Promise<ServiceCategory[]> => {
+  return customFetch<ServiceCategory[]>(getListServiceCategoriesUrl(params), {
+    ...options,
+    method: "GET",
+  });
+};
+
+export const getListServiceCategoriesQueryKey = (
+  params?: ListServiceCategoriesParams,
+) => {
+  return [`/api/service-categories`, ...(params ? [params] : [])] as const;
+};
+
+export const getListServiceCategoriesQueryOptions = <
+  TData = Awaited<ReturnType<typeof listServiceCategories>>,
+  TError = ErrorType<unknown>,
+>(
+  params?: ListServiceCategoriesParams,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof listServiceCategories>>,
+      TError,
+      TData
+    >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey =
+    queryOptions?.queryKey ?? getListServiceCategoriesQueryKey(params);
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof listServiceCategories>>
+  > = ({ signal }) =>
+    listServiceCategories(params, { signal, ...requestOptions });
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof listServiceCategories>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey };
+};
+
+export type ListServiceCategoriesQueryResult = NonNullable<
+  Awaited<ReturnType<typeof listServiceCategories>>
+>;
+export type ListServiceCategoriesQueryError = ErrorType<unknown>;
+
+/**
+ * @summary List service categories
+ */
+
+export function useListServiceCategories<
+  TData = Awaited<ReturnType<typeof listServiceCategories>>,
+  TError = ErrorType<unknown>,
+>(
+  params?: ListServiceCategoriesParams,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof listServiceCategories>>,
+      TError,
+      TData
+    >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getListServiceCategoriesQueryOptions(params, options);
+
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey;
+  };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+/**
+ * @summary Create a service category (admin only)
+ */
+export const getCreateServiceCategoryUrl = () => {
+  return `/api/service-categories`;
+};
+
+export const createServiceCategory = async (
+  createServiceCategoryBody: CreateServiceCategoryBody,
+  options?: RequestInit,
+): Promise<ServiceCategory> => {
+  return customFetch<ServiceCategory>(getCreateServiceCategoryUrl(), {
+    ...options,
+    method: "POST",
+    headers: { "Content-Type": "application/json", ...options?.headers },
+    body: JSON.stringify(createServiceCategoryBody),
+  });
+};
+
+export const getCreateServiceCategoryMutationOptions = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof createServiceCategory>>,
+    TError,
+    { data: BodyType<CreateServiceCategoryBody> },
+    TContext
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof createServiceCategory>>,
+  TError,
+  { data: BodyType<CreateServiceCategoryBody> },
+  TContext
+> => {
+  const mutationKey = ["createServiceCategory"];
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined };
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof createServiceCategory>>,
+    { data: BodyType<CreateServiceCategoryBody> }
+  > = (props) => {
+    const { data } = props ?? {};
+
+    return createServiceCategory(data, requestOptions);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type CreateServiceCategoryMutationResult = NonNullable<
+  Awaited<ReturnType<typeof createServiceCategory>>
+>;
+export type CreateServiceCategoryMutationBody =
+  BodyType<CreateServiceCategoryBody>;
+export type CreateServiceCategoryMutationError = ErrorType<unknown>;
+
+/**
+ * @summary Create a service category (admin only)
+ */
+export const useCreateServiceCategory = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof createServiceCategory>>,
+    TError,
+    { data: BodyType<CreateServiceCategoryBody> },
+    TContext
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseMutationResult<
+  Awaited<ReturnType<typeof createServiceCategory>>,
+  TError,
+  { data: BodyType<CreateServiceCategoryBody> },
+  TContext
+> => {
+  return useMutation(getCreateServiceCategoryMutationOptions(options));
+};
+
+/**
+ * @summary Get service category by ID
+ */
+export const getGetServiceCategoryUrl = (id: number) => {
+  return `/api/service-categories/${id}`;
+};
+
+export const getServiceCategory = async (
+  id: number,
+  options?: RequestInit,
+): Promise<ServiceCategory> => {
+  return customFetch<ServiceCategory>(getGetServiceCategoryUrl(id), {
+    ...options,
+    method: "GET",
+  });
+};
+
+export const getGetServiceCategoryQueryKey = (id: number) => {
+  return [`/api/service-categories/${id}`] as const;
+};
+
+export const getGetServiceCategoryQueryOptions = <
+  TData = Awaited<ReturnType<typeof getServiceCategory>>,
+  TError = ErrorType<ErrorResponse>,
+>(
+  id: number,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof getServiceCategory>>,
+      TError,
+      TData
+    >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey = queryOptions?.queryKey ?? getGetServiceCategoryQueryKey(id);
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof getServiceCategory>>
+  > = ({ signal }) => getServiceCategory(id, { signal, ...requestOptions });
+
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!id,
+    ...queryOptions,
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof getServiceCategory>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey };
+};
+
+export type GetServiceCategoryQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getServiceCategory>>
+>;
+export type GetServiceCategoryQueryError = ErrorType<ErrorResponse>;
+
+/**
+ * @summary Get service category by ID
+ */
+
+export function useGetServiceCategory<
+  TData = Awaited<ReturnType<typeof getServiceCategory>>,
+  TError = ErrorType<ErrorResponse>,
+>(
+  id: number,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof getServiceCategory>>,
+      TError,
+      TData
+    >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getGetServiceCategoryQueryOptions(id, options);
+
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey;
+  };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+/**
+ * @summary Update a service category (admin only)
+ */
+export const getUpdateServiceCategoryUrl = (id: number) => {
+  return `/api/service-categories/${id}`;
+};
+
+export const updateServiceCategory = async (
+  id: number,
+  updateServiceCategoryBody: UpdateServiceCategoryBody,
+  options?: RequestInit,
+): Promise<ServiceCategory> => {
+  return customFetch<ServiceCategory>(getUpdateServiceCategoryUrl(id), {
+    ...options,
+    method: "PUT",
+    headers: { "Content-Type": "application/json", ...options?.headers },
+    body: JSON.stringify(updateServiceCategoryBody),
+  });
+};
+
+export const getUpdateServiceCategoryMutationOptions = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof updateServiceCategory>>,
+    TError,
+    { id: number; data: BodyType<UpdateServiceCategoryBody> },
+    TContext
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof updateServiceCategory>>,
+  TError,
+  { id: number; data: BodyType<UpdateServiceCategoryBody> },
+  TContext
+> => {
+  const mutationKey = ["updateServiceCategory"];
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined };
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof updateServiceCategory>>,
+    { id: number; data: BodyType<UpdateServiceCategoryBody> }
+  > = (props) => {
+    const { id, data } = props ?? {};
+
+    return updateServiceCategory(id, data, requestOptions);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type UpdateServiceCategoryMutationResult = NonNullable<
+  Awaited<ReturnType<typeof updateServiceCategory>>
+>;
+export type UpdateServiceCategoryMutationBody =
+  BodyType<UpdateServiceCategoryBody>;
+export type UpdateServiceCategoryMutationError = ErrorType<unknown>;
+
+/**
+ * @summary Update a service category (admin only)
+ */
+export const useUpdateServiceCategory = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof updateServiceCategory>>,
+    TError,
+    { id: number; data: BodyType<UpdateServiceCategoryBody> },
+    TContext
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseMutationResult<
+  Awaited<ReturnType<typeof updateServiceCategory>>,
+  TError,
+  { id: number; data: BodyType<UpdateServiceCategoryBody> },
+  TContext
+> => {
+  return useMutation(getUpdateServiceCategoryMutationOptions(options));
+};
+
+/**
+ * @summary Delete a service category (admin only)
+ */
+export const getDeleteServiceCategoryUrl = (id: number) => {
+  return `/api/service-categories/${id}`;
+};
+
+export const deleteServiceCategory = async (
+  id: number,
+  options?: RequestInit,
+): Promise<SuccessResponse> => {
+  return customFetch<SuccessResponse>(getDeleteServiceCategoryUrl(id), {
+    ...options,
+    method: "DELETE",
+  });
+};
+
+export const getDeleteServiceCategoryMutationOptions = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof deleteServiceCategory>>,
+    TError,
+    { id: number },
+    TContext
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof deleteServiceCategory>>,
+  TError,
+  { id: number },
+  TContext
+> => {
+  const mutationKey = ["deleteServiceCategory"];
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined };
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof deleteServiceCategory>>,
+    { id: number }
+  > = (props) => {
+    const { id } = props ?? {};
+
+    return deleteServiceCategory(id, requestOptions);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type DeleteServiceCategoryMutationResult = NonNullable<
+  Awaited<ReturnType<typeof deleteServiceCategory>>
+>;
+
+export type DeleteServiceCategoryMutationError = ErrorType<unknown>;
+
+/**
+ * @summary Delete a service category (admin only)
+ */
+export const useDeleteServiceCategory = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof deleteServiceCategory>>,
+    TError,
+    { id: number },
+    TContext
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseMutationResult<
+  Awaited<ReturnType<typeof deleteServiceCategory>>,
+  TError,
+  { id: number },
+  TContext
+> => {
+  return useMutation(getDeleteServiceCategoryMutationOptions(options));
+};
+
+/**
+ * @summary Get service category by slug
+ */
+export const getGetServiceCategoryBySlugUrl = (slug: string) => {
+  return `/api/service-categories/slug/${slug}`;
+};
+
+export const getServiceCategoryBySlug = async (
+  slug: string,
+  options?: RequestInit,
+): Promise<ServiceCategory> => {
+  return customFetch<ServiceCategory>(getGetServiceCategoryBySlugUrl(slug), {
+    ...options,
+    method: "GET",
+  });
+};
+
+export const getGetServiceCategoryBySlugQueryKey = (slug: string) => {
+  return [`/api/service-categories/slug/${slug}`] as const;
+};
+
+export const getGetServiceCategoryBySlugQueryOptions = <
+  TData = Awaited<ReturnType<typeof getServiceCategoryBySlug>>,
+  TError = ErrorType<ErrorResponse>,
+>(
+  slug: string,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof getServiceCategoryBySlug>>,
+      TError,
+      TData
+    >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey =
+    queryOptions?.queryKey ?? getGetServiceCategoryBySlugQueryKey(slug);
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof getServiceCategoryBySlug>>
+  > = ({ signal }) =>
+    getServiceCategoryBySlug(slug, { signal, ...requestOptions });
+
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!slug,
+    ...queryOptions,
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof getServiceCategoryBySlug>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey };
+};
+
+export type GetServiceCategoryBySlugQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getServiceCategoryBySlug>>
+>;
+export type GetServiceCategoryBySlugQueryError = ErrorType<ErrorResponse>;
+
+/**
+ * @summary Get service category by slug
+ */
+
+export function useGetServiceCategoryBySlug<
+  TData = Awaited<ReturnType<typeof getServiceCategoryBySlug>>,
+  TError = ErrorType<ErrorResponse>,
+>(
+  slug: string,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof getServiceCategoryBySlug>>,
+      TError,
+      TData
+    >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getGetServiceCategoryBySlugQueryOptions(slug, options);
+
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey;
+  };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+/**
+ * @summary Get all services in a category by category slug
+ */
+export const getGetServicesByCategorySlugUrl = (slug: string) => {
+  return `/api/service-categories/${slug}/services`;
+};
+
+export const getServicesByCategorySlug = async (
+  slug: string,
+  options?: RequestInit,
+): Promise<Service[]> => {
+  return customFetch<Service[]>(getGetServicesByCategorySlugUrl(slug), {
+    ...options,
+    method: "GET",
+  });
+};
+
+export const getGetServicesByCategorySlugQueryKey = (slug: string) => {
+  return [`/api/service-categories/${slug}/services`] as const;
+};
+
+export const getGetServicesByCategorySlugQueryOptions = <
+  TData = Awaited<ReturnType<typeof getServicesByCategorySlug>>,
+  TError = ErrorType<ErrorResponse>,
+>(
+  slug: string,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof getServicesByCategorySlug>>,
+      TError,
+      TData
+    >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey =
+    queryOptions?.queryKey ?? getGetServicesByCategorySlugQueryKey(slug);
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof getServicesByCategorySlug>>
+  > = ({ signal }) =>
+    getServicesByCategorySlug(slug, { signal, ...requestOptions });
+
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!slug,
+    ...queryOptions,
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof getServicesByCategorySlug>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey };
+};
+
+export type GetServicesByCategorySlugQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getServicesByCategorySlug>>
+>;
+export type GetServicesByCategorySlugQueryError = ErrorType<ErrorResponse>;
+
+/**
+ * @summary Get all services in a category by category slug
+ */
+
+export function useGetServicesByCategorySlug<
+  TData = Awaited<ReturnType<typeof getServicesByCategorySlug>>,
+  TError = ErrorType<ErrorResponse>,
+>(
+  slug: string,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof getServicesByCategorySlug>>,
+      TError,
+      TData
+    >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getGetServicesByCategorySlugQueryOptions(slug, options);
 
   const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
     queryKey: QueryKey;

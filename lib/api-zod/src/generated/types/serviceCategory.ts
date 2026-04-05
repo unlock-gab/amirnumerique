@@ -5,22 +5,16 @@
  * Amir Numerique - Digital Printing Agency API
  * OpenAPI spec version: 0.1.0
  */
-import type { ServiceCategory } from "./serviceCategory";
 
-export interface Service {
+export interface ServiceCategory {
   id: number;
-  categoryId?: number | null;
   nameFr: string;
   nameAr: string;
   slug: string;
   descriptionFr?: string | null;
   descriptionAr?: string | null;
   imageUrl?: string | null;
-  publicPricePerM2: number;
-  clientPricePerM2: number;
-  subcontractorPricePerM2: number;
-  requiresFileUpload: boolean;
-  active: boolean;
+  isActive: boolean;
+  displayOrder: number;
   createdAt: Date;
-  category?: ServiceCategory | null;
 }

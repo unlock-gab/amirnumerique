@@ -12,6 +12,8 @@ tags:
     description: Health operations
   - name: auth
     description: Authentication operations
+  - name: service-categories
+    description: Service category management
   - name: services
     description: Service management
   - name: orders
@@ -120,6 +122,160 @@ paths:
                 $ref: "#/components/schemas/User"
         "401":
           description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /service-categories:
+    get:
+      operationId: listServiceCategories
+      tags: [service-categories]
+      summary: List service categories
+      parameters:
+        - name: active
+          in: query
+          schema:
+            type: boolean
+      responses:
+        "200":
+          description: List of service categories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ServiceCategory"
+    post:
+      operationId: createServiceCategory
+      tags: [service-categories]
+      summary: Create a service category (admin only)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateServiceCategoryBody"
+      responses:
+        "201":
+          description: Category created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ServiceCategory"
+
+  /service-categories/{id}:
+    get:
+      operationId: getServiceCategory
+      tags: [service-categories]
+      summary: Get service category by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Category details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ServiceCategory"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    put:
+      operationId: updateServiceCategory
+      tags: [service-categories]
+      summary: Update a service category (admin only)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateServiceCategoryBody"
+      responses:
+        "200":
+          description: Category updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ServiceCategory"
+    delete:
+      operationId: deleteServiceCategory
+      tags: [service-categories]
+      summary: Delete a service category (admin only)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Category deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+
+  /service-categories/slug/{slug}:
+    get:
+      operationId: getServiceCategoryBySlug
+      tags: [service-categories]
+      summary: Get service category by slug
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Category details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ServiceCategory"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /service-categories/{slug}/services:
+    get:
+      operationId: getServicesByCategorySlug
+      tags: [service-categories]
+      summary: Get all services in a category by category slug
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Services in category
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Service"
+        "404":
+          description: Category not found
           content:
             application/json:
               schema:
@@ -849,11 +1005,96 @@ components:
       required:
         - user
 
+    ServiceCategory:
+      type: object
+      properties:
+        id:
+          type: integer
+        nameFr:
+          type: string
+        nameAr:
+          type: string
+        slug:
+          type: string
+        descriptionFr:
+          type: string
+          nullable: true
+        descriptionAr:
+          type: string
+          nullable: true
+        imageUrl:
+          type: string
+          nullable: true
+        isActive:
+          type: boolean
+        displayOrder:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - nameFr
+        - nameAr
+        - slug
+        - isActive
+        - displayOrder
+        - createdAt
+
+    CreateServiceCategoryBody:
+      type: object
+      properties:
+        nameFr:
+          type: string
+        nameAr:
+          type: string
+        slug:
+          type: string
+        descriptionFr:
+          type: string
+        descriptionAr:
+          type: string
+        imageUrl:
+          type: string
+        isActive:
+          type: boolean
+          default: true
+        displayOrder:
+          type: integer
+          default: 0
+      required:
+        - nameFr
+        - nameAr
+        - slug
+
+    UpdateServiceCategoryBody:
+      type: object
+      properties:
+        nameFr:
+          type: string
+        nameAr:
+          type: string
+        slug:
+          type: string
+        descriptionFr:
+          type: string
+        descriptionAr:
+          type: string
+        imageUrl:
+          type: string
+        isActive:
+          type: boolean
+        displayOrder:
+          type: integer
+
     Service:
       type: object
       properties:
         id:
           type: integer
+        categoryId:
+          type: integer
+          nullable: true
         nameFr:
           type: string
         nameAr:
@@ -882,6 +1123,9 @@ components:
         createdAt:
           type: string
           format: date-time
+        category:
+          $ref: "#/components/schemas/ServiceCategory"
+          nullable: true
       required:
         - id
         - nameFr
@@ -897,6 +1141,8 @@ components:
     CreateServiceBody:
       type: object
       properties:
+        categoryId:
+          type: integer
         nameFr:
           type: string
         nameAr:
@@ -932,6 +1178,8 @@ components:
     UpdateServiceBody:
       type: object
       properties:
+        categoryId:
+          type: integer
         nameFr:
           type: string
         nameAr:

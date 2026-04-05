@@ -82,8 +82,44 @@ export interface AuthResponse {
   message?: string;
 }
 
+export interface ServiceCategory {
+  id: number;
+  nameFr: string;
+  nameAr: string;
+  slug: string;
+  descriptionFr?: string | null;
+  descriptionAr?: string | null;
+  imageUrl?: string | null;
+  isActive: boolean;
+  displayOrder: number;
+  createdAt: string;
+}
+
+export interface CreateServiceCategoryBody {
+  nameFr: string;
+  nameAr: string;
+  slug: string;
+  descriptionFr?: string;
+  descriptionAr?: string;
+  imageUrl?: string;
+  isActive?: boolean;
+  displayOrder?: number;
+}
+
+export interface UpdateServiceCategoryBody {
+  nameFr?: string;
+  nameAr?: string;
+  slug?: string;
+  descriptionFr?: string;
+  descriptionAr?: string;
+  imageUrl?: string;
+  isActive?: boolean;
+  displayOrder?: number;
+}
+
 export interface Service {
   id: number;
+  categoryId?: number | null;
   nameFr: string;
   nameAr: string;
   slug: string;
@@ -96,9 +132,11 @@ export interface Service {
   requiresFileUpload: boolean;
   active: boolean;
   createdAt: string;
+  category?: ServiceCategory | null;
 }
 
 export interface CreateServiceBody {
+  categoryId?: number;
   nameFr: string;
   nameAr: string;
   slug: string;
@@ -113,6 +151,7 @@ export interface CreateServiceBody {
 }
 
 export interface UpdateServiceBody {
+  categoryId?: number;
   nameFr?: string;
   nameAr?: string;
   slug?: string;
@@ -426,6 +465,10 @@ export interface StatusCount {
   status: string;
   count: number;
 }
+
+export type ListServiceCategoriesParams = {
+  active?: boolean;
+};
 
 export type ListServicesParams = {
   active?: boolean;

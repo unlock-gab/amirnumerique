@@ -1,4 +1,5 @@
 export * from "./users";
+export * from "./service_categories";
 export * from "./services";
 export * from "./orders";
 export * from "./quotes";

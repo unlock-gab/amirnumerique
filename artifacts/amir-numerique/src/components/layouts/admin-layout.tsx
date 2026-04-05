@@ -14,6 +14,7 @@ import {
   LogOut,
   Globe,
   ExternalLink,
+  Layers,
 } from "lucide-react";
 import { SidebarProvider, Sidebar, SidebarHeader, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarFooter } from "@/components/ui/sidebar";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -52,6 +53,7 @@ export function AdminLayout({ children }: { children: ReactNode }) {
     { href: "/admin", label: t("adminDashboard"), icon: LayoutDashboard, exact: true },
     { href: "/admin/orders", label: t("manageOrders"), icon: ShoppingCart },
     { href: "/admin/quotes", label: t("manageQuotes"), icon: FileText },
+    { href: "/admin/categories", label: "Catégories", icon: Layers },
     { href: "/admin/services", label: t("manageServices"), icon: PrinterCheck },
     { href: "/admin/portfolio", label: t("managePortfolio"), icon: ImageIcon },
     { href: "/admin/users", label: t("manageUsers"), icon: Users },

@@ -2,7 +2,7 @@ import { useState, useRef, useCallback } from "react";
 import { PublicLayout } from "@/components/layouts/public-layout";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Link, useRoute, useLocation } from "wouter";
+import { Link, useLocation, useParams } from "wouter";
 import {
   useGetServiceBySlug, useGetMe, useCreateOrder, useUploadFile,
 } from "@workspace/api-client-react";
@@ -32,9 +32,9 @@ const BENEFITS = [
 ];
 
 export default function ServiceDetail() {
-  const [, params] = useRoute("/services/:slug");
+  const params = useParams<{ categorySlug: string; serviceSlug: string }>();
   const [, setLocation] = useLocation();
-  const slug = params?.slug || "";
+  const slug = params?.serviceSlug || "";
 
   const { data: service, isLoading } = useGetServiceBySlug(slug, { query: { enabled: !!slug } });
   const { data: user } = useGetMe();

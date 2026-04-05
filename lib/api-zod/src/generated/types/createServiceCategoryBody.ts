@@ -6,17 +6,13 @@
  * OpenAPI spec version: 0.1.0
  */
 
-export interface CreateServiceBody {
-  categoryId?: number;
+export interface CreateServiceCategoryBody {
   nameFr: string;
   nameAr: string;
   slug: string;
   descriptionFr?: string;
   descriptionAr?: string;
   imageUrl?: string;
-  publicPricePerM2: number;
-  clientPricePerM2: number;
-  subcontractorPricePerM2: number;
-  requiresFileUpload?: boolean;
-  active?: boolean;
+  isActive?: boolean;
+  displayOrder?: number;
 }
