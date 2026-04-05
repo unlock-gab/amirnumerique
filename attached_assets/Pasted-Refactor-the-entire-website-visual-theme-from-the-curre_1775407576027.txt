@@ -1,0 +1,150 @@
+Refactor the entire website visual theme from the current dark style to a **premium light / white theme**.
+
+## Main objective
+
+I want the whole site to use a **white-based premium design** instead of the current dark navy/black background.
+
+The result should feel:
+
+* luxurious
+* clean
+* modern
+* premium
+* elegant
+* high-end
+* suitable for a professional digital printing and advertising company
+
+## Important
+
+Do not simply invert colors.
+Create a real premium light theme with proper contrast, hierarchy, and balance.
+
+## New visual direction
+
+Use a refined white/light foundation:
+
+* white
+* off-white
+* very light gray
+* subtle warm neutrals
+
+Keep the brand accent color strong and premium:
+
+* keep the gold / amber accent for key highlights and CTAs
+* use dark charcoal for headings and important text
+* use refined gray tones for secondary text and borders
+
+## Color system
+
+Create a premium light palette such as:
+
+* background: white / off-white
+* section backgrounds: soft light gray / warm white
+* headings: deep charcoal
+* body text: muted dark gray
+* borders: subtle light gray
+* accent: amber / gold
+* secondary accent: optional deep navy or slate used very lightly
+
+## Apply this across the entire website
+
+Update all major areas:
+
+* navbar
+* hero section
+* buttons
+* service/category cards
+* pricing sections
+* portfolio
+* contact page
+* quote forms
+* user dashboard
+* admin dashboard if appropriate
+* footer
+* badges
+* status indicators
+* stats sections
+
+## Hero section
+
+Redesign the homepage hero for a premium light aesthetic:
+
+* white/light base instead of dark background
+* strong contrast for headline
+* elegant section layering
+* premium use of accent colors
+* keep it visually powerful and modern
+
+## Cards and sections
+
+Redesign cards for the new light style:
+
+* white or very light surfaces
+* subtle shadows
+* soft borders
+* elegant depth
+* premium spacing
+* clean typography
+
+Avoid flat boring white boxes.
+They should still feel rich and premium.
+
+## Typography
+
+Make typography work beautifully on light backgrounds:
+
+* strong dark headings
+* elegant muted supporting text
+* premium hierarchy
+* maintain excellent readability in French and Arabic
+
+## Buttons
+
+Buttons should be rebalanced for the light theme:
+
+* primary buttons can stay amber/gold
+* secondary buttons should feel refined and premium
+* hover states should remain elegant
+
+## Forms
+
+Refactor form fields for light mode:
+
+* white fields with subtle borders
+* clear focus states
+* premium labels
+* good readability
+* professional look
+
+## Dashboard/admin
+
+If the admin dashboard uses the same theme system or can be improved, also adapt it into a premium light admin style:
+
+* white/light backgrounds
+* subtle panel separation
+* elegant cards
+* readable tables
+* professional management UI
+
+If keeping admin dark is more appropriate, keep it consistent but modernize it slightly.
+Prioritize the public site first.
+
+## Visual tone
+
+The final result should feel closer to:
+
+* a premium white creative agency website
+* a high-end B2B service brand
+* a modern luxury business website
+
+## Avoid
+
+* plain default white theme
+* weak contrast
+* harsh bright yellow everywhere
+* generic light SaaS look
+* cheap flat appearance
+
+## Goal
+
+Transform the website into a premium white/light visual identity while keeping it strong, elegant, and visually impressive.

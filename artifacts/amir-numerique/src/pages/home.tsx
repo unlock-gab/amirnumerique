@@ -128,9 +128,9 @@ export default function Home() {
               <div
                 className="relative overflow-hidden rounded-2xl"
                 style={{
-                  background: "linear-gradient(135deg, rgba(255,255,255,0.055) 0%, rgba(0,0,0,0.38) 100%)",
-                  border: "1px solid rgba(255,255,255,0.08)",
-                  boxShadow: "0 0 0 1px rgba(255,255,255,0.03), 0 40px 80px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.06)",
+                  background: "linear-gradient(135deg, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.92) 100%)",
+                  border: "1px solid rgba(0,0,0,0.08)",
+                  boxShadow: "0 0 0 1px rgba(0,0,0,0.02), 0 20px 60px rgba(0,0,0,0.10), inset 0 1px 0 rgba(255,255,255,0.9)",
                   backdropFilter: "blur(8px)",
                 }}
               >
@@ -150,8 +150,8 @@ export default function Home() {
                         transition={{ delay: 0.42 + i * 0.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                         className="relative px-8 py-9 group"
                         style={{
-                          borderLeft: isRight ? "1px solid rgba(255,255,255,0.06)" : undefined,
-                          borderTop: isBottom ? "1px solid rgba(255,255,255,0.06)" : undefined,
+                          borderLeft: isRight ? "1px solid rgba(0,0,0,0.07)" : undefined,
+                          borderTop: isBottom ? "1px solid rgba(0,0,0,0.07)" : undefined,
                         }}
                       >
                         {/* Subtle glow on hover */}
@@ -172,7 +172,7 @@ export default function Home() {
                 {/* Bottom strip */}
                 <div
                   className="flex items-center gap-3 px-8 py-4"
-                  style={{ borderTop: "1px solid rgba(255,255,255,0.05)", background: "rgba(0,0,0,0.22)" }}
+                  style={{ borderTop: "1px solid rgba(0,0,0,0.06)", background: "rgba(0,0,0,0.02)" }}
                 >
                   <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0 animate-pulse" />
                   <p className="text-[11px] text-muted-foreground/60 tracking-wide">
@@ -389,14 +389,14 @@ export default function Home() {
                 <div className="p-5 space-y-4">
                   {[
                     { label: "Visiteur", price: "1 200", color: "text-muted-foreground" },
-                    { label: "Client enregistré", price: "1 000", color: "text-blue-400", badge: true },
-                    { label: "Sous-traitant", price: "750", color: "text-amber-400" },
+                    { label: "Client enregistré", price: "1 000", color: "text-blue-600", badge: true },
+                    { label: "Sous-traitant", price: "750", color: "text-amber-600" },
                   ].map((tier) => (
                     <div key={tier.label} className={`flex items-center justify-between py-2 border-b border-border/30 last:border-0 ${tier.badge ? "relative" : ""}`}>
                       <span className="text-sm text-muted-foreground">{tier.label}</span>
                       <div className="flex items-center gap-2">
                         {tier.badge && (
-                          <span className="text-[9px] bg-blue-500/10 text-blue-400 border border-blue-500/20 px-1.5 py-0.5 rounded font-600">Recommandé</span>
+                          <span className="text-[9px] bg-blue-50 text-blue-600 border border-blue-200 px-1.5 py-0.5 rounded font-600">Recommandé</span>
                         )}
                         <span className={`font-display font-700 text-base tabular-nums ${tier.color}`}>{tier.price} DA/m²</span>
                       </div>

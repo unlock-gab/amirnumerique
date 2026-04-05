@@ -43,8 +43,8 @@ export function Navbar() {
     <nav
       className={`sticky top-0 z-50 w-full transition-all duration-300 ${
         scrolled
-          ? "bg-background/95 backdrop-blur-xl border-b border-border/60 shadow-xl shadow-black/20"
-          : "bg-background/80 backdrop-blur-md border-b border-transparent"
+          ? "bg-white/95 backdrop-blur-xl border-b border-border/60 shadow-sm shadow-black/8"
+          : "bg-white/90 backdrop-blur-md border-b border-transparent"
       }`}
     >
       <div className="container mx-auto px-4 h-[68px] flex items-center justify-between gap-6">
@@ -66,7 +66,7 @@ export function Navbar() {
               className={`relative px-3 py-1.5 text-sm font-medium rounded-lg transition-all duration-200 ${
                 isActive(link.href)
                   ? "text-primary bg-primary/8"
-                  : "text-muted-foreground hover:text-foreground hover:bg-white/5"
+                  : "text-muted-foreground hover:text-foreground hover:bg-black/5"
               }`}
             >
               {link.label}
@@ -148,7 +148,7 @@ export function Navbar() {
               key={link.href}
               href={link.href}
               className={`px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-                isActive(link.href) ? "text-primary bg-primary/8" : "text-muted-foreground hover:text-foreground hover:bg-white/5"
+                isActive(link.href) ? "text-primary bg-primary/8" : "text-muted-foreground hover:text-foreground hover:bg-black/5"
               }`}
               onClick={() => setMobileMenuOpen(false)}
             >

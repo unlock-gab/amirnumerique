@@ -297,7 +297,7 @@ function CategoryCard({ cat, index, language, size }: CategoryCardProps) {
   const num = String(index + 1).padStart(2, "0");
 
   return (
-    <div className={`group relative overflow-hidden rounded-2xl cursor-pointer ${HEIGHTS[size]} border border-white/6 hover:border-white/12 transition-all duration-500 hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-black/30`}>
+    <div className={`group relative overflow-hidden rounded-2xl cursor-pointer ${HEIGHTS[size]} border border-border/50 hover:border-border transition-all duration-500 hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-black/20`}>
 
       {/* ── Background: image or premium placeholder ──────────────── */}
       {cat.imageUrl ? (

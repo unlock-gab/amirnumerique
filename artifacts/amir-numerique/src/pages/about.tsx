@@ -14,7 +14,7 @@ export default function About() {
         <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] mix-blend-overlay"></div>
         <div className="container px-4 mx-auto relative z-10">
           <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white">
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 text-foreground">
               <span className="text-primary">Amir Numérique</span><br/>
               L'Expertise Visuelle
             </h1>
