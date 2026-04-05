@@ -49,9 +49,7 @@ export default function Login() {
         <div className="absolute -top-32 -right-32 w-64 h-64 bg-primary/10 rounded-full blur-3xl" />
         <div className="absolute -bottom-32 -left-32 w-64 h-64 bg-primary/5 rounded-full blur-3xl" />
         <div className="relative max-w-sm text-center space-y-6">
-          <div className="w-16 h-16 rounded-2xl bg-primary/20 mx-auto flex items-center justify-center">
-            <PrinterCheck className="h-8 w-8 text-primary" />
-          </div>
+          <img src="/logo.jpg" alt="Amir Numérique" className="h-20 w-auto object-contain mx-auto rounded-xl" />
           <h2 className="font-display text-3xl font-700 tracking-tight">
             Bienvenue sur<br /><span className="text-gradient">Amir Numérique</span>
           </h2>
@@ -79,10 +77,7 @@ export default function Login() {
         >
           <div className="text-center lg:text-left">
             <Link href="/" className="inline-flex items-center gap-2 mb-6 lg:hidden">
-              <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-                <PrinterCheck className="h-4 w-4 text-primary-foreground" />
-              </div>
-              <span className="font-display font-700 text-foreground">Amir <span className="text-primary">Numérique</span></span>
+              <img src="/logo.jpg" alt="Amir Numérique" className="h-9 w-auto object-contain rounded" />
             </Link>
             <h1 className="font-display text-2xl font-700 tracking-tight mb-1">{t("login")}</h1>
             <p className="text-sm text-muted-foreground">

@@ -55,23 +55,14 @@ export default function AdminLogin() {
         borderRadius: 8,
       }}>
         <div style={{ textAlign: "center", marginBottom: "2rem" }}>
-          <div style={{
-            display: "inline-block",
-            width: 48,
-            height: 48,
-            background: "#1a1a1a",
-            border: "1px solid #333",
-            borderRadius: 8,
-            lineHeight: "48px",
-            fontSize: 20,
-            marginBottom: 12,
-          }}>🔐</div>
+          <img
+            src="/logo.jpg"
+            alt="Amir Numérique"
+            style={{ height: 64, width: "auto", objectFit: "contain", marginBottom: 12, borderRadius: 4 }}
+          />
           <p style={{ color: "#666", fontSize: 12, margin: 0, letterSpacing: 2, textTransform: "uppercase" }}>
             Administration
           </p>
-          <h1 style={{ color: "#fff", margin: "4px 0 0", fontSize: 18, fontWeight: 600 }}>
-            Amir Numérique
-          </h1>
         </div>
 
         <form onSubmit={handleSubmit}>

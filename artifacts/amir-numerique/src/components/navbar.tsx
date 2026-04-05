@@ -50,12 +50,11 @@ export function Navbar() {
       <div className="container mx-auto px-4 h-[68px] flex items-center justify-between gap-6">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2.5 shrink-0 group">
-          <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center shadow-lg shadow-primary/30 group-hover:scale-105 transition-transform">
-            <PrinterCheck className="h-4 w-4 text-primary-foreground" strokeWidth={2.5} />
-          </div>
-          <span className="font-display text-lg font-700 text-foreground tracking-tight">
-            Amir <span className="text-primary">Numérique</span>
-          </span>
+          <img
+            src="/logo.jpg"
+            alt="Amir Numérique"
+            className="h-9 w-auto object-contain group-hover:scale-105 transition-transform rounded"
+          />
         </Link>
 
         {/* Desktop Nav */}

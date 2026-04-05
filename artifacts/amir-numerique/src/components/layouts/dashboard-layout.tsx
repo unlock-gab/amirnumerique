@@ -59,12 +59,7 @@ export function DashboardLayout({ children }: { children: ReactNode }) {
         <Sidebar className="border-r border-border/40">
           <SidebarHeader className="border-b border-border/30 p-5">
             <Link href="/" className="flex items-center gap-2.5 group">
-              <div className="w-7 h-7 rounded-lg bg-primary flex items-center justify-center shadow-md shadow-primary/20">
-                <PrinterCheck className="h-3.5 w-3.5 text-primary-foreground" strokeWidth={2.5} />
-              </div>
-              <span className="font-display text-base font-700 text-foreground">
-                Amir <span className="text-primary">Numérique</span>
-              </span>
+              <img src="/logo.jpg" alt="Amir Numérique" className="h-7 w-auto object-contain rounded" />
             </Link>
           </SidebarHeader>
 
@@ -140,12 +135,7 @@ export function DashboardLayout({ children }: { children: ReactNode }) {
             <SidebarTrigger className="h-8 w-8 shrink-0 md:hidden" />
             {/* Mobile: logo */}
             <div className="flex md:hidden items-center gap-2 flex-1">
-              <div className="w-5 h-5 rounded-md bg-primary flex items-center justify-center">
-                <PrinterCheck className="h-3 w-3 text-primary-foreground" strokeWidth={2.5} />
-              </div>
-              <span className="font-display text-sm font-700">
-                Amir <span className="text-primary">Numérique</span>
-              </span>
+              <img src="/logo.jpg" alt="Amir Numérique" className="h-6 w-auto object-contain rounded" />
             </div>
             {/* Desktop spacer */}
             <div className="hidden md:flex flex-1" />
