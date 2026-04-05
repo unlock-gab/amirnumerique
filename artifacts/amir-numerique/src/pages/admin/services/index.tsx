@@ -34,9 +34,9 @@ const serviceSchema = z.object({
 type ServiceForm = z.infer<typeof serviceSchema>;
 
 const PRICE_TIERS = [
-  { key: "publicPricePerM2" as const, label: "Public", color: "text-muted-foreground", bg: "bg-muted/60", border: "border-border/60" },
-  { key: "clientPricePerM2" as const, label: "Client", color: "text-blue-400", bg: "bg-blue-500/8", border: "border-blue-500/20" },
-  { key: "subcontractorPricePerM2" as const, label: "Sous-trait.", color: "text-amber-400", bg: "bg-amber-500/8", border: "border-amber-500/20" },
+  { key: "publicPricePerM2" as const, label: "Public", color: "text-slate-600", bg: "bg-slate-50", border: "border-slate-200" },
+  { key: "clientPricePerM2" as const, label: "Client", color: "text-blue-600", bg: "bg-blue-50", border: "border-blue-200" },
+  { key: "subcontractorPricePerM2" as const, label: "Sous-trait.", color: "text-amber-600", bg: "bg-amber-50", border: "border-amber-200" },
 ];
 
 export default function AdminServices() {
@@ -221,7 +221,7 @@ export default function AdminServices() {
                 transition={{ delay: i * 0.04, ease: [0.22, 1, 0.36, 1] }}
                 data-testid={`admin-service-${service.id}`}
               >
-                <div className="group rounded-2xl border border-border/60 bg-card hover:border-primary/30 hover:shadow-xl hover:shadow-black/20 transition-all duration-300 overflow-hidden">
+                <div className="group rounded-2xl border border-gray-200 bg-card shadow-sm hover:border-primary/40 hover:shadow-md transition-all duration-300 overflow-hidden">
                   {/* Top: image + info + actions */}
                   <div className="flex gap-0">
                     {/* Image thumbnail */}
