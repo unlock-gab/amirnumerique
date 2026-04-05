@@ -1,5 +1,5 @@
 # ── Stage 1: Install dependencies ────────────────────────────────────
-FROM node:22-alpine AS deps
+FROM node:22-slim AS deps
 
 RUN corepack enable && corepack prepare pnpm@10 --activate
 
@@ -34,7 +34,7 @@ RUN pnpm --filter @workspace/api-server run build
 RUN cp -r artifacts/amir-numerique/dist/public artifacts/api-server/dist/public
 
 # ── Stage 3: Production runtime ───────────────────────────────────────
-FROM node:22-alpine AS runner
+FROM node:22-slim AS runner
 
 WORKDIR /app
 
