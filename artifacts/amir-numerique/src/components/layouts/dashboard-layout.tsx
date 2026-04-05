@@ -13,8 +13,9 @@ import {
   PrinterCheck,
   ExternalLink,
 } from "lucide-react";
-import { SidebarProvider, Sidebar, SidebarHeader, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarFooter } from "@/components/ui/sidebar";
+import { SidebarProvider, Sidebar, SidebarHeader, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarFooter, SidebarTrigger } from "@/components/ui/sidebar";
 import { Skeleton } from "@/components/ui/skeleton";
+import { NotificationBell } from "@/components/notification-bell";
 
 export function DashboardLayout({ children }: { children: ReactNode }) {
   const [location] = useLocation();
@@ -134,6 +135,24 @@ export function DashboardLayout({ children }: { children: ReactNode }) {
         </Sidebar>
 
         <main className="flex-1 flex flex-col min-w-0 overflow-auto">
+          {/* Topbar */}
+          <div className="sticky top-0 z-30 flex items-center gap-3 px-4 h-12 border-b border-border/30 bg-background/70 backdrop-blur-md">
+            <SidebarTrigger className="h-8 w-8 shrink-0 md:hidden" />
+            {/* Mobile: logo */}
+            <div className="flex md:hidden items-center gap-2 flex-1">
+              <div className="w-5 h-5 rounded-md bg-primary flex items-center justify-center">
+                <PrinterCheck className="h-3 w-3 text-primary-foreground" strokeWidth={2.5} />
+              </div>
+              <span className="font-display text-sm font-700">
+                Amir <span className="text-primary">Numérique</span>
+              </span>
+            </div>
+            {/* Desktop spacer */}
+            <div className="hidden md:flex flex-1" />
+            {/* Bell — always visible */}
+            <NotificationBell />
+          </div>
+
           <div className="flex-1 p-6 md:p-8 max-w-7xl w-full">
             {children}
           </div>

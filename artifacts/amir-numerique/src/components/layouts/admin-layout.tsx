@@ -20,6 +20,7 @@ import {
 import { SidebarProvider, Sidebar, SidebarHeader, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarFooter, SidebarTrigger } from "@/components/ui/sidebar";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
+import { NotificationBell } from "@/components/notification-bell";
 
 export function AdminLayout({ children }: { children: ReactNode }) {
   const [location] = useLocation();
@@ -152,10 +153,11 @@ export function AdminLayout({ children }: { children: ReactNode }) {
         </Sidebar>
 
         <main className="flex-1 flex flex-col min-w-0 overflow-auto bg-muted/10">
-          {/* Mobile top bar — only visible on small screens */}
-          <div className="md:hidden flex items-center gap-3 px-4 py-3 border-b border-border/40 bg-background/80 backdrop-blur-sm sticky top-0 z-30">
-            <SidebarTrigger className="h-8 w-8 shrink-0" />
-            <div className="flex items-center gap-2">
+          {/* Topbar — mobile + desktop */}
+          <div className="sticky top-0 z-30 flex items-center gap-3 px-4 h-12 border-b border-border/30 bg-background/70 backdrop-blur-md">
+            <SidebarTrigger className="h-8 w-8 shrink-0 md:hidden" />
+            {/* Mobile: logo */}
+            <div className="flex md:hidden items-center gap-2 flex-1">
               <div className="w-5 h-5 rounded-md bg-primary flex items-center justify-center">
                 <PrinterCheck className="h-3 w-3 text-primary-foreground" strokeWidth={2.5} />
               </div>
@@ -163,6 +165,10 @@ export function AdminLayout({ children }: { children: ReactNode }) {
                 Amir <span className="text-primary">Admin</span>
               </span>
             </div>
+            {/* Desktop spacer */}
+            <div className="hidden md:flex flex-1" />
+            {/* Bell — always visible */}
+            <NotificationBell />
           </div>
 
           <div className="flex-1 p-4 md:p-6 lg:p-8 max-w-7xl w-full">

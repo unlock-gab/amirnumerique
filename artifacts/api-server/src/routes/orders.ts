@@ -1,10 +1,38 @@
 import { Router } from "express";
-import { db, ordersTable, servicesTable, usersTable, orderStatusHistoryTable, serviceCategoriesTable } from "@workspace/db";
+import { db, ordersTable, servicesTable, usersTable, orderStatusHistoryTable, serviceCategoriesTable, notificationsTable } from "@workspace/db";
 import { eq, desc, and, sql } from "drizzle-orm";
 import { CreateOrderBody, GetOrderParams, UpdateOrderStatusParams, UpdateOrderStatusBody, ListOrdersQueryParams } from "@workspace/api-zod";
 import { requireAuth, requireAdmin } from "../lib/auth";
 
 const router = Router();
+
+async function notifyAdmins(payload: { type: string; title: string; message: string; link?: string }) {
+  try {
+    const admins = await db.select({ id: usersTable.id }).from(usersTable).where(eq(usersTable.role, "admin"));
+    if (admins.length > 0) {
+      await db.insert(notificationsTable).values(admins.map(a => ({
+        userId: a.id, type: payload.type, title: payload.title, message: payload.message, link: payload.link ?? null,
+      })));
+    }
+  } catch {}
+}
+
+async function notifyUser(userId: number, payload: { type: string; title: string; message: string; link?: string }) {
+  try {
+    await db.insert(notificationsTable).values({
+      userId, type: payload.type, title: payload.title, message: payload.message, link: payload.link ?? null,
+    });
+  } catch {}
+}
+
+const STATUS_NOTIF_LABELS: Record<string, string> = {
+  confirmed:   "confirmée",
+  in_progress: "en préparation",
+  printing:    "en impression",
+  ready:       "prête — récupérez-la !",
+  delivered:   "livrée",
+  cancelled:   "annulée",
+};
 
 function generateOrderNumber(): string {
   const now = new Date();
@@ -133,6 +161,13 @@ router.post("/orders", requireAuth, async (req, res): Promise<void> => {
     note: "Commande créée",
   });
 
+  notifyAdmins({
+    type: "order_new",
+    title: "Nouvelle commande",
+    message: `Commande ${order.orderNumber} en attente de confirmation.`,
+    link: `/admin/orders/${order.id}`,
+  });
+
   res.status(201).json(order);
 });
 
@@ -223,6 +258,16 @@ router.patch("/orders/:id", requireAdmin, async (req, res): Promise<void> => {
       changedByUserId: req.session.userId!,
       note: statusNotes[body.data.orderStatus] ?? null,
     });
+
+    const label = STATUS_NOTIF_LABELS[body.data.orderStatus];
+    if (label) {
+      notifyUser(existing.userId, {
+        type: "order_update",
+        title: `Commande ${label}`,
+        message: `Votre commande ${existing.orderNumber} est ${label}.`,
+        link: `/dashboard/orders/${order.id}`,
+      });
+    }
   }
 
   res.json(order);

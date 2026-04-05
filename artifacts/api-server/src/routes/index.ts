@@ -11,6 +11,7 @@ import settingsRouter from "./settings";
 import uploadRouter from "./upload";
 import statsRouter from "./stats";
 import subcontractorRequestsRouter from "./subcontractor-requests";
+import notificationsRouter from "./notifications";
 
 const router: IRouter = Router();
 
@@ -26,5 +27,6 @@ router.use(settingsRouter);
 router.use(uploadRouter);
 router.use(statsRouter);
 router.use(subcontractorRequestsRouter);
+router.use(notificationsRouter);
 
 export default router;
