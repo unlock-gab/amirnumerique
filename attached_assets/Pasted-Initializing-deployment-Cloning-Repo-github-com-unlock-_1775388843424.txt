@@ -1,0 +1,499 @@
+Initializing deployment
+Cloning Repo github.com/unlock-gab/amirnumerique.git to /etc/dokploy/compose/amirnumerique-6baq1z/code: ✅
+Cloning into '/etc/dokploy/compose/amirnumerique-6baq1z/code'...
+remote: Enumerating objects: 362, done.
+remote: Counting objects:   0% (1/362)        
+remote: Counting objects:   1% (4/362)        
+remote: Counting objects:   2% (8/362)        
+remote: Counting objects:   3% (11/362)        
+remote: Counting objects:   4% (15/362)        
+remote: Counting objects:   5% (19/362)        
+remote: Counting objects:   6% (22/362)        
+remote: Counting objects:   7% (26/362)        
+remote: Counting objects:   8% (29/362)        
+remote: Counting objects:   9% (33/362)        
+remote: Counting objects:  10% (37/362)        
+remote: Counting objects:  11% (40/362)        
+remote: Counting objects:  12% (44/362)        
+remote: Counting objects:  13% (48/362)        
+remote: Counting objects:  14% (51/362)        
+remote: Counting objects:  15% (55/362)        
+remote: Counting objects:  16% (58/362)        
+remote: Counting objects:  17% (62/362)        
+remote: Counting objects:  18% (66/362)        
+remote: Counting objects:  19% (69/362)        
+remote: Counting objects:  20% (73/362)        
+remote: Counting objects:  21% (77/362)        
+remote: Counting objects:  22% (80/362)        
+remote: Counting objects:  23% (84/362)        
+remote: Counting objects:  24% (87/362)        
+remote: Counting objects:  25% (91/362)        
+remote: Counting objects:  26% (95/362)        
+remote: Counting objects:  27% (98/362)        
+remote: Counting objects:  28% (102/362)        
+remote: Counting objects:  29% (105/362)        
+remote: Counting objects:  30% (109/362)        
+remote: Counting objects:  31% (113/362)        
+remote: Counting objects:  32% (116/362)        
+remote: Counting objects:  33% (120/362)        
+remote: Counting objects:  34% (124/362)        
+remote: Counting objects:  35% (127/362)        
+remote: Counting objects:  36% (131/362)        
+remote: Counting objects:  37% (134/362)        
+remote: Counting objects:  38% (138/362)        
+remote: Counting objects:  39% (142/362)        
+remote: Counting objects:  40% (145/362)        
+remote: Counting objects:  41% (149/362)        
+remote: Counting objects:  42% (153/362)        
+remote: Counting objects:  43% (156/362)        
+remote: Counting objects:  44% (160/362)        
+remote: Counting objects:  45% (163/362)        
+remote: Counting objects:  46% (167/362)        
+remote: Counting objects:  47% (171/362)        
+remote: Counting objects:  48% (174/362)        
+remote: Counting objects:  49% (178/362)        
+remote: Counting objects:  50% (181/362)        
+remote: Counting objects:  51% (185/362)        
+remote: Counting objects:  52% (189/362)        
+remote: Counting objects:  53% (192/362)        
+remote: Counting objects:  54% (196/362)        
+remote: Counting objects:  55% (200/362)        
+remote: Counting objects:  56% (203/362)        
+remote: Counting objects:  57% (207/362)        
+remote: Counting objects:  58% (210/362)        
+remote: Counting objects:  59% (214/362)        
+remote: Counting objects:  60% (218/362)        
+remote: Counting objects:  61% (221/362)        
+remote: Counting objects:  62% (225/362)        
+remote: Counting objects:  63% (229/362)        
+remote: Counting objects:  64% (232/362)        
+remote: Counting objects:  65% (236/362)        
+remote: Counting objects:  66% (239/362)        
+remote: Counting objects:  67% (243/362)        
+remote: Counting objects:  68% (247/362)        
+remote: Counting objects:  69% (250/362)        
+remote: Counting objects:  70% (254/362)        
+remote: Counting objects:  71% (258/362)        
+remote: Counting objects:  72% (261/362)        
+remote: Counting objects:  73% (265/362)        
+remote: Counting objects:  74% (268/362)        
+remote: Counting objects:  75% (272/362)        
+remote: Counting objects:  76% (276/362)        
+remote: Counting objects:  77% (279/362)        
+remote: Counting objects:  78% (283/362)        
+remote: Counting objects:  79% (286/362)        
+remote: Counting objects:  80% (290/362)        
+remote: Counting objects:  81% (294/362)        
+remote: Counting objects:  82% (297/362)        
+remote: Counting objects:  83% (301/362)        
+remote: Counting objects:  84% (305/362)        
+remote: Counting objects:  85% (308/362)        
+remote: Counting objects:  86% (312/362)        
+remote: Counting objects:  87% (315/362)        
+remote: Counting objects:  88% (319/362)        
+remote: Counting objects:  89% (323/362)        
+remote: Counting objects:  90% (326/362)        
+remote: Counting objects:  91% (330/362)        
+remote: Counting objects:  92% (334/362)        
+remote: Counting objects:  93% (337/362)        
+remote: Counting objects:  94% (341/362)        
+remote: Counting objects:  95% (344/362)        
+remote: Counting objects:  96% (348/362)        
+remote: Counting objects:  97% (352/362)        
+remote: Counting objects:  98% (355/362)        
+remote: Counting objects:  99% (359/362)        
+remote: Counting objects: 100% (362/362)        
+remote: Counting objects: 100% (362/362), done.
+remote: Compressing objects:   0% (1/284)        
+remote: Compressing objects:   1% (3/284)        
+remote: Compressing objects:   2% (6/284)        
+remote: Compressing objects:   3% (9/284)        
+remote: Compressing objects:   4% (12/284)        
+remote: Compressing objects:   5% (15/284)        
+remote: Compressing objects:   6% (18/284)        
+remote: Compressing objects:   7% (20/284)        
+remote: Compressing objects:   8% (23/284)        
+remote: Compressing objects:   9% (26/284)        
+remote: Compressing objects:  10% (29/284)        
+remote: Compressing objects:  11% (32/284)        
+remote: Compressing objects:  12% (35/284)        
+remote: Compressing objects:  13% (37/284)        
+remote: Compressing objects:  14% (40/284)        
+remote: Compressing objects:  15% (43/284)        
+remote: Compressing objects:  16% (46/284)        
+remote: Compressing objects:  17% (49/284)        
+remote: Compressing objects:  18% (52/284)        
+remote: Compressing objects:  19% (54/284)        
+remote: Compressing objects:  20% (57/284)        
+remote: Compressing objects:  21% (60/284)        
+remote: Compressing objects:  22% (63/284)        
+remote: Compressing objects:  23% (66/284)        
+remote: Compressing objects:  24% (69/284)        
+remote: Compressing objects:  25% (71/284)        
+remote: Compressing objects:  26% (74/284)        
+remote: Compressing objects:  27% (77/284)        
+remote: Compressing objects:  28% (80/284)        
+remote: Compressing objects:  29% (83/284)        
+remote: Compressing objects:  30% (86/284)        
+remote: Compressing objects:  31% (89/284)        
+remote: Compressing objects:  32% (91/284)        
+remote: Compressing objects:  33% (94/284)        
+remote: Compressing objects:  34% (97/284)        
+remote: Compressing objects:  35% (100/284)        
+remote: Compressing objects:  36% (103/284)        
+remote: Compressing objects:  37% (106/284)        
+remote: Compressing objects:  38% (108/284)        
+remote: Compressing objects:  39% (111/284)        
+remote: Compressing objects:  40% (114/284)        
+remote: Compressing objects:  41% (117/284)        
+remote: Compressing objects:  42% (120/284)        
+remote: Compressing objects:  43% (123/284)        
+remote: Compressing objects:  44% (125/284)        
+remote: Compressing objects:  45% (128/284)        
+remote: Compressing objects:  46% (131/284)        
+remote: Compressing objects:  47% (134/284)        
+remote: Compressing objects:  48% (137/284)        
+remote: Compressing objects:  49% (140/284)        
+remote: Compressing objects:  50% (142/284)        
+remote: Compressing objects:  51% (145/284)        
+remote: Compressing objects:  52% (148/284)        
+remote: Compressing objects:  53% (151/284)        
+remote: Compressing objects:  54% (154/284)        
+remote: Compressing objects:  55% (157/284)        
+remote: Compressing objects:  56% (160/284)        
+remote: Compressing objects:  57% (162/284)        
+remote: Compressing objects:  58% (165/284)        
+remote: Compressing objects:  59% (168/284)        
+remote: Compressing objects:  60% (171/284)        
+remote: Compressing objects:  61% (174/284)        
+remote: Compressing objects:  62% (177/284)        
+remote: Compressing objects:  63% (179/284)        
+remote: Compressing objects:  64% (182/284)        
+remote: Compressing objects:  65% (185/284)        
+remote: Compressing objects:  66% (188/284)        
+remote: Compressing objects:  67% (191/284)        
+remote: Compressing objects:  68% (194/284)        
+remote: Compressing objects:  69% (196/284)        
+remote: Compressing objects:  70% (199/284)        
+remote: Compressing objects:  71% (202/284)        
+remote: Compressing objects:  72% (205/284)        
+remote: Compressing objects:  73% (208/284)        
+remote: Compressing objects:  74% (211/284)        
+remote: Compressing objects:  75% (213/284)        
+remote: Compressing objects:  76% (216/284)        
+remote: Compressing objects:  77% (219/284)        
+remote: Compressing objects:  78% (222/284)        
+remote: Compressing objects:  79% (225/284)        
+remote: Compressing objects:  80% (228/284)        
+remote: Compressing objects:  81% (231/284)        
+remote: Compressing objects:  82% (233/284)        
+remote: Compressing objects:  83% (236/284)        
+remote: Compressing objects:  84% (239/284)        
+remote: Compressing objects:  85% (242/284)        
+remote: Compressing objects:  86% (245/284)        
+remote: Compressing objects:  87% (248/284)        
+remote: Compressing objects:  88% (250/284)        
+remote: Compressing objects:  89% (253/284)        
+remote: Compressing objects:  90% (256/284)        
+remote: Compressing objects:  91% (259/284)        
+remote: Compressing objects:  92% (262/284)        
+remote: Compressing objects:  93% (265/284)        
+remote: Compressing objects:  94% (267/284)        
+remote: Compressing objects:  95% (270/284)        
+remote: Compressing objects:  96% (273/284)        
+remote: Compressing objects:  97% (276/284)        
+remote: Compressing objects:  98% (279/284)        
+remote: Compressing objects:  99% (282/284)        
+remote: Compressing objects: 100% (284/284)        
+remote: Compressing objects: 100% (284/284), done.
+Receiving objects:   0% (1/362)
+Receiving objects:   1% (4/362)
+Receiving objects:   2% (8/362)
+Receiving objects:   3% (11/362)
+Receiving objects:   4% (15/362)
+Receiving objects:   5% (19/362)
+Receiving objects:   6% (22/362)
+Receiving objects:   7% (26/362)
+Receiving objects:   8% (29/362)
+Receiving objects:   9% (33/362)
+Receiving objects:  10% (37/362)
+Receiving objects:  11% (40/362)
+Receiving objects:  12% (44/362)
+Receiving objects:  13% (48/362)
+Receiving objects:  14% (51/362)
+Receiving objects:  15% (55/362)
+Receiving objects:  16% (58/362)
+Receiving objects:  17% (62/362)
+Receiving objects:  18% (66/362)
+Receiving objects:  19% (69/362)
+Receiving objects:  20% (73/362)
+Receiving objects:  21% (77/362)
+Receiving objects:  22% (80/362)
+Receiving objects:  23% (84/362)
+Receiving objects:  24% (87/362)
+Receiving objects:  25% (91/362)
+Receiving objects:  26% (95/362)
+Receiving objects:  27% (98/362)
+Receiving objects:  28% (102/362)
+Receiving objects:  29% (105/362)
+Receiving objects:  30% (109/362)
+Receiving objects:  31% (113/362)
+Receiving objects:  32% (116/362)
+Receiving objects:  33% (120/362)
+Receiving objects:  34% (124/362)
+Receiving objects:  35% (127/362)
+Receiving objects:  36% (131/362)
+Receiving objects:  37% (134/362)
+Receiving objects:  38% (138/362)
+Receiving objects:  39% (142/362)
+Receiving objects:  40% (145/362)
+Receiving objects:  41% (149/362)
+Receiving objects:  42% (153/362)
+Receiving objects:  43% (156/362)
+Receiving objects:  44% (160/362)
+Receiving objects:  45% (163/362)
+Receiving objects:  46% (167/362)
+Receiving objects:  47% (171/362)
+Receiving objects:  48% (174/362)
+Receiving objects:  49% (178/362)
+Receiving objects:  50% (181/362)
+Receiving objects:  51% (185/362)
+Receiving objects:  52% (189/362)
+Receiving objects:  53% (192/362)
+Receiving objects:  54% (196/362), 20.59 MiB | 41.00 MiB/s
+Receiving objects:  55% (200/362), 20.59 MiB | 41.00 MiB/s
+Receiving objects:  56% (203/362), 20.59 MiB | 41.00 MiB/s
+Receiving objects:  57% (207/362), 20.59 MiB | 41.00 MiB/s
+Receiving objects:  58% (210/362), 20.59 MiB | 41.00 MiB/s
+Receiving objects:  59% (214/362), 20.59 MiB | 41.00 MiB/s
+Receiving objects:  60% (218/362), 20.59 MiB | 41.00 MiB/s
+Receiving objects:  61% (221/362), 20.59 MiB | 41.00 MiB/s
+Receiving objects:  62% (225/362), 20.59 MiB | 41.00 MiB/s
+Receiving objects:  63% (229/362), 20.59 MiB | 41.00 MiB/s
+Receiving objects:  64% (232/362), 20.59 MiB | 41.00 MiB/s
+Receiving objects:  65% (236/362), 20.59 MiB | 41.00 MiB/s
+Receiving objects:  66% (239/362), 20.59 MiB | 41.00 MiB/s
+Receiving objects:  67% (243/362), 20.59 MiB | 41.00 MiB/s
+Receiving objects:  68% (247/362), 20.59 MiB | 41.00 MiB/s
+Receiving objects:  69% (250/362), 20.59 MiB | 41.00 MiB/s
+Receiving objects:  70% (254/362), 20.59 MiB | 41.00 MiB/s
+Receiving objects:  71% (258/362), 20.59 MiB | 41.00 MiB/s
+Receiving objects:  72% (261/362), 20.59 MiB | 41.00 MiB/s
+Receiving objects:  73% (265/362), 20.59 MiB | 41.00 MiB/s
+Receiving objects:  74% (268/362), 20.59 MiB | 41.00 MiB/s
+Receiving objects:  75% (272/362), 20.59 MiB | 41.00 MiB/s
+Receiving objects:  76% (276/362), 20.59 MiB | 41.00 MiB/s
+Receiving objects:  77% (279/362), 20.59 MiB | 41.00 MiB/s
+Receiving objects:  78% (283/362), 20.59 MiB | 41.00 MiB/s
+Receiving objects:  79% (286/362), 20.59 MiB | 41.00 MiB/s
+Receiving objects:  80% (290/362), 20.59 MiB | 41.00 MiB/s
+Receiving objects:  81% (294/362), 20.59 MiB | 41.00 MiB/s
+Receiving objects:  82% (297/362), 20.59 MiB | 41.00 MiB/s
+Receiving objects:  83% (301/362), 20.59 MiB | 41.00 MiB/s
+Receiving objects:  84% (305/362), 20.59 MiB | 41.00 MiB/s
+Receiving objects:  85% (308/362), 20.59 MiB | 41.00 MiB/s
+Receiving objects:  86% (312/362), 20.59 MiB | 41.00 MiB/s
+Receiving objects:  87% (315/362), 20.59 MiB | 41.00 MiB/s
+Receiving objects:  88% (319/362), 20.59 MiB | 41.00 MiB/s
+Receiving objects:  89% (323/362), 20.59 MiB | 41.00 MiB/s
+Receiving objects:  90% (326/362), 20.59 MiB | 41.00 MiB/s
+Receiving objects:  91% (330/362), 20.59 MiB | 41.00 MiB/s
+Receiving objects:  92% (334/362), 20.59 MiB | 41.00 MiB/s
+Receiving objects:  93% (337/362), 20.59 MiB | 41.00 MiB/s
+Receiving objects:  94% (341/362), 20.59 MiB | 41.00 MiB/s
+Receiving objects:  95% (344/362), 20.59 MiB | 41.00 MiB/s
+remote: Total 362 (delta 66), reused 351 (delta 63), pack-reused 0 (from 0)
+Receiving objects:  96% (348/362), 20.59 MiB | 41.00 MiB/s
+Receiving objects:  97% (352/362), 20.59 MiB | 41.00 MiB/s
+Receiving objects:  98% (355/362), 20.59 MiB | 41.00 MiB/s
+Receiving objects:  99% (359/362), 20.59 MiB | 41.00 MiB/s
+Receiving objects: 100% (362/362), 20.59 MiB | 41.00 MiB/s
+Receiving objects: 100% (362/362), 23.91 MiB | 41.35 MiB/s, done.
+Resolving deltas:   0% (0/66)
+Resolving deltas:   1% (1/66)
+Resolving deltas:   3% (2/66)
+Resolving deltas:   4% (3/66)
+Resolving deltas:   6% (4/66)
+Resolving deltas:   7% (5/66)
+Resolving deltas:   9% (6/66)
+Resolving deltas:  10% (7/66)
+Resolving deltas:  12% (8/66)
+Resolving deltas:  13% (9/66)
+Resolving deltas:  15% (10/66)
+Resolving deltas:  16% (11/66)
+Resolving deltas:  18% (12/66)
+Resolving deltas:  19% (13/66)
+Resolving deltas:  21% (14/66)
+Resolving deltas:  22% (15/66)
+Resolving deltas:  24% (16/66)
+Resolving deltas:  25% (17/66)
+Resolving deltas:  27% (18/66)
+Resolving deltas:  28% (19/66)
+Resolving deltas:  30% (20/66)
+Resolving deltas:  31% (21/66)
+Resolving deltas:  34% (23/66)
+Resolving deltas:  36% (24/66)
+Resolving deltas:  37% (25/66)
+Resolving deltas:  39% (26/66)
+Resolving deltas:  40% (27/66)
+Resolving deltas:  42% (28/66)
+Resolving deltas:  43% (29/66)
+Resolving deltas:  45% (30/66)
+Resolving deltas:  46% (31/66)
+Resolving deltas:  48% (32/66)
+Resolving deltas:  50% (33/66)
+Resolving deltas:  51% (34/66)
+Resolving deltas:  53% (35/66)
+Resolving deltas:  56% (37/66)
+Resolving deltas:  57% (38/66)
+Resolving deltas:  59% (39/66)
+Resolving deltas:  60% (40/66)
+Resolving deltas:  63% (42/66)
+Resolving deltas:  65% (43/66)
+Resolving deltas:  66% (44/66)
+Resolving deltas:  68% (45/66)
+Resolving deltas:  69% (46/66)
+Resolving deltas:  71% (47/66)
+Resolving deltas:  72% (48/66)
+Resolving deltas:  74% (49/66)
+Resolving deltas:  75% (50/66)
+Resolving deltas:  77% (51/66)
+Resolving deltas:  78% (52/66)
+Resolving deltas:  80% (53/66)
+Resolving deltas:  81% (54/66)
+Resolving deltas:  83% (55/66)
+Resolving deltas:  84% (56/66)
+Resolving deltas:  86% (57/66)
+Resolving deltas:  87% (58/66)
+Resolving deltas:  89% (59/66)
+Resolving deltas:  90% (60/66)
+Resolving deltas:  92% (61/66)
+Resolving deltas:  93% (62/66)
+Resolving deltas:  95% (63/66)
+Resolving deltas:  96% (64/66)
+Resolving deltas:  98% (65/66)
+Resolving deltas: 100% (66/66)
+Resolving deltas: 100% (66/66), done.
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                                                                              ║
+║ App Name: amirnumerique-6baq1z                                               ║
+║ Build Compose 🐳                                                             ║
+║ Detected: 0 mounts 📂                                                        ║
+║ Command: docker compose -p amirnumerique-6baq1z -f ./docker-compose.yml up   ║
+║ -d --build --remove-orphans                                                  ║
+║ Source Type: docker github ✅                                                ║
+║ Compose Type: docker-compose ✅                                              ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+time="2026-04-05T11:33:41Z" level=warning msg="The \"DB_PASSWORD\" variable is not set. Defaulting to a blank string."
+time="2026-04-05T11:33:41Z" level=warning msg="The \"SESSION_SECRET\" variable is not set. Defaulting to a blank string."
+time="2026-04-05T11:33:41Z" level=warning msg="The \"DB_PASSWORD\" variable is not set. Defaulting to a blank string."
+Image amirnumerique-6baq1z-app Building
+#1 [internal] load local bake definitions
+#1 reading from stdin 558B done
+#1 DONE 0.0s
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 1.89kB done
+#2 DONE 0.0s
+#3 [internal] load metadata for docker.io/library/node:22-alpine
+#3 DONE 5.3s
+#4 [internal] load .dockerignore
+#4 transferring context: 289B done
+#4 DONE 0.0s
+#5 [deps  1/11] FROM docker.io/library/node:22-alpine@sha256:4d64b49e6c891c8fc821007cb1cdc6c0db7773110ac2c34bf2e6960adef62ed3
+#5 resolve docker.io/library/node:22-alpine@sha256:4d64b49e6c891c8fc821007cb1cdc6c0db7773110ac2c34bf2e6960adef62ed3 0.0s done
+#5 DONE 0.0s
+#6 [internal] load build context
+#6 transferring context: 23.59MB 0.1s done
+#6 DONE 0.1s
+#7 [deps  4/11] COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+#7 CACHED
+#8 [deps  7/11] COPY lib/api-spec/package.json          ./lib/api-spec/
+#8 CACHED
+#9 [deps 10/11] COPY artifacts/amir-numerique/package.json ./artifacts/amir-numerique/
+#9 CACHED
+#10 [deps  2/11] RUN corepack enable && corepack prepare pnpm@10 --activate
+#10 CACHED
+#11 [deps  5/11] COPY lib/db/package.json                ./lib/db/
+#11 CACHED
+#12 [deps  6/11] COPY lib/api-zod/package.json           ./lib/api-zod/
+#12 CACHED
+#13 [deps  8/11] COPY lib/api-client-react/package.json  ./lib/api-client-react/
+#13 CACHED
+#14 [deps  3/11] WORKDIR /app
+#14 CACHED
+#15 [deps  9/11] COPY artifacts/api-server/package.json  ./artifacts/api-server/
+#15 CACHED
+#16 [deps 11/11] RUN pnpm install --frozen-lockfile
+#16 CACHED
+#17 [builder 1/4] COPY . .
+#17 DONE 0.1s
+#18 [builder 2/4] RUN pnpm --filter @workspace/amir-numerique run build
+#18 0.686
+#18 0.686 > @workspace/amir-numerique@0.0.0 build /app/artifacts/amir-numerique
+#18 0.686 > vite build --config vite.config.ts
+#18 0.686
+#18 0.910 /app/node_modules/.pnpm/rollup@4.59.0/node_modules/rollup/dist/native.js:115
+#18 0.910 		throw new Error(
+#18 0.910 		      ^
+#18 0.910
+#18 0.910 Error: Cannot find module @rollup/rollup-linux-x64-musl. npm has a bug related to optional dependencies (https://github.com/npm/cli/issues/4828). Please try `npm i` again after removing both package-lock.json and node_modules directory.
+#18 0.910     at requireWithFriendlyError (/app/node_modules/.pnpm/rollup@4.59.0/node_modules/rollup/dist/native.js:115:9)
+#18 0.910     at Object.<anonymous> (/app/node_modules/.pnpm/rollup@4.59.0/node_modules/rollup/dist/native.js:124:76)
+#18 0.910     at Module._compile (node:internal/modules/cjs/loader:1705:14)
+#18 0.910     at Object..js (node:internal/modules/cjs/loader:1838:10)
+#18 0.910     at Module.load (node:internal/modules/cjs/loader:1441:32)
+#18 0.910     at Function._load (node:internal/modules/cjs/loader:1263:12)
+#18 0.910     at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+#18 0.910     at wrapModuleLoad (node:internal/modules/cjs/loader:237:24)
+#18 0.910     at cjsLoader (node:internal/modules/esm/translators:309:5)
+#18 0.910     at ModuleWrap.<anonymous> (node:internal/modules/esm/translators:202:7) {
+#18 0.910   [cause]: Error: Cannot find module '@rollup/rollup-linux-x64-musl'
+#18 0.910   Require stack:
+#18 0.910   - /app/node_modules/.pnpm/rollup@4.59.0/node_modules/rollup/dist/native.js
+#18 0.910       at Function._resolveFilename (node:internal/modules/cjs/loader:1383:15)
+#18 0.910       at defaultResolveImpl (node:internal/modules/cjs/loader:1025:19)
+#18 0.910       at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1030:22)
+#18 0.910       at Function._load (node:internal/modules/cjs/loader:1192:37)
+#18 0.910       at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+#18 0.910       at wrapModuleLoad (node:internal/modules/cjs/loader:237:24)
+#18 0.910       at Module.require (node:internal/modules/cjs/loader:1463:12)
+#18 0.910       at require (node:internal/modules/helpers:147:16)
+#18 0.910       at requireWithFriendlyError (/app/node_modules/.pnpm/rollup@4.59.0/node_modules/rollup/dist/native.js:97:10)
+#18 0.910       at Object.<anonymous> (/app/node_modules/.pnpm/rollup@4.59.0/node_modules/rollup/dist/native.js:124:76) {
+#18 0.910     code: 'MODULE_NOT_FOUND',
+#18 0.910     requireStack: [
+#18 0.910       '/app/node_modules/.pnpm/rollup@4.59.0/node_modules/rollup/dist/native.js'
+#18 0.910     ]
+#18 0.910   }
+#18 0.910 }
+#18 0.910
+#18 0.910 Node.js v22.22.2
+#18 0.951 /app/artifacts/amir-numerique:
+#18 0.951  ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  @workspace/amir-numerique@0.0.0 build: `vite build --config vite.config.ts`
+#18 0.951 Exit status 1
+#18 ERROR: process "/bin/sh -c pnpm --filter @workspace/amir-numerique run build" did not complete successfully: exit code: 1
+------
+> [builder 2/4] RUN pnpm --filter @workspace/amir-numerique run build:
+0.910     requireStack: [
+0.910       '/app/node_modules/.pnpm/rollup@4.59.0/node_modules/rollup/dist/native.js'
+0.910     ]
+0.910   }
+0.910 }
+0.910
+0.910 Node.js v22.22.2
+0.951 /app/artifacts/amir-numerique:
+0.951  ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  @workspace/amir-numerique@0.0.0 build: `vite build --config vite.config.ts`
+0.951 Exit status 1
+------
+Dockerfile:28
+--------------------
+|     ENV PORT=3000
+|     ENV BASE_PATH=/
+| >>> RUN pnpm --filter @workspace/amir-numerique run build
+|
+|     # Build the Express API server (esbuild bundles everything)
+--------------------
+failed to solve: process "/bin/sh -c pnpm --filter @workspace/amir-numerique run build" did not complete successfully: exit code: 1
+Error: ❌ Docker command failed
+Error occurred ❌, check the logs for details.
