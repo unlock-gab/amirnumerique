@@ -1,0 +1,247 @@
+Redesign the “Our Work / Portfolio” browsing experience completely, especially for mobile, using a premium structured hierarchy:
+
+CATEGORY → NICHE → PROJECTS
+
+CURRENT STRUCTURE:
+I want the portfolio flow to work like this:
+1. First page shows categories only
+   Examples:
+   - Video UGC
+   - Websites
+   - Branding
+   - Ads Creative
+
+2. When clicking a category, open a second page showing niches related to that category
+   Examples inside Video UGC:
+   - Fashion
+   - Supplements
+   - Cosmetics
+   - Restaurants
+
+3. When clicking a niche, open a third page showing the portfolio projects for that niche inside that category
+
+This structure is correct logically, but the current visual style is not good, especially on mobile.
+
+CURRENT PROBLEM:
+The current portfolio/category cards on mobile do not feel premium or visually polished.
+They look too small, too cramped, and not elegant enough.
+Text placement is weak, hierarchy is not clear enough, and the cards do not feel like high-end agency showcase cards.
+
+MAIN GOAL:
+Redesign the full portfolio browsing UI so it feels premium, visually impressive, and much better structured on mobile and desktop.
+
+IMPORTANT:
+This is not just a small card tweak.
+I want a full UI/UX redesign of this portfolio browsing system.
+
+DESIGN DIRECTION:
+Use a premium dark showcase style with:
+- elegant dark background
+- strong imagery
+- refined overlay gradients
+- large readable Arabic typography
+- subtle orange accents
+- larger and more premium cards
+- better spacing
+- stronger visual hierarchy
+- cleaner CTA treatment
+- sophisticated mobile presentation
+
+VISUAL STRATEGY:
+The 3 levels must NOT look identical.
+
+Create a clear visual hierarchy between:
+1. Category cards
+2. Niche cards
+3. Project cards
+
+Each level should feel related, but visually distinct.
+
+1) CATEGORY PAGE DESIGN
+This page shows only the main portfolio categories.
+
+Examples:
+- Video UGC
+- E-commerce Websites
+- Branding
+- Paid Ads Creative
+
+Requirements:
+- make category cards large and visually striking
+- use strong cover images or representative visual art
+- add elegant dark gradient overlay
+- show category title clearly
+- optional small subtitle like project count or niche count
+- add subtle CTA/arrow
+- make cards feel premium and cinematic
+- on mobile, do NOT make them feel tiny or cramped
+
+Preferred mobile behavior:
+- one large card per row
+or
+- two cards only if proportions remain excellent and text stays very readable
+
+2) NICHE PAGE DESIGN
+When user clicks a category, open a dedicated category page showing related niches.
+
+Example:
+Category = Video UGC
+Niches:
+- Fashion
+- Supplements
+- Cosmetics
+- Restaurants
+
+Requirements:
+- this page should feel lighter than the main category page, but still premium
+- niche cards should be slightly cleaner and simpler than category cards
+- each niche card should include:
+  - niche title
+  - representative image
+  - optional project count
+  - subtle CTA
+- use better spacing and stronger readability
+- make the page easy to browse on phone
+
+3) PROJECTS PAGE DESIGN
+When user clicks a niche, open a page showing portfolio projects for that niche and category.
+
+Requirements:
+- use a more editorial portfolio style
+- show projects with stronger image presentation
+- include project title
+- niche label or project type
+- optional short description
+- make projects feel like real case studies, not random thumbnails
+- optimize for mobile browsing with elegant stacked project cards or polished grid
+
+MOBILE PRIORITY:
+The mobile version is extremely important.
+The current result on phone is not visually strong enough.
+
+Fix the mobile portfolio browsing by:
+- increasing card quality and presence
+- improving text readability
+- reducing clutter
+- improving spacing
+- improving image cropping
+- improving overlay contrast
+- making cards feel more luxurious and intentional
+- avoiding small cramped cards with awkward text positioning
+
+CARD DESIGN RULES:
+Do not keep the current small-card look.
+Redesign cards with:
+- better aspect ratios
+- premium rounded corners
+- elegant shadows
+- refined overlays
+- large clear titles
+- clean CTA indication
+- subtle hover/tap states
+- consistent image treatment
+
+TEXT ON CARDS:
+Do not overload cards with too much text.
+For mobile cards, keep only:
+- title
+- optional small subtitle or count
+- subtle CTA or arrow
+
+Avoid long CTA labels inside crowded cards.
+
+BACKGROUND & COLOR:
+Keep the dark premium look, but make it more refined.
+
+Suggested direction:
+- deep navy / dark blue / charcoal background
+- subtle radial or gradient depth
+- white titles
+- muted secondary text
+- controlled orange accent only for highlights and CTA details
+- no loud colors
+
+ANIMATION:
+Use subtle premium animations:
+- stagger reveal on scroll
+- slight card lift on hover
+- gentle image zoom
+- smooth page transitions if available
+- no flashy motion
+
+BREADCRUMBS / NAVIGATION:
+Since the system has 3 levels, improve navigation clarity:
+- show breadcrumb on niche and projects pages
+- make it easy to understand current path
+  Example:
+  أعمالنا / Video UGC / Supplements
+
+ADMIN / CMS LOGIC:
+Ensure this structure is dynamic from admin:
+
+Models should support:
+- PortfolioCategory
+- PortfolioNiche
+- PortfolioProject
+
+Relationship:
+- a category has many niches
+- a niche belongs to one category
+- a niche has many projects
+- a project belongs to one category and one niche
+
+Suggested fields:
+
+PortfolioCategory:
+- id
+- name
+- slug
+- coverImage
+- shortDescription
+- displayOrder
+- isFeatured
+- isPublished
+
+PortfolioNiche:
+- id
+- categoryId
+- name
+- slug
+- coverImage
+- shortDescription
+- displayOrder
+- isPublished
+
+PortfolioProject:
+- id
+- categoryId
+- nicheId
+- title
+- slug
+- coverImage
+- galleryImages
+- shortDescription
+- projectDetails
+- displayOrder
+- isFeatured
+- isPublished
+
+ADMIN FEATURES:
+From admin, I need to be able to:
+- create/edit/delete categories
+- create/edit/delete niches under each category
+- create/edit/delete projects under each niche
+- upload images for all of them
+- set order manually
+- publish/unpublish
+- feature selected items
+
+FINAL EXPECTATION:
+The portfolio browsing experience should feel much more premium, structured, and visually beautiful.
+Especially on mobile, it should no longer feel cramped or weak.
+It should look like a serious high-end agency portfolio system with clean hierarchy:
+Category → Niche → Projects
+
+FINAL INSTRUCTION:
+Do not keep the current mobile visual style.
+Redesign the entire portfolio browsing UI with stronger art direction, better card proportions, cleaner overlays, and a more luxurious mobile-first presentation.
