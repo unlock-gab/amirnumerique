@@ -1,0 +1,164 @@
+Refactor the Services architecture completely.
+
+The current Services page is not structured the right way for this business.
+I do not want the main Services page to display final individual services directly anymore.
+
+## New required structure
+
+The services system must become category-based.
+
+### Correct content hierarchy
+
+1. **Service Categories**
+2. **Services inside each category**
+3. **Single service detail page**
+
+## Desired behavior
+
+### Main Services page
+
+The page `/services` must display **categories only**, not final services.
+
+Examples of categories:
+
+* Impression Bâche
+* Signalétique
+* Impression Papier
+* Adhésifs & Stickers
+* Roll-up & PLV
+
+Each category card should:
+
+* have image
+* title in French and Arabic support
+* short description
+* CTA to open the category
+
+### Category detail page
+
+When entering a category page, the user should see all services inside that category.
+
+Example:
+Category: **Impression Bâche**
+
+Inside it, show services such as:
+
+* Impression bâche UV
+* Impression bâche éco-solvant
+* Impression bâche frontlit
+* Impression bâche backlit
+
+So the structure becomes:
+
+* `/services`
+* `/services/[category-slug]`
+* `/services/[category-slug]/[service-slug]`
+
+## Admin control requirement
+
+I want full admin control over this structure.
+
+### Add category management in admin
+
+Create a category management system where admin can:
+
+* create category
+* edit category
+* delete category
+* activate/deactivate category
+* set category image
+* set French name
+* set Arabic name
+* set French description
+* set Arabic description
+* set slug
+* set display order
+
+### Update services management
+
+Each service must belong to a category.
+In admin, each service must be linked to a category.
+
+Admin must be able to:
+
+* create service
+* edit service
+* delete service
+* activate/deactivate service
+* assign category
+* set image
+* set French name
+* set Arabic name
+* set French description
+* set Arabic description
+* set slug
+* set public/client/subcontractor pricing
+* keep existing pricing logic by role and m²
+
+## Database changes required
+
+Add a proper category model.
+
+### Suggested structure
+
+Create a `ServiceCategory` model with fields like:
+
+* id
+* name_fr
+* name_ar
+* slug
+* description_fr
+* description_ar
+* image_url
+* is_active
+* display_order
+* created_at
+* updated_at
+
+Then update `Service` to include:
+
+* category_id relation to ServiceCategory
+
+Make relations clean and scalable.
+
+## Frontend design requirements
+
+### `/services` page
+
+This page should become a premium category showcase page, not a list of final services.
+Design it like a modern high-end service catalog.
+
+Each category card should feel:
+
+* premium
+* modern
+* visually strong
+* suitable for a printing and advertising company
+
+### `/services/[category-slug]` page
+
+This page should:
+
+* show category hero/banner
+* show category description
+* list all services that belong to this category
+* make it easy to browse sub-services
+
+### `/services/[category-slug]/[service-slug]`
+
+Keep the individual service detail page, but now make it nested properly under its category.
+
+## Important
+
+Do not hardcode categories or services.
+Everything must be managed from the admin panel and stored in PostgreSQL.
+
+## Goal
+
+I want a cleaner, more professional, more scalable service architecture where:
+
+* main Services page = categories
+* category page = services inside category
+* service page = service details
+
+Refactor both database structure, admin logic, routes, and frontend UI to support this properly.
