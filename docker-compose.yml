@@ -7,7 +7,7 @@ services:
     environment:
       NODE_ENV: production
       PORT: "3000"
-      DATABASE_URL: postgresql://amir:${DB_PASSWORD}@db:5432/amir_numerique
+      DATABASE_URL: postgresql://amir:AmiRN2024secure@db:5432/amir_numerique
       SESSION_SECRET: ${SESSION_SECRET}
     volumes:
       - uploads:/app/uploads
@@ -24,9 +24,9 @@ services:
     environment:
       POSTGRES_DB: amir_numerique
       POSTGRES_USER: amir
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_PASSWORD: AmiRN2024secure
     volumes:
-      - postgres_data_v2:/var/lib/postgresql/data
+      - postgres_data_v3:/var/lib/postgresql/data
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U amir -d amir_numerique"]
@@ -37,7 +37,7 @@ services:
       - amir-internal
 
 volumes:
-  postgres_data_v2:
+  postgres_data_v3:
   uploads:
 
 networks:
