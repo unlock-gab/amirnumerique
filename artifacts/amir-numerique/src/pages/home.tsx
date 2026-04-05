@@ -49,7 +49,7 @@ export default function Home() {
   return (
     <PublicLayout>
       {/* ═══════════════════ HERO ═══════════════════ */}
-      <section className="relative min-h-[92vh] flex items-center overflow-hidden">
+      <section className="relative min-h-screen flex items-center overflow-hidden -mt-[72px] pt-[72px]">
         {/* BG layers */}
         <div className="absolute inset-0 z-0">
           {/* Machine UV background image */}
@@ -57,11 +57,11 @@ export default function Home() {
             src="/hero-printer.png"
             alt=""
             className="absolute inset-0 w-full h-full object-cover object-center"
-            style={{ opacity: 0.22 }}
+            style={{ opacity: 0.52 }}
           />
-          {/* Dark gradient overlays */}
-          <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-background/40" />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/60" />
+          {/* Dark gradient overlays — left side stronger for text readability, right side lighter to reveal image */}
+          <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/65 to-background/20" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/30" />
           <div className="absolute -top-60 right-0 w-[800px] h-[800px] rounded-full bg-primary/4 blur-[120px]" />
           <div className="absolute bottom-0 -left-40 w-96 h-96 bg-primary/3 blur-3xl rounded-full" />
           <div className="absolute inset-0 opacity-[0.02]" style={{
