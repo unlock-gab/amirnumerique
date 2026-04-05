@@ -4,8 +4,12 @@ services:
       context: .
       dockerfile: Dockerfile
     restart: unless-stopped
-    ports:
-      - "${APP_PORT:-3000}:3000"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.amir-app.rule=Host(`${DOMAIN}`)"
+      - "traefik.http.routers.amir-app.entrypoints=websecure"
+      - "traefik.http.routers.amir-app.tls=true"
+      - "traefik.http.services.amir-app.loadbalancer.server.port=3000"
     environment:
       NODE_ENV: production
       PORT: "3000"
@@ -16,6 +20,9 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    networks:
+      - dokploy-network
+      - amir-internal
 
   db:
     image: postgres:16-alpine
@@ -32,7 +39,15 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - amir-internal
 
 volumes:
   postgres_data:
   uploads:
+
+networks:
+  dokploy-network:
+    external: true
+  amir-internal:
+    driver: bridge
