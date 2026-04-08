@@ -48,28 +48,9 @@ export default function Pricing() {
 
   return (
     <PublicLayout>
-      {/* ══ HERO ══════════════════════════════════════════════════════════ */}
-      <section className="relative pt-6 pb-14 overflow-hidden">
-        <div className="absolute -top-32 left-1/3 w-[600px] h-[350px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
-        <div className="absolute top-0 left-0 right-0 h-px section-divider" />
-        <div className="container mx-auto px-4 text-center">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-2xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-[11px] font-600 tracking-widest uppercase mb-5">
-              <Calculator className="h-3 w-3" />
-              Tarification transparente
-            </div>
-            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-800 tracking-tight mb-4">
-              Nos <span className="text-gradient">Tarifs</span>
-            </h1>
-            <div className="h-[3px] w-12 bg-primary rounded-full mx-auto mb-5" />
-            <p className="text-muted-foreground text-base md:text-lg leading-relaxed">
-              Tarifs transparents par m² selon votre profil. Inscrivez-vous pour bénéficier de tarifs préférentiels.
-            </p>
-          </motion.div>
-        </div>
-      </section>
+      <div className="absolute top-0 left-0 right-0 h-px section-divider" />
 
-      <div className="container mx-auto px-4 pb-24 space-y-16">
+      <div className="container mx-auto px-4 pt-8 pb-24 space-y-16">
         {/* ══ PRICING SIMULATOR ═════════════════════════════════════════ */}
         <motion.div
           initial={{ opacity: 0, y: 28 }}
@@ -103,6 +84,26 @@ export default function Pricing() {
               <PricingSimulator services={simulatorServices as any} user={user as any} />
             </div>
           )}
+        </motion.div>
+
+        {/* ══ NOS TARIFS HEADER ═════════════════════════════════════════ */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center max-w-2xl mx-auto"
+        >
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-[11px] font-600 tracking-widest uppercase mb-5">
+            <Calculator className="h-3 w-3" />
+            Tarification transparente
+          </div>
+          <h2 className="font-display text-3xl md:text-4xl font-800 tracking-tight mb-4">
+            Nos <span className="text-gradient">Tarifs</span>
+          </h2>
+          <div className="h-[3px] w-12 bg-primary rounded-full mx-auto mb-5" />
+          <p className="text-muted-foreground text-base md:text-lg leading-relaxed">
+            Tarifs transparents par m² selon votre profil. Inscrivez-vous pour bénéficier de tarifs préférentiels.
+          </p>
         </motion.div>
 
         {/* ══ TIER CARDS ════════════════════════════════════════════════ */}
