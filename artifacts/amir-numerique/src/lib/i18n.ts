@@ -3,7 +3,7 @@ export const translations = {
     // Navigation
     home: "Accueil",
     services: "Services",
-    pricing: "Tarifs",
+    pricing: "Devis",
     portfolio: "Réalisations",
     about: "À Propos",
     contact: "Contact",

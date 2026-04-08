@@ -91,7 +91,7 @@ export function Navbar() {
             className={`px-2.5 py-1.5 text-xs font-semibold rounded-md transition-colors ${isActive("/pricing") ? "text-primary bg-primary/8" : "text-foreground hover:bg-black/5"}`}
             onClick={() => setMobileMenuOpen(false)}
           >
-            Tarifs
+            Devis
           </Link>
           {user ? (
             <Link
