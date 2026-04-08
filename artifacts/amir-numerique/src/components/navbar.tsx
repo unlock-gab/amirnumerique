@@ -47,13 +47,13 @@ export function Navbar() {
           : "bg-white/90 backdrop-blur-md border-b border-transparent"
       }`}
     >
-      <div className="container mx-auto px-4 h-[68px] flex items-center justify-between gap-6">
+      <div className="container mx-auto px-3 h-[64px] flex items-center justify-between gap-2">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2.5 shrink-0 group">
+        <Link href="/" className="flex items-center shrink-0 group">
           <img
             src="/logo-amir.png"
             alt="Amir Numérique"
-            className="h-14 w-auto object-contain group-hover:scale-105 transition-transform"
+            className="h-10 md:h-14 w-auto object-contain group-hover:scale-105 transition-transform"
           />
         </Link>
 
@@ -77,7 +77,38 @@ export function Navbar() {
           ))}
         </div>
 
-        {/* Right side */}
+        {/* Mobile quick links */}
+        <div className="flex md:hidden items-center gap-1 flex-1 justify-end">
+          <Link
+            href="/services"
+            className={`px-2.5 py-1.5 text-xs font-semibold rounded-md transition-colors ${isActive("/services") ? "text-primary bg-primary/8" : "text-foreground hover:bg-black/5"}`}
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            Services
+          </Link>
+          <Link
+            href="/pricing"
+            className={`px-2.5 py-1.5 text-xs font-semibold rounded-md transition-colors ${isActive("/pricing") ? "text-primary bg-primary/8" : "text-foreground hover:bg-black/5"}`}
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            Tarifs
+          </Link>
+          {user ? (
+            <Link
+              href={user.role === "admin" ? "/admin" : "/dashboard"}
+              className="px-2.5 py-1.5 text-xs font-semibold rounded-md bg-primary text-white"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Mon espace
+            </Link>
+          ) : (
+            <Button size="sm" asChild className="h-7 text-xs px-3 shadow-md shadow-primary/25">
+              <Link href="/auth/login">Connexion</Link>
+            </Button>
+          )}
+        </div>
+
+        {/* Desktop right side */}
         <div className="hidden md:flex items-center gap-2 shrink-0">
           <Button
             variant="ghost"
@@ -129,11 +160,11 @@ export function Navbar() {
           )}
         </div>
 
-        {/* Mobile toggle */}
+        {/* Mobile hamburger */}
         <Button
           variant="ghost"
           size="icon"
-          className="md:hidden h-8 w-8"
+          className="md:hidden h-8 w-8 shrink-0"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
           {mobileMenuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
