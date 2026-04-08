@@ -70,13 +70,49 @@ export default function Pricing() {
       </section>
 
       <div className="container mx-auto px-4 pb-24 space-y-16">
+        {/* ══ PRICING SIMULATOR ═════════════════════════════════════════ */}
+        <motion.div
+          initial={{ opacity: 0, y: 28 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-[11px] font-600 tracking-widest uppercase mb-4">
+              <Calculator className="h-3 w-3" />
+              Outil interactif
+            </div>
+            <h2 className="font-display text-2xl md:text-3xl font-800 tracking-tight mb-3">
+              Simulateur de <span className="text-gradient">prix</span>
+            </h2>
+            <p className="text-muted-foreground text-sm md:text-base max-w-xl mx-auto">
+              Entrez vos dimensions et obtenez une estimation instantanée. Choisissez votre unité et le calcul se fait en temps réel.
+            </p>
+          </div>
+
+          {servicesLoading ? (
+            <div className="flex justify-center py-16">
+              <Loader2 className="h-7 w-7 animate-spin text-primary" />
+            </div>
+          ) : simulatorServices.length === 0 ? (
+            <div className="rounded-2xl border border-border/40 bg-card p-12 text-center max-w-5xl mx-auto">
+              <Calculator className="h-8 w-8 text-muted-foreground/30 mx-auto mb-3" />
+              <p className="text-muted-foreground text-sm">Aucun service disponible pour le simulateur pour le moment.</p>
+            </div>
+          ) : (
+            <div className="max-w-5xl mx-auto">
+              <PricingSimulator services={simulatorServices as any} user={user as any} />
+            </div>
+          )}
+        </motion.div>
+
         {/* ══ TIER CARDS ════════════════════════════════════════════════ */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
           {TIERS.map((tier, i) => (
             <motion.div
               key={tier.key}
               initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
               transition={{ delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
               className={`relative rounded-2xl p-8 border flex flex-col ${
                 tier.highlight
@@ -121,42 +157,6 @@ export default function Pricing() {
             </motion.div>
           ))}
         </div>
-
-        {/* ══ PRICING SIMULATOR ═════════════════════════════════════════ */}
-        <motion.div
-          initial={{ opacity: 0, y: 28 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <div className="text-center mb-8">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-[11px] font-600 tracking-widest uppercase mb-4">
-              <Calculator className="h-3 w-3" />
-              Outil interactif
-            </div>
-            <h2 className="font-display text-2xl md:text-3xl font-800 tracking-tight mb-3">
-              Simulateur de <span className="text-gradient">prix</span>
-            </h2>
-            <p className="text-muted-foreground text-sm md:text-base max-w-xl mx-auto">
-              Entrez vos dimensions et obtenez une estimation instantanée. Choisissez votre unité et le calcul se fait en temps réel.
-            </p>
-          </div>
-
-          {servicesLoading ? (
-            <div className="flex justify-center py-16">
-              <Loader2 className="h-7 w-7 animate-spin text-primary" />
-            </div>
-          ) : simulatorServices.length === 0 ? (
-            <div className="rounded-2xl border border-border/40 bg-card p-12 text-center max-w-5xl mx-auto">
-              <Calculator className="h-8 w-8 text-muted-foreground/30 mx-auto mb-3" />
-              <p className="text-muted-foreground text-sm">Aucun service disponible pour le simulateur pour le moment.</p>
-            </div>
-          ) : (
-            <div className="max-w-5xl mx-auto">
-              <PricingSimulator services={simulatorServices as any} user={user as any} />
-            </div>
-          )}
-        </motion.div>
 
         {/* ══ CUSTOM QUOTE CTA ══════════════════════════════════════════ */}
         <motion.div
