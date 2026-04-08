@@ -69,7 +69,7 @@ export function AdminLayout({ children }: { children: ReactNode }) {
         <Sidebar className="border-r border-border/40">
           <SidebarHeader className="border-b border-border/30 p-5">
             <div className="flex items-center gap-2.5">
-              <img src="/logo.jpg" alt="Amir Numérique" className="h-7 w-auto object-contain rounded" />
+              <img src="/logo-amir.png" alt="Amir Numérique" className="h-8 w-auto object-contain max-w-[110px]" />
               <Badge className="text-[9px] px-1.5 py-0 h-4 bg-primary/15 text-primary border-primary/20">ADMIN</Badge>
             </div>
           </SidebarHeader>

@@ -51,9 +51,9 @@ export function Navbar() {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2.5 shrink-0 group">
           <img
-            src="/logo.jpg"
+            src="/logo-amir.png"
             alt="Amir Numérique"
-            className="h-9 w-auto object-contain group-hover:scale-105 transition-transform rounded"
+            className="h-14 w-auto object-contain group-hover:scale-105 transition-transform"
           />
         </Link>
 
