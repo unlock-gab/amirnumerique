@@ -61,7 +61,7 @@
   --elevate-2: rgba(0,0,0, .045);
 
   /* ── Premium light foundation ── */
-  --background: 30 20% 98%;
+  --background: 0 0% 98%;
   --foreground: 220 20% 10%;
 
   --border: 220 14% 88%;
@@ -81,8 +81,8 @@
   --popover-foreground: 220 20% 10%;
   --popover-border: 220 14% 88%;
 
-  /* ── Warm amber/gold — premium accent ── */
-  --primary: 38 92% 46%;
+  /* ── Official Amir Numérique brand red (#e30613 / RAL 3020) ── */
+  --primary: 356 95% 46%;
   --primary-foreground: 0 0% 100%;
 
   --secondary: 220 14% 93%;
@@ -91,17 +91,18 @@
   --muted: 220 12% 95%;
   --muted-foreground: 220 10% 46%;
 
-  --accent: 38 92% 46%;
+  --accent: 356 95% 46%;
   --accent-foreground: 0 0% 100%;
 
   --destructive: 0 70% 50%;
   --destructive-foreground: 0 0% 100%;
 
   --input: 220 14% 90%;
-  --ring: 38 92% 46%;
+  --ring: 356 95% 46%;
 
-  --app-font-sans: 'Inter', system-ui, sans-serif;
-  --app-font-display: 'Space Grotesk', system-ui, sans-serif;
+  /* ── Typography — Josefin Sans (display) + Montserrat (body) ── */
+  --app-font-sans: 'Montserrat', system-ui, sans-serif;
+  --app-font-display: 'Josefin Sans', system-ui, sans-serif;
   --app-font-serif: Georgia, serif;
   --app-font-mono: 'JetBrains Mono', Menlo, monospace;
   --radius: .625rem;
@@ -140,8 +141,8 @@
   --popover-foreground: 210 20% 96%;
   --popover-border: 220 18% 16%;
 
-  --primary: 38 95% 52%;
-  --primary-foreground: 222 28% 7%;
+  --primary: 356 90% 58%;
+  --primary-foreground: 0 0% 100%;
 
   --secondary: 220 18% 16%;
   --secondary-foreground: 210 20% 96%;
@@ -149,14 +150,14 @@
   --muted: 220 20% 13%;
   --muted-foreground: 220 12% 52%;
 
-  --accent: 38 95% 52%;
-  --accent-foreground: 222 28% 7%;
+  --accent: 356 90% 58%;
+  --accent-foreground: 0 0% 100%;
 
   --destructive: 0 72% 56%;
   --destructive-foreground: 0 0% 98%;
 
   --input: 220 18% 16%;
-  --ring: 38 95% 52%;
+  --ring: 356 90% 58%;
 }
 
 @layer base {
@@ -170,7 +171,7 @@
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--app-font-display);
-    letter-spacing: -0.02em;
+    letter-spacing: -0.01em;
   }
 }
 
@@ -187,8 +188,9 @@
     font-family: var(--app-font-display);
   }
 
+  /* Brand red gradient — deep red → bright red */
   .text-gradient {
-    background: linear-gradient(135deg, hsl(38 92% 42%) 0%, hsl(28 90% 38%) 100%);
+    background: linear-gradient(135deg, hsl(352 100% 27%) 0%, hsl(356 95% 46%) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -215,12 +217,13 @@
     border: 1px solid rgba(0,0,0,0.09);
   }
 
+  /* Brand red glow */
   .glow-primary {
-    box-shadow: 0 0 40px rgba(204, 120, 20, 0.18);
+    box-shadow: 0 0 40px rgba(227, 6, 19, 0.18);
   }
 
   .glow-primary-sm {
-    box-shadow: 0 0 20px rgba(204, 120, 20, 0.14);
+    box-shadow: 0 0 20px rgba(227, 6, 19, 0.14);
   }
 
   .card-premium {
@@ -291,16 +294,16 @@
     border-radius: 2px;
   }
 
-  /* Premium button for services page */
+  /* Brand red premium button */
   .btn-premium {
-    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(38 92% 38%) 100%);
+    background: linear-gradient(135deg, hsl(356 95% 46%) 0%, hsl(352 100% 36%) 100%);
     color: white;
     font-weight: 600;
-    box-shadow: 0 4px 14px rgba(204,120,20,0.25);
+    box-shadow: 0 4px 14px rgba(227, 6, 19, 0.30);
     transition: all 0.25s ease;
   }
   .btn-premium:hover {
-    box-shadow: 0 6px 20px rgba(204,120,20,0.35);
+    box-shadow: 0 6px 20px rgba(227, 6, 19, 0.42);
     transform: translateY(-1px);
   }
 
@@ -311,6 +314,6 @@
 
   /* Subtle paper texture for sections */
   .section-warm {
-    background: hsl(30 20% 97%);
+    background: hsl(0 0% 98%);
   }
 }

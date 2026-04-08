@@ -390,7 +390,7 @@ export default function Home() {
                   {[
                     { label: "Visiteur", price: "1 200", color: "text-muted-foreground" },
                     { label: "Client enregistré", price: "1 000", color: "text-blue-600", badge: true },
-                    { label: "Sous-traitant", price: "750", color: "text-amber-600" },
+                    { label: "Sous-traitant", price: "750", color: "text-violet-600" },
                   ].map((tier) => (
                     <div key={tier.label} className={`flex items-center justify-between py-2 border-b border-border/30 last:border-0 ${tier.badge ? "relative" : ""}`}>
                       <span className="text-sm text-muted-foreground">{tier.label}</span>
@@ -403,7 +403,7 @@ export default function Home() {
                     </div>
                   ))}
                   <div className="pt-1 text-[11px] text-muted-foreground">
-                    Exemple : 2m × 3m = 6m² — Client: <strong className="text-blue-400">6 000 DA</strong>
+                    Exemple : 2m × 3m = 6m² — Client: <strong className="text-blue-600">6 000 DA</strong>
                   </div>
                 </div>
               </div>

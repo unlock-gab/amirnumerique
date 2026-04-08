@@ -1,0 +1,117 @@
+Refactor the entire public website visual identity to match the official **Amir Numérique** brand guidelines.
+
+## Important
+
+Do not use the current gold/yellow accent as the main brand color anymore.
+Use the official visual identity from the brand charter.
+
+## Official brand direction
+
+Use the following brand colors as the core identity:
+
+* `#8c0014` (deep brand red / RAL 3004)
+* `#e30613` (bright brand red / RAL 3020)
+
+The website should move to a **premium white / light theme** based on the real brand identity.
+
+## New visual objective
+
+Create a refined, premium, professional light theme that feels:
+
+* elegant
+* branded
+* modern
+* corporate
+* high-end
+* aligned with a real print/signage company identity
+
+## Theme direction
+
+Use:
+
+* white / off-white main backgrounds
+* soft light gray section backgrounds
+* charcoal / near-black for headings
+* muted gray for body text
+* official brand reds for accents, highlights, CTAs, active states, key icons, and important UI moments
+
+## Typography
+
+Align the typography system with the brand direction:
+
+* titles/headings should feel inspired by **Avant Garde ITC Bold**
+* body text should feel inspired by **Montserrat Regular**
+* maintain strong readability in both French and Arabic
+
+If the exact title font is not available, choose the closest premium alternative with the same spirit.
+
+## Apply this rebrand across:
+
+* navbar
+* homepage hero
+* service/category pages
+* pricing sections
+* portfolio
+* contact page
+* forms
+* success states
+* quote/order UI
+* footer
+* buttons
+* badges
+* cards
+* search bars
+* all public-facing sections
+
+## Hero section
+
+Redesign the hero using the new light branded style:
+
+* bright premium background
+* strong typography
+* white/light base
+* refined red accents
+* more aligned with the Amir Numérique identity
+* visually powerful without dark heavy blocks
+
+## Buttons
+
+Update buttons to match the brand:
+
+* primary buttons = brand red
+* hover = deeper/darker red
+* secondary buttons = white with refined border or subtle gray surface
+* avoid yellow/gold as primary brand UI color
+
+## Cards and components
+
+Cards should become:
+
+* white or off-white
+* softly elevated
+* subtle border
+* premium shadow
+* clean spacing
+* elegant red highlights where needed
+
+## Logo treatment
+
+Respect the logo usage according to the brand charter:
+
+* use the proper version on light backgrounds
+* use the proper version on dark backgrounds
+* keep correct spacing and clear space around the logo
+* do not distort or recolor the logo incorrectly
+
+## Visual consistency
+
+The whole website should feel like it was designed from the official brand identity, not from a generic template.
+
+## Important
+
+Do not only change background colors.
+Refactor the complete visual system so it feels like a proper branded website based on the Amir Numérique visual charter.
+
+## Goal
+
+Make the public website look premium, white, modern, and fully aligned with the official Amir Numérique brand identity using red as the main accent color.
